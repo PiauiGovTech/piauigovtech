@@ -2,7 +2,7 @@ import Container from '../components/Container'
 
 export default function QuemSomos() {
   return (
-    <section className="relative py-20">
+    <section className="relative py-20 h-[calc(100vh)]">
       {/* Gradiente: topo ciano -> base branco + brilho radial sutil */}
       <div
         className="pointer-events-none absolute inset-0 -z-10"

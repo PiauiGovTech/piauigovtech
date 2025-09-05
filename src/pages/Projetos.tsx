@@ -9,7 +9,7 @@ const PROJETOS = [
 
 export default function Projetos() {
   return (
-    <section className="relative py-20">
+    <section className="relative py-20 h-[calc(100vh)]">
       {/* Gradiente: topo branco (limpo) -> base ciano + brilho radial deslocado para não escurecer o topo */}
       <div
         className="pointer-events-none absolute inset-0 -z-10"

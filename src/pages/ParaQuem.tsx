@@ -310,7 +310,7 @@ export default function ParaQuem() {
             Integre o ecossistema
           </h1>
           <p className="mt-3 text-white/80">
-            Descubra como você pode integrar a iniciativa de acordo seu perfil
+            Descubra como você pode integrar a iniciativa de acordo com seu perfil
           </p>
         </div>
 
@@ -318,7 +318,7 @@ export default function ParaQuem() {
         <div className="flex-1 flex items-center">
           <div className="mt-8 md:mt-10 grid grid-cols-1 gap-6 lg:grid-cols-[320px_1fr] w-full">
             {/* Menu à esquerda */}
-            <div className="relative rounded-2xl border border-white/15 bg-white/5 p-2 text-white backdrop-blur">
+            <div className="relative rounded-2xl border border-white/15 bg-white/5 p-2 text-white backdrop-blur md:h-[320px] flex items-center">
               <ul
                 className="grid"
                 role="tablist"
@@ -350,7 +350,7 @@ export default function ParaQuem() {
                         role="tab"
                         aria-selected={selected}
                         onClick={() => setActive(t.key)}
-                        className={`flex w-full items-center gap-3 rounded-xl px-4 py-4 text-left transition ${
+                        className={`flex w-full items-center gap-3 rounded-xl px-4 py-4 text-left transition cursor-pointer ${
                           selected ? "bg-white/5" : "hover:bg-white/5"
                         }`}
                       >
@@ -391,20 +391,23 @@ export default function ParaQuem() {
             </div>
 
             {/* Detalhes à direita */}
-            <div className="rounded-2xl border border-white/15 bg-white/5 p-6 text-white backdrop-blur md:p-8">
-              <div className="grid items-center gap-6 md:grid-cols-[1fr_auto_1.6fr]">
-                {/* Coluna principal */}
-                <div className="flex flex-col items-center text-center">
-                  {/* Ícone Group.png deve aparecer em todas as abas */}
-                  <img
-                    src={groupIcon}
-                    alt=""
-                    className="h-14 w-14 object-contain"
-                  />
-                  <div className="mt-3 text-xl font-semibold">
-                    {CONTENT[active].heading}
+            <div className="rounded-2xl border border-white/15 bg-white/5 p-6 text-white backdrop-blur md:p-8 md:h-[320px] flex items-center">
+              <div className="grid h-full w-full items-stretch gap-6 md:grid-cols-[1fr_auto_1.6fr]">
+                {/* Coluna principal (ícone e heading fixos) */}
+                <div className="flex h-full flex-col items-center text-center self-stretch">
+                  {/* Cabeçalho fixo */}
+                  <div className="shrink-0 flex flex-col items-center">
+                    <img
+                      src={groupIcon}
+                      alt=""
+                      className="h-14 w-14 object-contain"
+                    />
+                    <div className="mt-3 text-xl font-semibold">
+                      {CONTENT[active].heading}
+                    </div>
                   </div>
-                  <p className="mt-2 max-w-sm text-white/80">
+                  {/* Descrição rola se for maior */}
+                  <p className="mt-2 max-w-sm text-white/80 flex-1 overflow-y-auto min-h-0">
                     {CONTENT[active].description}
                   </p>
                 </div>
@@ -412,18 +415,18 @@ export default function ParaQuem() {
                 <div className="hidden md:block h-full w-px bg-white/10" />
 
                 {/* Lista de benefícios */}
-                <ul className="space-y-5">
+                <ul className="space-y-5 self-stretch overflow-y-auto min-h-0 pr-1">
                   {CONTENT[active].benefits.map((t) => (
                     <li
                       key={t}
-                      className="flex items-center justify-between gap-4 text-white"
+                      className="group flex items-center justify-between gap-4 rounded-lg px-3 py-2 cursor-pointer transition hover:bg-white/5"
                     >
-                      <span className="text-white/90">{t}</span>
+                      <span className="text-white/85 group-hover:text-white">{t}</span>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
                         fill="currentColor"
-                        className="size-5 text-white/70"
+                        className="size-5 text-white/70 transition-transform duration-150 group-hover:translate-x-1"
                       >
                         <path
                           fillRule="evenodd"
