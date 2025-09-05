@@ -291,12 +291,12 @@ export default function ParaQuem() {
     >
       {/* Escurecimento geral da cena para legibilidade */}
       <div className="pointer-events-none absolute inset-0 -z-20 bg-[#06122b]/80" />
-      {/* Fade branco nas bordas superior/inferior + brilhos ciano sutis */}
+      {/* Fade branco nas bordas superior/inferior + brilhos cinza sutis */}
       <div
         className="pointer-events-none absolute inset-0 -z-10"
         style={{
           backgroundImage:
-            "linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 6%, rgba(255,255,255,0) 94%, rgba(255,255,255,1) 100%), radial-gradient(60% 50% at 8% 12%, rgba(79,208,223,0.2), transparent), radial-gradient(55% 45% at 92% 18%, rgba(79,208,223,0.16), transparent)",
+            "linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 6%, rgba(255,255,255,0) 94%, rgba(255,255,255,1) 100%), radial-gradient(60% 50% at 18% 25%, rgba(93,208,223,0.14), transparent), radial-gradient(55% 45% at 80% 28%, rgba(93,208,223,0.12), transparent), radial-gradient(60% 50% at 8% 12%, rgba(180,190,200,0.20), transparent), radial-gradient(55% 45% at 92% 18%, rgba(180,190,200,0.16), transparent)",
         }}
       />
 

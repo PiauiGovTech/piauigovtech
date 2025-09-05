@@ -32,8 +32,8 @@ export default function Footer() {
       className="relative flex min-h-[calc(100vh)] flex-col overflow-hidden bg-[#071025] text-white bg-no-repeat bg-cover bg-center"
       style={{ backgroundImage: `url(${bgFrame})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}
     >
-      {/* Dark overlay + soft radial glows */}
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_50%_at_10%_10%,rgba(85,200,255,0.18),transparent),radial-gradient(50%_40%_at_95%_15%,rgba(3,169,244,0.16),transparent)]" />
+      {/* Dark overlay + soft radial glows (cinza sutil) */}
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_50%_at_10%_10%,rgba(200,210,220,0.18),transparent),radial-gradient(50%_40%_at_95%_15%,rgba(200,210,220,0.16),transparent)]" />
       <div className="pointer-events-none absolute inset-0 -z-10 bg-[#050a14]/92" />
 
       {/* Right-side overlay image occupying full height */}
@@ -81,8 +81,8 @@ export default function Footer() {
               <span className="font-semibold">piauí</span>
               <span className="text-white/70">gov</span>
               <span className="font-semibold">tech</span>
-              <span className="mx-3 inline-block h-4 w-px bg-white/20 align-middle" />
-              <span className="text-white/80">Ambiente de inovação governamental</span>
+              {/* <span className="mx-3 inline-block h-4 w-px bg-white/20 align-middle" />
+              <span className="text-white/80">Ambiente de inovação governamental</span> */}
             </div>
           </div>
           <a
@@ -104,8 +104,8 @@ export default function Footer() {
         </div>
       </Container>
 
-      {/* Decorative rings at bottom-right (subtle) */}
-      <div className="pointer-events-none absolute -bottom-40 right-0 -z-10 aspect-square w-[900px] opacity-20 [background:radial-gradient(closest-side,transparent_55%,rgba(79,208,223,0.25)_56%,transparent_57%),radial-gradient(closest-side,transparent_65%,rgba(79,208,223,0.25)_66%,transparent_67%),radial-gradient(closest-side,transparent_75%,rgba(79,208,223,0.25)_76%,transparent_77%)]" />
+      {/* Decorative rings at bottom-right (subtle, cinza) */}
+      <div className="pointer-events-none absolute -bottom-40 right-0 -z-10 aspect-square w-[900px] opacity-20 [background:radial-gradient(closest-side,transparent_55%,rgba(200,210,220,0.25)_56%,transparent_57%),radial-gradient(closest-side,transparent_65%,rgba(200,210,220,0.25)_66%,transparent_67%),radial-gradient(closest-side,transparent_75%,rgba(200,210,220,0.25)_76%,transparent_77%)]" />
     </footer>
   )
 }

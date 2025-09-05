@@ -10,12 +10,12 @@ const PROJETOS = [
 export default function Projetos() {
   return (
     <section className="relative py-20 h-[calc(100vh)]">
-      {/* Gradiente: topo branco (limpo) -> base ciano + brilho radial deslocado para não escurecer o topo */}
+      {/* Gradiente: topo branco (limpo) -> base cinza claro + brilho radial sutil */}
       <div
         className="pointer-events-none absolute inset-0 -z-10"
         style={{
           backgroundImage:
-            'linear-gradient(to bottom, #ffffff 0%, rgba(0,219,255,0.10) 100%), radial-gradient(100% 60% at 50% -25%, rgba(0,0,0,0.02), transparent)'
+            'linear-gradient(to bottom, #ffffff 0%, rgba(238,241,246,0.40) 100%), radial-gradient(60% 50% at 10% 15%, rgba(93,208,223,0.10), transparent), radial-gradient(55% 45% at 90% 20%, rgba(93,208,223,0.08), transparent), radial-gradient(100% 60% at 50% -25%, rgba(0,0,0,0.02), transparent)'
         }}
       />
       <Container>
