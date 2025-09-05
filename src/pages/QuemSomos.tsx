@@ -2,28 +2,31 @@ import Container from '../components/Container'
 
 export default function QuemSomos() {
   return (
-    <section className="relative py-20 h-[calc(100vh)]">
-      {/* Gradiente: topo ciano -> base branco + brilho radial sutil */}
+    <section className="relative bg-brand-50 py-20 h-[calc(50vh)] flex flex-col">
+      {/* Gradiente: topo cinza claro -> base branco + brilho radial sutil */}
       <div
         className="pointer-events-none absolute inset-0 -z-10"
         style={{
           backgroundImage:
-            'linear-gradient(to bottom, rgba(0,219,255,0.12) 0%, #ffffff 100%), radial-gradient(90% 60% at 50% -10%, rgba(0,0,0,0.06), transparent)'
+            'linear-gradient(to bottom, rgba(238,241,246,0.20) 0%, #ffffff 100%), radial-gradient(60% 50% at 8% 8%, rgba(93,208,223,0.12), transparent), radial-gradient(55% 45% at 92% 12%, rgba(93,208,223,0.10), transparent), radial-gradient(90% 60% at 50% -10%, rgba(0,0,0,0.04), transparent)'
         }}
       />
-      <Container>
+      <Container className="h-full flex flex-col">
         <div className="mx-auto max-w-3xl text-center">
-          <div className="text-xs uppercase tracking-widest text-gray-500">Instituição Científica, Tecnológica e de Inovação</div>
-          <h1 className="mt-3 text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
-            Inovação pública com design, pesquisa e tecnologia
-          </h1>
-          <p className="mt-5 text-pretty text-gray-600">
-            A Piauí Gov Tech é uma associação civil, sem fins lucrativos e de direito privado, qualificada como ICT
-            privada. Nossa missão é promover P&amp;D e inovação para acelerar a transformação digital do setor público
-            piauiense.
-          </p>
+          {/* <div className="text-xs uppercase tracking-widest text-gray-500">Instituição Científica, Tecnológica e de Inovação</div> */}
         </div>
-
+        <div className="flex-1 flex items-center justify-center">
+          <div className="mx-auto max-w-4xl text-center">
+            <h1 className="mt-3 text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
+              Quem somos
+            </h1>
+            <p className="mt-5 text-pretty text-gray-600">
+              Somos uma ICT (Instituição de Ciência, Tecnologia e Inovação) com Núcleo de Inovação Tecnológica (NIT). Transformamos pesquisa em soluções que simplificam serviços públicos.
+              Reunimos especialistas para diagnosticar problemas, desenhar e testar tecnologias (provas de conceito, protótipos e pilotos) e escalar o que funciona com nossos parceiros.
+            </p>
+          </div>
+        </div>
+{/* 
         <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {[{
             title: 'Natureza Jurídica',
@@ -49,7 +52,7 @@ export default function QuemSomos() {
               <p className="mt-2 text-sm text-gray-600">{f.desc}</p>
             </article>
           ))}
-        </div>
+        </div> */}
       </Container>
     </section>
   )
