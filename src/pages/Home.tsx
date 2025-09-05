@@ -73,7 +73,7 @@ export default function Home() {
                   </svg>
                 </Link>
               </div>
-              <div className="mt-8 grid grid-cols-3 gap-3 sm:max-w-xl">
+              {/* <div className="mt-8 grid grid-cols-3 gap-3 sm:max-w-xl">
                 <div className="rounded-xl border border-white/20 bg-white/5 p-4 text-center shadow-sm">
                   <div className="text-2xl font-semibold text-white">+40</div>
                   <div className="mt-1 text-xs text-white/70">Startups Conectadas</div>
@@ -86,7 +86,7 @@ export default function Home() {
                   <div className="text-2xl font-semibold text-white">+30</div>
                   <div className="mt-1 text-xs text-white/70">Municípios Atendidos</div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </Container>
