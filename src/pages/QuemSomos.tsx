@@ -1,0 +1,56 @@
+import Container from '../components/Container'
+
+export default function QuemSomos() {
+  return (
+    <section className="relative py-20">
+      {/* Gradiente: topo ciano -> base branco + brilho radial sutil */}
+      <div
+        className="pointer-events-none absolute inset-0 -z-10"
+        style={{
+          backgroundImage:
+            'linear-gradient(to bottom, rgba(0,219,255,0.12) 0%, #ffffff 100%), radial-gradient(90% 60% at 50% -10%, rgba(0,0,0,0.06), transparent)'
+        }}
+      />
+      <Container>
+        <div className="mx-auto max-w-3xl text-center">
+          <div className="text-xs uppercase tracking-widest text-gray-500">Instituição Científica, Tecnológica e de Inovação</div>
+          <h1 className="mt-3 text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
+            Inovação pública com design, pesquisa e tecnologia
+          </h1>
+          <p className="mt-5 text-pretty text-gray-600">
+            A Piauí Gov Tech é uma associação civil, sem fins lucrativos e de direito privado, qualificada como ICT
+            privada. Nossa missão é promover P&amp;D e inovação para acelerar a transformação digital do setor público
+            piauiense.
+          </p>
+        </div>
+
+        <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {[{
+            title: 'Natureza Jurídica',
+            desc: 'Associação civil, sem fins lucrativos e de direito privado (Código Civil). ICT privada (Lei 10.973/2004).',
+          },{
+            title: 'Missão',
+            desc: 'Gerar valor público por meio de pesquisa, desenvolvimento tecnológico e inovação.',
+          },{
+            title: 'Duração',
+            desc: 'Prazo indeterminado.',
+          },{
+            title: 'Sede e Foro',
+            desc: 'Rua Clodoaldo Freitas, 729, Centro, Teresina/PI – CEP 64000‑360.',
+          },{
+            title: 'Princípios',
+            desc: 'Legalidade, impessoalidade, moralidade, economicidade, eficiência e publicidade.',
+          },{
+            title: 'Atuação',
+            desc: 'Fomento ao ecossistema, financiamento de PD&amp;I, capacitação e cooperação multissetorial.',
+          }].map((f) => (
+            <article key={f.title} className="group rounded-2xl border border-gray-200 bg-white p-6 transition hover:border-gray-300">
+              <h2 className="text-base font-semibold text-gray-900">{f.title}</h2>
+              <p className="mt-2 text-sm text-gray-600">{f.desc}</p>
+            </article>
+          ))}
+        </div>
+      </Container>
+    </section>
+  )
+}

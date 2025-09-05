@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+/* Tema: Piauí GovTech - base #00DBFF (ciano) */
+@theme {
+  --color-brand-50: #ecfdff;
+  --color-brand-100: #c7f7ff;
+  --color-brand-200: #90eeff;
+  --color-brand-300: #5ee5ff;
+  --color-brand-400: #2ddcff;
+  --color-brand-500: #00dbff; /* base */
+  --color-brand-600: #00b6d6;
+  --color-brand-700: #0087a1;
+  --color-brand-800: #00677a;
+  --color-brand-900: #004b59;
+  --color-brand-950: #002e36;
+  --color-brand: var(--color-brand-500);
+}
+
+/* Preferência por esquema claro */
+:root { color-scheme: light; }
+
+/* Comportamento de scroll suave */
+html { scroll-behavior: smooth; }
