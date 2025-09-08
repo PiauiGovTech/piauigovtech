@@ -42,7 +42,7 @@ export default function Header() {
               <NavLink targetId="quem-somos" activeId={activeId}>Quem somos</NavLink>
               <NavLink targetId="ecossistema" activeId={activeId}>Ecossistema</NavLink>
               <NavLink targetId="para-quem" activeId={activeId}>Para Quem</NavLink>
-              <NavLink targetId="projetos" activeId={activeId}>Projetos</NavLink>
+              {/* <NavLink targetId="projetos" activeId={activeId}>Projetos</NavLink> */}
             </nav>
           )
         })()}
@@ -81,7 +81,7 @@ export default function Header() {
               <NavLink targetId="quem-somos" onNavigate={() => setMenuOpen(false)}>Quem somos</NavLink>
               <NavLink targetId="ecossistema" onNavigate={() => setMenuOpen(false)}>Ecossistema</NavLink>
               <NavLink targetId="para-quem" onNavigate={() => setMenuOpen(false)}>Para Quem</NavLink>
-              <NavLink targetId="projetos" onNavigate={() => setMenuOpen(false)}>Projetos</NavLink>
+              {/* <NavLink targetId="projetos" onNavigate={() => setMenuOpen(false)}>Projetos</NavLink> */}
             </div>
           </Container>
         </div>

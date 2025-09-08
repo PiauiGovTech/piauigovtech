@@ -65,7 +65,7 @@ export default function Home() {
               <p className="mt-4 max-w-prose text-pretty text-white/80">
                 Somos uma Instituição Científica, Tecnológica e de Inovação -
                 ICT com a missão de promover pesquisa, desenvolvimento
-                tecnológico e inovação com foco no setor público.
+                tecnológico e inovação visando tornar os serviços públicos mais eficientes e melhorar a vida da sociedade.
               </p>
               {/* <div className="mt-6 flex flex-wrap gap-3">
                 <Link

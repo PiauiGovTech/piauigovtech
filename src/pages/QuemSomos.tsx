@@ -16,13 +16,14 @@ export default function QuemSomos() {
           {/* <div className="text-xs uppercase tracking-widest text-gray-500">Instituição Científica, Tecnológica e de Inovação</div> */}
         </div>
         <div className="flex-1 flex items-center justify-center">
-          <div className="mx-auto max-w-4xl text-center">
+          <div className="mx-auto max-w-3xl text-center">
             <h1 className="mt-3 text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
               Quem somos
             </h1>
             <p className="mt-5 text-pretty text-gray-600">
-              Somos uma ICT (Instituição de Ciência, Tecnologia e Inovação) com Núcleo de Inovação Tecnológica (NIT). Transformamos pesquisa em soluções que simplificam serviços públicos.
-              Reunimos especialistas para diagnosticar problemas, desenhar e testar tecnologias (provas de conceito, protótipos e pilotos) e escalar o que funciona com nossos parceiros.
+              Instituição Científica, Tecnológica e de Inovação (ICT) de natureza privada, sem fins lucrativos, 
+              reconhecida como Organização Social pelo Governo do Estado do Piauí, com a missão de promover pesquisa científica, 
+              desenvolvimento tecnológico e inovação voltados aos setores governamentais.
             </p>
           </div>
         </div>
