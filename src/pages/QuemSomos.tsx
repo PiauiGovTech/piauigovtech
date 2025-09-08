@@ -1,4 +1,4 @@
-import Container from '../components/Container'
+import Container from "../components/Container";
 
 export default function QuemSomos() {
   return (
@@ -8,7 +8,7 @@ export default function QuemSomos() {
         className="pointer-events-none absolute inset-0 -z-10"
         style={{
           backgroundImage:
-            'linear-gradient(to bottom, rgba(238,241,246,0.20) 0%, #ffffff 100%), radial-gradient(60% 50% at 8% 8%, rgba(93,208,223,0.12), transparent), radial-gradient(55% 45% at 92% 12%, rgba(93,208,223,0.10), transparent), radial-gradient(90% 60% at 50% -10%, rgba(0,0,0,0.04), transparent)'
+            "linear-gradient(to bottom, rgba(238,241,246,0.20) 0%, #ffffff 100%), radial-gradient(60% 50% at 8% 8%, rgba(93,208,223,0.12), transparent), radial-gradient(55% 45% at 92% 12%, rgba(93,208,223,0.10), transparent), radial-gradient(90% 60% at 50% -10%, rgba(0,0,0,0.04), transparent)",
         }}
       />
       <Container className="h-full flex flex-col">
@@ -16,18 +16,31 @@ export default function QuemSomos() {
           {/* <div className="text-xs uppercase tracking-widest text-gray-500">Instituição Científica, Tecnológica e de Inovação</div> */}
         </div>
         <div className="flex-1 flex items-center justify-center">
-          <div className="mx-auto max-w-3xl text-center">
+          <div className="mx-auto max-w-7xl text-center">
             <h1 className="mt-3 text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
               Quem somos
             </h1>
             <p className="mt-5 text-pretty text-gray-600">
-              Instituição Científica, Tecnológica e de Inovação (ICT) de natureza privada, sem fins lucrativos, 
-              reconhecida como Organização Social pelo Governo do Estado do Piauí, com a missão de promover pesquisa científica, 
-              desenvolvimento tecnológico e inovação voltados aos setores governamentais.
+              A Piauí Gov Tech é uma associação civil sem fins lucrativos,
+              caracterizada como Instituição Científica, Tecnológica e de
+              Inovação (ICT) privada, criada para promover e gerir o ecossistema
+              de inovação piauiense voltado aos setores governamentais. Regida
+              por Estatuto próprio, sua missão é impulsionar pesquisa,
+              desenvolvimento tecnológico e inovação para melhorar políticas e
+              serviços públicos, conectando governo, ICTs e NITs, universidades,
+              empresas e sociedade. Atua por meio de cooperação com instituições
+              de pesquisa, financiamento e execução de projetos de PD&I
+              (inclusive pré-competitivos), estruturação de NITs, programas de
+              Governo Aberto e fortalecimento da Rede Piauiense de Inovação em
+              Governo, além de capacitações, missões técnicas e difusão de
+              conhecimento. Para viabilizar impacto em escala, a Piauí Gov Tech,
+              como Organização Social, está apta a celebrar contratos de gestão,
+              convênios e acordos de cooperação para executar programas e
+              projetos de inovação de interesse público.
             </p>
           </div>
         </div>
-{/* 
+        {/* 
         <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {[{
             title: 'Natureza Jurídica',
@@ -56,5 +69,5 @@ export default function QuemSomos() {
         </div> */}
       </Container>
     </section>
-  )
+  );
 }

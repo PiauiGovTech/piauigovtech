@@ -31,6 +31,7 @@ export default function Header() {
         {(() => {
           const activeId = useScrollSpy([
             'inicio',
+            'noticias',
             'quem-somos',
             'ecossistema',
             'para-quem',
@@ -39,6 +40,7 @@ export default function Header() {
           return (
             <nav className="hidden items-center gap-1 md:flex">
               <NavLink targetId="inicio" activeId={activeId}>Início</NavLink>
+              <NavLink targetId="noticias" activeId={activeId}>Notícias</NavLink>
               <NavLink targetId="quem-somos" activeId={activeId}>Quem somos</NavLink>
               <NavLink targetId="ecossistema" activeId={activeId}>Ecossistema</NavLink>
               <NavLink targetId="para-quem" activeId={activeId}>Para Quem</NavLink>
@@ -78,6 +80,7 @@ export default function Header() {
           <Container className="py-3">
             <div className="grid gap-1">
               <NavLink targetId="inicio" onNavigate={() => setMenuOpen(false)}>Início</NavLink>
+              <NavLink targetId="noticias" onNavigate={() => setMenuOpen(false)}>Notícias</NavLink>
               <NavLink targetId="quem-somos" onNavigate={() => setMenuOpen(false)}>Quem somos</NavLink>
               <NavLink targetId="ecossistema" onNavigate={() => setMenuOpen(false)}>Ecossistema</NavLink>
               <NavLink targetId="para-quem" onNavigate={() => setMenuOpen(false)}>Para Quem</NavLink>
