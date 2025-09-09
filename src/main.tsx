@@ -10,6 +10,10 @@ import NotFound from './pages/NotFound'
 import QuemSomos from './pages/QuemSomos'
 import Ecossistema from './pages/Ecossistema'
 import ParaQuem from './pages/ParaQuem'
+import Login from './pages/Login'
+import Admin from './pages/Admin'
+import RequireAuth from './components/RequireAuth'
+import NoticiaDetalhe from './pages/NoticiaDetalhe'
 
 const router = createBrowserRouter([
   {
@@ -22,6 +26,11 @@ const router = createBrowserRouter([
       { path: 'paraquem', element: <ParaQuem /> },
       { path: 'projetos', element: <Projetos /> },
       { path: 'contato', element: <Contato /> },
+      { path: 'login', element: <Login /> },
+      { path: 'admin', element: <RequireAuth />, children: [
+        { index: true, element: <Admin /> },
+      ] },
+      { path: 'noticias/:id', element: <NoticiaDetalhe /> },
       { path: '*', element: <NotFound /> },
     ],
   },

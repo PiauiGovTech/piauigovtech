@@ -1,6 +1,8 @@
 import { Outlet, useLocation } from 'react-router-dom'
 import Header from './components/Header'
+import AdminHeader from './components/AdminHeader'
 import Footer from './components/Footer'
+import AdminFooter from './components/AdminFooter'
 import { useEffect } from 'react'
 
 export default function App() {
@@ -38,11 +40,11 @@ export default function App() {
   }, [])
   return (
     <div className="min-h-dvh flex flex-col">
-      <Header />
+      {location.pathname.startsWith('/admin') ? <AdminHeader /> : <Header />}
       <main className="flex-1">
         <Outlet />
       </main>
-      <Footer />
+      {location.pathname.startsWith('/admin') || location.pathname.startsWith('/login') || location.pathname.startsWith('/noticias') ? <AdminFooter /> : <Footer />}
     </div>
   )
 }

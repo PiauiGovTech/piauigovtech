@@ -4,6 +4,7 @@ import hero from "../assets/img/hero.jpg";
 import { useEffect } from "react";
 import { scrollToSection } from "../utils/scrollToSection";
 import QuemSomos from "./QuemSomos";
+import Noticias from "./Noticias";
 import Ecossistema from "./Ecossistema";
 import ParaQuem from "./ParaQuem";
 import Projetos from "./Projetos";
@@ -65,7 +66,7 @@ export default function Home() {
               <p className="mt-4 max-w-prose text-pretty text-white/80">
                 Somos uma Instituição Científica, Tecnológica e de Inovação -
                 ICT com a missão de promover pesquisa, desenvolvimento
-                tecnológico e inovação com foco no setor público.
+                tecnológico e inovação para o setor público.
               </p>
               {/* <div className="mt-6 flex flex-wrap gap-3">
                 <Link
@@ -103,6 +104,11 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Notícias */}
+      <div id="noticias">
+        <Noticias />
+      </div>
 
       {/* Quem Somos */}
       <div id="quem-somos">
