@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import Container from "../components/Container";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
+import { stripMarkdown } from "../utils/stripMarkdown";
 
 type NewsCard = {
   id: string;
@@ -121,7 +122,7 @@ export default function NoticiasSection() {
                   </h3>
                 </Link>
                 <p className="text-gray-600 line-clamp-2">
-                  {excerpt(items[slideIndex]?.content || "", 220)}
+                  {excerpt(stripMarkdown(items[slideIndex]?.content || ""), 220)}
                 </p>
               </div>
 
@@ -157,7 +158,7 @@ export default function NoticiasSection() {
                       <h4 className="line-clamp-2 text-lg font-semibold text-gray-900 inline-block transition-colors duration-200 group-hover:underline decoration-[#5dd0df] decoration-1 underline-offset-4">{n.title}</h4>
                     </Link>
                     <p className="mt-1 line-clamp-2 text-sm text-gray-600">
-                      {excerpt(n.content, 120)}
+                      {excerpt(stripMarkdown(n.content), 120)}
                     </p>
                   </div>
                 </article>

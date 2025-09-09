@@ -2,15 +2,9 @@ import Container from "../components/Container";
 
 export default function Ecossistema() {
   return (
-    <section className="relative bg-brand-100 py-20 h-[calc(100vh)] flex flex-col">
-      {/* Gradiente: topo branco -> leve cinza no miolo -> base branca (borda inferior branca para unir com Para Quem) + brilho radial */}
-      <div
-        className="pointer-events-none absolute inset-0 -z-10"
-        style={{
-          backgroundImage:
-            "linear-gradient(to bottom, #ffffff 0%, rgba(238,241,246,0.20) 70%, rgba(238,241,246,0.16) 85%, #ffffff 100%), radial-gradient(60% 50% at 6% 10%, rgba(93,208,223,0.10), transparent), radial-gradient(55% 45% at 94% 16%, rgba(93,208,223,0.08), transparent), radial-gradient(120% 70% at 50% -20%, rgba(0,0,0,0.04), transparent)",
-        }}
-      />
+    <section className="relative h-[calc(100vh)] flex flex-col bg-[linear-gradient(180deg,_#f8fafc_0%,_#eff3f8_50%,_#e9edf3_100%),radial-gradient(80%_60%_at_20%_25%,_rgba(255,255,255,0.95)_0%,_rgba(248,250,252,0.9)_35%,_transparent_70%),radial-gradient(70%_55%_at_80%_20%,_rgba(255,255,255,0.9)_0%,_rgba(240,243,248,0.85)_40%,_transparent_70%)] py-20">
+      {/* Brilho radial sutil igual ao de Notícias */}
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(120%_120%_at_50%_50%,_transparent_62%,_rgba(0,0,0,0.03)_100%)]" />
       <Container className="h-full flex flex-col">
         <div className="flex-1 flex items-center justify-center">
           <div className="mx-auto max-w-4xl text-center">
@@ -18,12 +12,17 @@ export default function Ecossistema() {
               Ecossistema
             </h1>
             <p className="mt-5 text-pretty text-gray-600">
-              Nosso ecossistema conecta governos em diferentes níveis,
-              instituições de pesquisa e inovação, empresas e startups e a
-              sociedade civil para transformar problemas públicos em desafios
-              claros e soluções aplicadas. Promovemos parcerias, lançamos
-              chamadas e programas, e mantemos ambientes de teste que reduzem
-              riscos e aceleram a passagem da ideia para a implementação.
+              O ecossistema Piauí Gov Tech é a rede que mobiliza governo,
+              ICTs/NITs e universidades, empresas, fundações de apoio, órgãos de
+              controle, agências de fomento e sociedade para estudar e resolver
+              problemas públicos. Começa com uma demanda concreta: alguém
+              apresenta um problema. A rede faz a triagem, levanta dados,
+              entende o contexto e formula hipóteses. Pesquisadores e técnicos
+              desenham a solução junto de quem usa o serviço. Constrói-se um
+              protótipo e testa-se em ambiente real, acompanhando tempo, custo,
+              qualidade e satisfação do usuário. O que gera resultado é
+              implementado e documentado; o que não funciona é ajustado ou
+              descartado.
             </p>
           </div>
         </div>
