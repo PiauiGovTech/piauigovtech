@@ -3,6 +3,7 @@ import Container from "../components/Container";
 import { Link, useSearchParams } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
 import newsHero from "../assets/img/Frame-1410125704-1.png";
+import { stripMarkdown } from "../utils/stripMarkdown";
 
 type NewsCard = {
   id: string;
@@ -158,7 +159,7 @@ export default function NoticiasPage() {
                     <Link to={`/noticias/${n.id}`} className="group inline-block">
                       <h3 className="line-clamp-2 text-lg font-semibold text-gray-900 transition-colors duration-200 group-hover:underline decoration-[#5dd0df] decoration-1 underline-offset-4">{n.title}</h3>
                     </Link>
-                    <p className="mt-2 line-clamp-3 text-sm text-gray-600">{excerpt(n.content, 240)}</p>
+                    <p className="mt-2 line-clamp-3 text-sm text-gray-600">{excerpt(stripMarkdown(n.content), 240)}</p>
                     <div className="mt-3 text-xs text-gray-500">{new Date(n.created_at).toLocaleDateString()}</div>
                   </div>
                 </article>
