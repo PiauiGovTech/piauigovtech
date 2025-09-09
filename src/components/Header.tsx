@@ -9,14 +9,13 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
   const isLogin = location.pathname.startsWith('/login');
-  const activeId = useScrollSpy([
+  const scrollSpyActiveId = useScrollSpy([
     'inicio',
-    'noticias',
-    'quem-somos',
     'ecossistema',
     'para-quem',
-    'projetos',
+    // 'projetos',
   ]);
+  const isHome = location.pathname === '/'
 
   useEffect(() => {
     const onResize = () => setMenuOpen(false);
@@ -40,11 +39,11 @@ export default function Header() {
         </Link>
         {!isLogin && (
           <nav className="hidden items-center gap-1 md:flex">
-            <NavLink targetId="inicio" activeId={activeId}>Início</NavLink>
-            <NavLink targetId="noticias" activeId={activeId}>Notícias</NavLink>
-            <NavLink targetId="quem-somos" activeId={activeId}>Quem somos</NavLink>
-            <NavLink targetId="ecossistema" activeId={activeId}>Ecossistema</NavLink>
-            <NavLink targetId="para-quem" activeId={activeId}>Para Quem</NavLink>
+            <NavLink targetId="inicio" activeId={isHome ? scrollSpyActiveId : undefined}>Início</NavLink>
+            <NavLink targetId="noticias" to="/noticias">Notícias</NavLink>
+            <NavLink targetId="quem-somos" to="/quemsomos">Quem somos</NavLink>
+            <NavLink targetId="ecossistema" activeId={isHome ? scrollSpyActiveId : undefined}>Ecossistema</NavLink>
+            <NavLink targetId="para-quem" activeId={isHome ? scrollSpyActiveId : undefined}>Para Quem</NavLink>
             {/* <NavLink targetId="projetos" activeId={activeId}>Projetos</NavLink> */}
           </nav>
         )}
@@ -90,8 +89,8 @@ export default function Header() {
           <Container className="py-3">
             <div className="grid gap-1">
               <NavLink targetId="inicio" onNavigate={() => setMenuOpen(false)}>Início</NavLink>
-              <NavLink targetId="noticias" onNavigate={() => setMenuOpen(false)}>Notícias</NavLink>
-              <NavLink targetId="quem-somos" onNavigate={() => setMenuOpen(false)}>Quem somos</NavLink>
+              <NavLink targetId="noticias" to="/noticias" onNavigate={() => setMenuOpen(false)}>Notícias</NavLink>
+              <NavLink targetId="quem-somos" to="/quemsomos" onNavigate={() => setMenuOpen(false)}>Quem somos</NavLink>
               <NavLink targetId="ecossistema" onNavigate={() => setMenuOpen(false)}>Ecossistema</NavLink>
               <NavLink targetId="para-quem" onNavigate={() => setMenuOpen(false)}>Para Quem</NavLink>
               {/* <NavLink targetId="projetos" onNavigate={() => setMenuOpen(false)}>Projetos</NavLink> */}

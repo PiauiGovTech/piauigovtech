@@ -44,7 +44,7 @@ export default function App() {
       <main className="flex-1">
         <Outlet />
       </main>
-      {location.pathname.startsWith('/admin') || location.pathname.startsWith('/login') || location.pathname.startsWith('/noticias') ? <AdminFooter /> : <Footer />}
+      {location.pathname.startsWith('/admin') || location.pathname.startsWith('/login') ? <AdminFooter /> : <Footer />}
     </div>
   )
 }

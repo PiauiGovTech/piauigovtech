@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import Container from "../components/Container";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
 
 type NewsCard = {
@@ -17,12 +17,12 @@ function excerpt(text: string, max = 160) {
   return clean.slice(0, max - 1) + "…";
 }
 
-export default function Noticias() {
+export default function NoticiasSection() {
   const [items, setItems] = useState<NewsCard[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [slideIndex, setSlideIndex] = useState(0);
-
+  const navigate = useNavigate();
   useEffect(() => {
     (async () => {
       setLoading(true);
@@ -173,6 +173,7 @@ export default function Noticias() {
       {items.length > 3 && (
         <button
           type="button"
+          onClick={() => navigate('/noticias')}
           className="absolute bottom-6 right-6 mt-8 inline-flex items-center gap-2 rounded-xl bg-[#5dd0df] px-6 py-3 text-base font-semibold text-[#0c2235] hover:translate-y-[1px] hover:shadow-[0_3px_0_0_rgba(44,151,171,0.7)] active:translate-y-[2px] active:shadow-[0_2px_0_0_rgba(44,151,171,0.7)] cursor-pointer"
         >
           Mais notícias

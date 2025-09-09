@@ -14,6 +14,7 @@ import Login from './pages/Login'
 import Admin from './pages/Admin'
 import RequireAuth from './components/RequireAuth'
 import NoticiaDetalhe from './pages/NoticiaDetalhe'
+import NoticiasPage from './pages/NoticiasPage'
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: 'quemsomos', element: <QuemSomos /> },
+      { path: 'noticias', element: <NoticiasPage /> },
       { path: 'ecossistema', element: <Ecossistema /> },
       { path: 'paraquem', element: <ParaQuem /> },
       { path: 'projetos', element: <Projetos /> },

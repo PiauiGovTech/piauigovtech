@@ -24,6 +24,10 @@ export default function Admin() {
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [news, setNews] = useState<NewsItem[]>([])
+  const [editingId, setEditingId] = useState<string | null>(null)
+  const [currentImages, setCurrentImages] = useState<string[]>([])
+  const [confirmId, setConfirmId] = useState<string | null>(null)
+  const [confirming, setConfirming] = useState(false)
 
   async function fetchNews() {
     const { data, error } = await supabase
@@ -44,6 +48,16 @@ export default function Admin() {
     setError(null)
     setSubmitting(true)
     try {
+      const hasAtLeastOneImage = editingId
+        ? (pendingImages.length > 0 || currentImages.length > 0)
+        : pendingImages.length > 0
+
+      if (!hasAtLeastOneImage) {
+        setSubmitting(false)
+        setError('Pelo menos uma imagem é obrigatória.')
+        return
+      }
+
       const uploadedUrls: string[] = []
       if (pendingImages.length > 0) {
         for (const img of pendingImages) {
@@ -59,22 +73,54 @@ export default function Admin() {
         }
       }
 
-      const { error: insertError } = await supabase
-        .from('news')
-        .insert({ title, content, images: uploadedUrls })
-      if (insertError) throw insertError
+      if (editingId) {
+        const finalImages = uploadedUrls.length > 0 ? uploadedUrls : currentImages
+        const { error: updateError } = await supabase
+          .from('news')
+          .update({ title, content, images: finalImages })
+          .eq('id', editingId)
+        if (updateError) throw updateError
+      } else {
+        const { error: insertError } = await supabase
+          .from('news')
+          .insert({ title, content, images: uploadedUrls })
+        if (insertError) throw insertError
+      }
 
       setTitle('')
       setContent('')
       // Revoga URLs e limpa seleção
       pendingImages.forEach((p) => URL.revokeObjectURL(p.preview))
       setPendingImages([])
+      setEditingId(null)
+      setCurrentImages([])
       await fetchNews()
     } catch (err: any) {
       setError(err?.message || 'Falha ao salvar notícia')
     } finally {
       setSubmitting(false)
     }
+  }
+
+  function startEdit(item: NewsItem) {
+    setEditingId(item.id)
+    setTitle(item.title)
+    setContent(item.content)
+    setCurrentImages(item.images || [])
+    setPendingImages([])
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  async function handleDelete(id: string) {
+    setConfirming(true)
+    const { error } = await supabase.from('news').delete().eq('id', id)
+    setConfirming(false)
+    if (error) {
+      setError(error.message)
+      return
+    }
+    setConfirmId(null)
+    await fetchNews()
   }
 
   function addFiles(files: FileList | null) {
@@ -128,13 +174,14 @@ export default function Admin() {
   }, [])
 
   return (
-    <section className="py-16 md:py-24 bg-white">
-      <Container>
+    <section className="py-16 md:py-10 bg-white">
+      <Container className="h-full overflow-hidden">
         <div className="flex items-center justify-between">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Painel Administrativo</h2>
         </div>
 
-        <form onSubmit={handleSubmit} className="mt-8 grid gap-4 max-w-2xl">
+        <div className="mt-8 grid h-full gap-8 lg:grid-cols-12">
+        <form onSubmit={handleSubmit} className="lg:col-span-7 grid gap-4 rounded-xl border border-gray-200 bg-white p-5 shadow-sm h-full overflow-auto">
           <div>
             <label className="block text-sm font-medium text-gray-700">Título</label>
             <input
@@ -155,7 +202,7 @@ export default function Admin() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Imagens (opcional)</label>
+            <label className="block text-sm font-medium text-gray-700">Imagens <span className="text-red-600">*</span> {editingId ? <span className="text-xs text-gray-500">— deixe vazio para manter as atuais</span> : null}</label>
             <div
               onDragOver={(e) => { e.preventDefault(); e.stopPropagation() }}
               onDrop={onDrop}
@@ -186,6 +233,17 @@ export default function Admin() {
               <p className="text-xs text-gray-500">PNG, JPG, até 5MB por arquivo. Máx. 10 imagens.</p>
             </div>
 
+            {editingId && currentImages.length > 0 && pendingImages.length === 0 && (
+              <div className="mt-3">
+                <div className="text-xs text-gray-500 mb-2">Imagens atuais</div>
+                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
+                  {currentImages.map((url) => (
+                    <img key={url} src={url} className="h-24 w-full rounded-md object-cover ring-1 ring-gray-200" />
+                  ))}
+                </div>
+              </div>
+            )}
+
             {pendingImages.length > 0 && (
               <div className="mt-4">
                 <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
@@ -213,26 +271,70 @@ export default function Admin() {
             disabled={submitting}
             className="w-full sm:w-auto rounded-md bg-brand-600 px-4 py-2 text-white hover:bg-brand-700 disabled:opacity-60 cursor-pointer disabled:cursor-not-allowed"
           >
-            {submitting ? 'Salvando...' : 'Salvar notícia'}
+            {submitting ? 'Salvando...' : editingId ? 'Atualizar notícia' : 'Salvar notícia'}
           </button>
+          {editingId && (
+            <button
+              type="button"
+              onClick={() => { setEditingId(null); setTitle(''); setContent(''); setPendingImages([]); setCurrentImages([]) }}
+              className="sm:ml-3 w-full sm:w-auto rounded-md border px-4 py-2 text-gray-700 hover:bg-gray-50 cursor-pointer"
+            >
+              Cancelar edição
+            </button>
+          )}
         </form>
-
-        <div className="mt-12">
-          <h3 className="text-xl font-semibold text-gray-900">Últimas notícias</h3>
-          <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {news.map((n) => (
-              <article key={n.id} className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
-                {n.images?.[0] && (
-                  <img src={n.images[0]} alt="Imagem da notícia" className="h-40 w-full object-cover rounded-md" />
-                )}
-                <h4 className="mt-3 line-clamp-2 text-lg font-semibold text-gray-900">{n.title}</h4>
-                <p className="mt-2 line-clamp-3 text-sm text-gray-600">{n.content}</p>
-                <div className="mt-4 text-sm text-gray-500">{new Date(n.created_at).toLocaleDateString('pt-BR')}</div>
-              </article>
-            ))}
-            {news.length === 0 && <p className="text-sm text-gray-600">Nenhuma notícia cadastrada.</p>}
+        <aside className="lg:col-span-5 h-full">
+          <div className="lg:sticky lg:top-24 space-y-4">
+            <div className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
+              <h3 className="text-xl font-semibold text-gray-900">Últimas notícias</h3>
+              <div className="mt-4 h-[60vh] overflow-y-auto pr-1">
+                <div className="grid gap-4 sm:grid-cols-2">
+                  {news.map((n) => (
+                    <article key={n.id} className="rounded-lg border border-gray-200 bg-white p-4">
+                      {n.images?.[0] && (
+                        <img src={n.images[0]} alt="Imagem da notícia" className="h-28 w-full object-cover rounded-md" />
+                      )}
+                      <h4 className="mt-2 line-clamp-2 text-sm font-semibold text-gray-900">{n.title}</h4>
+                      <div className="mt-2 flex gap-2">
+                        <button onClick={() => startEdit(n)} className="rounded-md px-2 py-1 text-xs ring-1 ring-gray-300 hover:bg-gray-50 cursor-pointer">Editar</button>
+                        <button onClick={() => setConfirmId(n.id)} className="rounded-md px-2 py-1 text-xs text-white bg-red-600 hover:bg-red-700 cursor-pointer">Excluir</button>
+                      </div>
+                    </article>
+                  ))}
+                  {news.length === 0 && <p className="text-sm text-gray-600">Nenhuma notícia cadastrada.</p>}
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
+        </div>
+      {/* Modal de confirmação */}
+      {confirmId && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+          <div className="w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
+            <h4 className="text-lg font-semibold text-gray-900">Excluir notícia</h4>
+            <p className="mt-2 text-sm text-gray-600">Tem certeza que deseja excluir esta notícia? Esta ação não pode ser desfeita.</p>
+            <div className="mt-6 flex justify-end gap-3">
+              <button
+                type="button"
+                className="rounded-md border px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 cursor-pointer"
+                onClick={() => setConfirmId(null)}
+                disabled={confirming}
+              >
+                Cancelar
+              </button>
+              <button
+                type="button"
+                className="rounded-md bg-red-600 px-4 py-2 text-sm text-white hover:bg-red-700 disabled:opacity-60 cursor-pointer"
+                onClick={() => confirmId && handleDelete(confirmId)}
+                disabled={confirming}
+              >
+                {confirming ? 'Excluindo...' : 'Excluir'}
+              </button>
+            </div>
           </div>
         </div>
+      )}
       </Container>
     </section>
   )
