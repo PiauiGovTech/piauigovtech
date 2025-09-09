@@ -26,6 +26,8 @@ export default function Admin() {
   const [news, setNews] = useState<NewsItem[]>([])
   const [editingId, setEditingId] = useState<string | null>(null)
   const [currentImages, setCurrentImages] = useState<string[]>([])
+  const [confirmId, setConfirmId] = useState<string | null>(null)
+  const [confirming, setConfirming] = useState(false)
 
   async function fetchNews() {
     const { data, error } = await supabase
@@ -110,12 +112,14 @@ export default function Admin() {
   }
 
   async function handleDelete(id: string) {
-    if (!confirm('Tem certeza que deseja excluir esta notícia?')) return
+    setConfirming(true)
     const { error } = await supabase.from('news').delete().eq('id', id)
+    setConfirming(false)
     if (error) {
       setError(error.message)
       return
     }
+    setConfirmId(null)
     await fetchNews()
   }
 
@@ -293,7 +297,7 @@ export default function Admin() {
                       <h4 className="mt-2 line-clamp-2 text-sm font-semibold text-gray-900">{n.title}</h4>
                       <div className="mt-2 flex gap-2">
                         <button onClick={() => startEdit(n)} className="rounded-md px-2 py-1 text-xs ring-1 ring-gray-300 hover:bg-gray-50 cursor-pointer">Editar</button>
-                        <button onClick={() => handleDelete(n.id)} className="rounded-md px-2 py-1 text-xs text-white bg-red-600 hover:bg-red-700 cursor-pointer">Excluir</button>
+                        <button onClick={() => setConfirmId(n.id)} className="rounded-md px-2 py-1 text-xs text-white bg-red-600 hover:bg-red-700 cursor-pointer">Excluir</button>
                       </div>
                     </article>
                   ))}
@@ -304,6 +308,33 @@ export default function Admin() {
           </div>
         </aside>
         </div>
+      {/* Modal de confirmação */}
+      {confirmId && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+          <div className="w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
+            <h4 className="text-lg font-semibold text-gray-900">Excluir notícia</h4>
+            <p className="mt-2 text-sm text-gray-600">Tem certeza que deseja excluir esta notícia? Esta ação não pode ser desfeita.</p>
+            <div className="mt-6 flex justify-end gap-3">
+              <button
+                type="button"
+                className="rounded-md border px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 cursor-pointer"
+                onClick={() => setConfirmId(null)}
+                disabled={confirming}
+              >
+                Cancelar
+              </button>
+              <button
+                type="button"
+                className="rounded-md bg-red-600 px-4 py-2 text-sm text-white hover:bg-red-700 disabled:opacity-60 cursor-pointer"
+                onClick={() => confirmId && handleDelete(confirmId)}
+                disabled={confirming}
+              >
+                {confirming ? 'Excluindo...' : 'Excluir'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       </Container>
     </section>
   )
