@@ -3,8 +3,7 @@ import { Link, useLocation, useNavigationType } from "react-router-dom";
 import hero from "../assets/img/hero.jpg";
 import { useEffect } from "react";
 import { scrollToSection } from "../utils/scrollToSection";
-import QuemSomos from "./QuemSomos";
-import Noticias from "./Noticias";
+import NoticiasSection from "./NoticiasSection";
 import Ecossistema from "./Ecossistema";
 import ParaQuem from "./ParaQuem";
 import Projetos from "./Projetos";
@@ -105,15 +104,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Notícias */}
-      <div id="noticias">
-        <Noticias />
-      </div>
+      <NoticiasSection />
+      
 
-      {/* Quem Somos */}
-      <div id="quem-somos">
-        <QuemSomos />
-      </div>
 
       <div id="ecossistema">
         <Ecossistema />
