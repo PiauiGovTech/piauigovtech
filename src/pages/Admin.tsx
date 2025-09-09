@@ -1,0 +1,241 @@
+import { useEffect, useRef, useState } from 'react'
+import Container from '../components/Container'
+import { supabase } from '../lib/supabaseClient'
+
+type NewsItem = {
+  id: string
+  title: string
+  content: string
+  images: string[]
+  created_at: string
+}
+
+type PendingImage = {
+  id: string
+  file: File
+  preview: string
+}
+
+export default function Admin() {
+  const [title, setTitle] = useState('')
+  const [content, setContent] = useState('')
+  const [pendingImages, setPendingImages] = useState<PendingImage[]>([])
+  const fileInputRef = useRef<HTMLInputElement | null>(null)
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [news, setNews] = useState<NewsItem[]>([])
+
+  async function fetchNews() {
+    const { data, error } = await supabase
+      .from('news')
+      .select('*')
+      .order('created_at', { ascending: false })
+      .limit(20)
+    if (error) return
+    setNews(data as NewsItem[])
+  }
+
+  useEffect(() => {
+    fetchNews()
+  }, [])
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    setError(null)
+    setSubmitting(true)
+    try {
+      const uploadedUrls: string[] = []
+      if (pendingImages.length > 0) {
+        for (const img of pendingImages) {
+          const file = img.file
+          const fileExt = file.name.split('.').pop()
+          const filePath = `${crypto.randomUUID()}.${fileExt}`
+          const { error: uploadError } = await supabase.storage
+            .from('news-images')
+            .upload(filePath, file, { upsert: false })
+          if (uploadError) throw uploadError
+          const { data } = supabase.storage.from('news-images').getPublicUrl(filePath)
+          uploadedUrls.push(data.publicUrl)
+        }
+      }
+
+      const { error: insertError } = await supabase
+        .from('news')
+        .insert({ title, content, images: uploadedUrls })
+      if (insertError) throw insertError
+
+      setTitle('')
+      setContent('')
+      // Revoga URLs e limpa seleção
+      pendingImages.forEach((p) => URL.revokeObjectURL(p.preview))
+      setPendingImages([])
+      await fetchNews()
+    } catch (err: any) {
+      setError(err?.message || 'Falha ao salvar notícia')
+    } finally {
+      setSubmitting(false)
+    }
+  }
+
+  function addFiles(files: FileList | null) {
+    if (!files || files.length === 0) return
+    const maxFiles = 10
+    const maxSizeBytes = 5 * 1024 * 1024 // 5MB
+
+    const next: PendingImage[] = []
+    for (const file of Array.from(files)) {
+      if (!file.type.startsWith('image/')) continue
+      if (file.size > maxSizeBytes) {
+        setError('Cada imagem deve ter no máximo 5MB')
+        continue
+      }
+      next.push({ id: crypto.randomUUID(), file, preview: URL.createObjectURL(file) })
+    }
+    setPendingImages((prev) => {
+      const combined = [...prev, ...next]
+      if (combined.length > maxFiles) {
+        setError(`Máximo de ${maxFiles} imagens por notícia`)
+        return combined.slice(0, maxFiles)
+      }
+      return combined
+    })
+  }
+
+  function onDrop(e: React.DragEvent<HTMLDivElement>) {
+    e.preventDefault()
+    e.stopPropagation()
+    addFiles(e.dataTransfer.files)
+  }
+
+  function onBrowseClick() {
+    fileInputRef.current?.click()
+  }
+
+  function removePending(id: string) {
+    setPendingImages((prev) => {
+      const toRemove = prev.find((p) => p.id === id)
+      if (toRemove) URL.revokeObjectURL(toRemove.preview)
+      return prev.filter((p) => p.id !== id)
+    })
+  }
+
+  useEffect(() => {
+    return () => {
+      // Cleanup ao desmontar
+      pendingImages.forEach((p) => URL.revokeObjectURL(p.preview))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  return (
+    <section className="py-16 md:py-24 bg-white">
+      <Container>
+        <div className="flex items-center justify-between">
+          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Painel Administrativo</h2>
+        </div>
+
+        <form onSubmit={handleSubmit} className="mt-8 grid gap-4 max-w-2xl">
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Título</label>
+            <input
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-600"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Conteúdo</label>
+            <textarea
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              rows={6}
+              className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-600"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Imagens (opcional)</label>
+            <div
+              onDragOver={(e) => { e.preventDefault(); e.stopPropagation() }}
+              onDrop={onDrop}
+              className="mt-1 flex flex-col items-center justify-center gap-3 rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 p-6 text-center hover:bg-gray-100"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-8 w-8 text-gray-400">
+                <path fillRule="evenodd" d="M1.5 6A2.25 2.25 0 0 1 3.75 3.75h16.5A2.25 2.25 0 0 1 22.5 6v12a2.25 2.25 0 0 1-2.25 2.25H3.75A2.25 2.25 0 0 1 1.5 18V6Zm3 9l3.94-3.94a1.5 1.5 0 0 1 2.12 0L15 15l2.25-2.25a1.5 1.5 0 0 1 2.12 0L19.5 15V6H4.5v9Z" clipRule="evenodd" />
+              </svg>
+              <div>
+                <p className="text-sm text-gray-700">Arraste e solte imagens aqui</p>
+                <p className="text-xs text-gray-500">ou</p>
+              </div>
+              <button
+                type="button"
+                onClick={onBrowseClick}
+                className="rounded-md bg-white px-3 py-1.5 text-sm font-medium text-gray-700 ring-1 ring-gray-300 hover:bg-gray-50 cursor-pointer"
+              >
+                Selecionar imagens
+              </button>
+              <input
+                ref={fileInputRef}
+                type="file"
+                multiple
+                accept="image/*"
+                onChange={(e) => addFiles(e.target.files)}
+                className="hidden"
+              />
+              <p className="text-xs text-gray-500">PNG, JPG, até 5MB por arquivo. Máx. 10 imagens.</p>
+            </div>
+
+            {pendingImages.length > 0 && (
+              <div className="mt-4">
+                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
+                  {pendingImages.map((p) => (
+                    <div key={p.id} className="relative group">
+                      <img src={p.preview} alt="Pré-visualização" className="h-28 w-full rounded-md object-cover ring-1 ring-gray-200" />
+                      <button
+                        type="button"
+                        onClick={() => removePending(p.id)}
+                        className="absolute right-1 top-1 hidden rounded-full bg-black/60 p-1 text-white group-hover:block cursor-pointer"
+                        aria-label="Remover"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  ))}
+                </div>
+                <p className="mt-2 text-xs text-gray-500">{pendingImages.length} imagem(ns) pronta(s) para envio</p>
+              </div>
+            )}
+          </div>
+          {error && <p className="text-sm text-red-600">{error}</p>}
+          <button
+            type="submit"
+            disabled={submitting}
+            className="w-full sm:w-auto rounded-md bg-brand-600 px-4 py-2 text-white hover:bg-brand-700 disabled:opacity-60 cursor-pointer disabled:cursor-not-allowed"
+          >
+            {submitting ? 'Salvando...' : 'Salvar notícia'}
+          </button>
+        </form>
+
+        <div className="mt-12">
+          <h3 className="text-xl font-semibold text-gray-900">Últimas notícias</h3>
+          <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {news.map((n) => (
+              <article key={n.id} className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
+                {n.images?.[0] && (
+                  <img src={n.images[0]} alt="Imagem da notícia" className="h-40 w-full object-cover rounded-md" />
+                )}
+                <h4 className="mt-3 line-clamp-2 text-lg font-semibold text-gray-900">{n.title}</h4>
+                <p className="mt-2 line-clamp-3 text-sm text-gray-600">{n.content}</p>
+                <div className="mt-4 text-sm text-gray-500">{new Date(n.created_at).toLocaleDateString('pt-BR')}</div>
+              </article>
+            ))}
+            {news.length === 0 && <p className="text-sm text-gray-600">Nenhuma notícia cadastrada.</p>}
+          </div>
+        </div>
+      </Container>
+    </section>
+  )
+}
+
+
