@@ -56,9 +56,9 @@ export default function NoticiasSection() {
   }
 
   return (
-    <section className="relative h-screen bg-[linear-gradient(180deg,_#f8fafc_0%,_#eff3f8_50%,_#e9edf3_100%),radial-gradient(80%_60%_at_20%_25%,_rgba(255,255,255,0.95)_0%,_rgba(248,250,252,0.9)_35%,_transparent_70%),radial-gradient(70%_55%_at_80%_20%,_rgba(255,255,255,0.9)_0%,_rgba(240,243,248,0.85)_40%,_transparent_70%)]">
+    <section className="relative md:flex md:items-center md:h-screen py-10 md:py-0 bg-[linear-gradient(180deg,_#f8fafc_0%,_#eff3f8_50%,_#e9edf3_100%),radial-gradient(80%_60%_at_20%_25%,_rgba(255,255,255,0.95)_0%,_rgba(248,250,252,0.9)_35%,_transparent_70%),radial-gradient(70%_55%_at_80%_20%,_rgba(255,255,255,0.9)_0%,_rgba(240,243,248,0.85)_40%,_transparent_70%)]">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_120%_at_50%_50%,_transparent_62%,_rgba(0,0,0,0.03)_100%)]" />
-      <Container className="h-full flex items-center">
+      <Container className="md:h-full md:flex md:items-center">
         {error && <p className="mt-6 text-red-600">{error}</p>}
 
         {!loading && !error && items.length > 0 && (
@@ -142,14 +142,14 @@ export default function NoticiasSection() {
             </article>
 
             {/* Notícias à direita (4 itens) */}
-            <div className="grid content-start gap-5 lg:col-span-2">
+            <div className="hidden md:grid content-start gap-5 lg:col-span-2">
               {rightSideNews.map((n) => (
                 <article
                   key={n.id}
-                  className="grid grid-cols-[200px_1fr] gap-4"
+                  className="grid grid-cols-1 sm:grid-cols-[200px_1fr] gap-4"
                 >
                   {n.images?.[0] && (
-                    <Link to={`/noticias/${n.id}`} className="relative w-[200px] aspect-[16/9] overflow-hidden rounded-md group">
+                    <Link to={`/noticias/${n.id}`} className="relative w-full sm:w-[200px] aspect-[16/9] overflow-hidden rounded-md group">
                       <img src={n.images[0]} alt="" className="absolute inset-0 h-full w-full object-cover" />
                     </Link>
                   )}
@@ -175,7 +175,7 @@ export default function NoticiasSection() {
         <button
           type="button"
           onClick={() => navigate('/noticias')}
-          className="absolute bottom-6 right-6 mt-8 inline-flex items-center gap-2 rounded-xl bg-[#5dd0df] px-6 py-3 text-base font-semibold text-[#0c2235] hover:translate-y-[1px] hover:shadow-[0_3px_0_0_rgba(44,151,171,0.7)] active:translate-y-[2px] active:shadow-[0_2px_0_0_rgba(44,151,171,0.7)] cursor-pointer"
+          className="absolute bottom-6 right-6 mt-8 hidden md:inline-flex items-center gap-2 rounded-xl bg-[#5dd0df] px-6 py-3 text-base font-semibold text-[#0c2235] hover:translate-y-[1px] hover:shadow-[0_3px_0_0_rgba(44,151,171,0.7)] active:translate-y-[2px] active:shadow-[0_2px_0_0_rgba(44,151,171,0.7)] cursor-pointer"
         >
           Mais notícias
         </button>
