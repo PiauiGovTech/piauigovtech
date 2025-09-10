@@ -93,19 +93,18 @@ export default function SubmeterIdeia() {
       <Container className="py-8 md:py-12">
         {/* Cabeçalho */}
         <div className="text-center text-white mb-12">
-          <div className="text-xs font-semibold uppercase tracking-widest text-white/80">
+          {/* <div className="text-xs font-semibold uppercase tracking-widest text-white/80">
             Inovação Aberta
-          </div>
+          </div> */}
           <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-5xl">
-            Sua Ideia Pode Melhorar os Serviços Públicos
+            Conexão para transformar o setor público
           </h1>
           <div className="mt-6 max-w-4xl mx-auto">
             <p className="text-lg text-white/90 mb-4">
-              Tem uma solução para aprimorar os serviços públicos? Este espaço
-              recebe contribuições de toda a comunidade de inovação — de ideias
-              iniciais a soluções já em operação — com potencial de impacto
-              real. Não é concurso, edital ou licitação: é um convite permanente
-              para enviar sua proposta e inovar.
+              Compartilhe sua solução — em qualquer fase (ideia, pesquisa,
+              piloto ou produto). A Piauí Gov Tech recebe e conecta você aos
+              atores certos — academia, startups, governo e laboratórios —
+              conforme a necessidade.
             </p>
           </div>
         </div>
@@ -119,18 +118,16 @@ export default function SubmeterIdeia() {
                 <div className="flex flex-col items-center">
                   <IconIdeia className="size-16 text-brand-300 mb-6" />
                   <h2 className="text-3xl font-semibold mb-4">
-                    Pronto para Compartilhar sua Ideia?
+                    Proponha sua ideia
                   </h2>
                   <p className="text-white/80 mb-8 max-w-2xl">
-                    Clique no botão abaixo para acessar o formulário de
-                    submissão. Suas informações nos ajudarão a avaliar e entrar
-                    em contato sobre propostas promissoras.
+                    Clique no botão abaixo para enviar sua ideia de inovação.
                   </p>
                   <button
                     onClick={() => setShowForm(true)}
                     className="px-8 py-4 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2 focus:ring-offset-transparent transform hover:scale-105 cursor-pointer"
                   >
-                    Enviar ideia
+                    Enviar ideia de inovaçao
                   </button>
                 </div>
               </div>

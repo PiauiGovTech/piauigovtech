@@ -12,7 +12,7 @@ export default function Header() {
   const scrollSpyActiveId = useScrollSpy([
     'inicio',
     'ecossistema',
-    'para-quem',
+    // 'para-quem',
     // 'projetos',
   ]);
   const isHome = location.pathname === '/'
@@ -43,7 +43,7 @@ export default function Header() {
             <NavLink targetId="noticias" to="/noticias">Notícias</NavLink>
             <NavLink targetId="quem-somos" to="/quemsomos">Quem somos</NavLink>
             <NavLink targetId="ecossistema" activeId={isHome ? scrollSpyActiveId : undefined}>Ecossistema</NavLink>
-            <NavLink targetId="para-quem" activeId={isHome ? scrollSpyActiveId : undefined}>Para Quem</NavLink>
+            {/* <NavLink targetId="para-quem" activeId={isHome ? scrollSpyActiveId : undefined}>Para Quem</NavLink> */}
             {/* <NavLink targetId="projetos" activeId={activeId}>Projetos</NavLink> */}
           </nav>
         )}
