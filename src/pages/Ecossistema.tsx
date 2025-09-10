@@ -147,47 +147,18 @@ export default function Ecossistema() {
           </div>
 
           {/* Coluna direita: hero visual */}
-          <div className="relative mx-auto w-full max-w-xl">
-            <div className="relative h-80 sm:h-96">
+          <div className="relative mx-auto w-full max-full">
+            <div className="relative h-96 sm:h-[30rem] lg:h-[34rem]">
               {/* banner de fundo */}
               <img
                 src={banner}
                 alt="Inovação em governo"
-                className="absolute inset-0 h-full w-full rounded-2xl object-cover shadow-sm"
+                className="absolute inset-0 h-full w-full rounded-2xl object-cover"
               />
-              {/* overlay suave */}
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-white/0 via-white/10 to-white/0" />
 
-              {/* cartas flutuantes */}
-              {/* <div className="absolute -bottom-6 -left-6 w-40 sm:w-48 rotate-[-6deg] overflow-hidden rounded-xl border border-gray-200 bg-white shadow-md">
-                <img src={frame0} alt="Colaboração" className="h-full w-full object-cover" />
-              </div>
-              <div className="absolute -top-6 left-1/2 w-40 sm:w-48 -translate-x-1/2 rotate-[4deg] overflow-hidden rounded-xl border border-gray-200 bg-white shadow-md">
-                <img src={frame1} alt="Pesquisa aplicada" className="h-full w-full object-cover" />
-              </div>
-              <div className="absolute -right-6 bottom-4 w-40 sm:w-48 rotate-[-2deg] overflow-hidden rounded-xl border border-gray-200 bg-white shadow-md">
-                <img src={frame2} alt="Tecnologia" className="h-full w-full object-cover" />
-              </div> */}
-
-              {/* detalhe ciano */}
-              <div className="absolute -z-10 -bottom-8 left-8 size-40 rounded-full bg-brand-300/30 blur-3xl" />
             </div>
           </div>
 
-          {/* Coluna: lista de atores */}
-          {/* <div>
-            <h3 className="text-xl font-semibold text-gray-900">Atores conectados</h3>
-            <ul className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
-              {STAKEHOLDERS.map((s) => (
-                <li key={s.label} className="flex items-center gap-3 rounded-xl border border-brand-100 bg-gradient-to-r from-brand-50 to-brand-100 px-4 py-3 shadow-sm transition hover:from-brand-100 hover:to-brand-50">
-                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-brand-50 text-brand-700">
-                    {s.icon}
-                  </span>
-                  <span className="text-gray-800">{s.label}</span>
-                </li>
-              ))}
-            </ul>
-          </div> */}
         </div>
 
         {/* Fluxo de etapas */}
