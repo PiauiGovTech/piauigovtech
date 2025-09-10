@@ -44,14 +44,16 @@ export default function SubmeterIdeia() {
     estagio: "",
     proponente: "",
     contato: "",
-    materiais: ""
+    materiais: "",
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Aqui você implementaria a lógica de envio do formulário
     console.log("Formulário enviado:", formData);
-    alert("Ideia submetida com sucesso! Nossa equipe entrará em contato em breve.");
+    alert(
+      "Ideia submetida com sucesso! Nossa equipe entrará em contato em breve."
+    );
     // Resetar formulário e esconder após submissão
     setFormData({
       titulo: "",
@@ -59,14 +61,18 @@ export default function SubmeterIdeia() {
       estagio: "",
       proponente: "",
       contato: "",
-      materiais: ""
+      materiais: "",
     });
     setShowForm(false);
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
   return (
     <section
@@ -95,13 +101,11 @@ export default function SubmeterIdeia() {
           </h1>
           <div className="mt-6 max-w-4xl mx-auto">
             <p className="text-lg text-white/90 mb-4">
-              Tem uma proposta inovadora para aprimorar os serviços públicos? Este é um espaço aberto para toda a comunidade de inovação contribuir com ideias e soluções. Independentemente do seu perfil – pesquisador acadêmico, startup, servidor público ou cidadão comum – sua contribuição é bem-vinda.
-            </p>
-            <p className="text-white/80 mb-4">
-              Nossa plataforma aceita desde ideias iniciais até soluções já em prática. O objetivo é coletar propostas capazes de gerar impacto positivo nos serviços públicos, em qualquer estágio de desenvolvimento. Pode ser um conceito embrionário, um projeto de pesquisa em andamento ou uma solução pronta para ser implementada – todas as ideias que contribuam para a melhoria do serviço público são valorizadas.
-            </p>
-            <p className="text-white/80 mb-6">
-              Não se trata de um concurso formal, edital ou licitação, mas de um convite contínuo à colaboração. Aqui, qualquer pessoa ou organização pode apresentar sugestões livremente, aproveitando a inteligência coletiva para inovar junto com o governo.
+              Tem uma solução para aprimorar os serviços públicos? Este espaço
+              recebe contribuições de toda a comunidade de inovação — de ideias
+              iniciais a soluções já em operação — com potencial de impacto
+              real. Não é concurso, edital ou licitação: é um convite permanente
+              para enviar sua proposta e inovar.
             </p>
           </div>
         </div>
@@ -114,15 +118,19 @@ export default function SubmeterIdeia() {
               <div className="rounded-2xl border border-white/15 bg-white/5 p-8 md:p-12 text-white backdrop-blur">
                 <div className="flex flex-col items-center">
                   <IconIdeia className="size-16 text-brand-300 mb-6" />
-                  <h2 className="text-3xl font-semibold mb-4">Pronto para Compartilhar sua Ideia?</h2>
+                  <h2 className="text-3xl font-semibold mb-4">
+                    Pronto para Compartilhar sua Ideia?
+                  </h2>
                   <p className="text-white/80 mb-8 max-w-2xl">
-                    Clique no botão abaixo para acessar o formulário de submissão. Suas informações nos ajudarão a avaliar e entrar em contato sobre propostas promissoras.
+                    Clique no botão abaixo para acessar o formulário de
+                    submissão. Suas informações nos ajudarão a avaliar e entrar
+                    em contato sobre propostas promissoras.
                   </p>
                   <button
                     onClick={() => setShowForm(true)}
-                    className="px-8 py-4 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2 focus:ring-offset-transparent transform hover:scale-105"
+                    className="px-8 py-4 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2 focus:ring-offset-transparent transform hover:scale-105 cursor-pointer"
                   >
-                    Preencher Formulário
+                    Enviar ideia
                   </button>
                 </div>
               </div>
@@ -140,20 +148,35 @@ export default function SubmeterIdeia() {
                   className="text-white/60 hover:text-white transition-colors"
                   aria-label="Fechar formulário"
                 >
-                  <svg className="size-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  <svg
+                    className="size-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
                   </svg>
                 </button>
               </div>
-              
+
               <p className="text-white/80 mb-8">
-                Preencha o formulário abaixo com algumas informações simples para submeter sua ideia. Assim, podemos realizar uma avaliação inicial e entrar em contato nos casos de propostas promissoras:
+                Preencha o formulário abaixo com algumas informações simples
+                para submeter sua ideia. Assim, podemos realizar uma avaliação
+                inicial e entrar em contato nos casos de propostas promissoras:
               </p>
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="titulo" className="block text-sm font-medium text-white/90 mb-2">
+                    <label
+                      htmlFor="titulo"
+                      className="block text-sm font-medium text-white/90 mb-2"
+                    >
                       Título da Ideia *
                     </label>
                     <input
@@ -169,7 +192,10 @@ export default function SubmeterIdeia() {
                   </div>
 
                   <div>
-                    <label htmlFor="estagio" className="block text-sm font-medium text-white/90 mb-2">
+                    <label
+                      htmlFor="estagio"
+                      className="block text-sm font-medium text-white/90 mb-2"
+                    >
                       Estágio da Solução *
                     </label>
                     <select
@@ -180,16 +206,30 @@ export default function SubmeterIdeia() {
                       onChange={handleInputChange}
                       className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition"
                     >
-                      <option value="" className="bg-gray-800">Selecione o estágio</option>
-                      <option value="conceito-inicial" className="bg-gray-800">Conceito inicial</option>
-                      <option value="em-desenvolvimento" className="bg-gray-800">Em desenvolvimento/pesquisa</option>
-                      <option value="solucao-aplicada" className="bg-gray-800">Solução já aplicada</option>
+                      <option value="" className="bg-gray-800">
+                        Selecione o estágio
+                      </option>
+                      <option value="conceito-inicial" className="bg-gray-800">
+                        Conceito inicial
+                      </option>
+                      <option
+                        value="em-desenvolvimento"
+                        className="bg-gray-800"
+                      >
+                        Em desenvolvimento/pesquisa
+                      </option>
+                      <option value="solucao-aplicada" className="bg-gray-800">
+                        Solução já aplicada
+                      </option>
                     </select>
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="descricao" className="block text-sm font-medium text-white/90 mb-2">
+                  <label
+                    htmlFor="descricao"
+                    className="block text-sm font-medium text-white/90 mb-2"
+                  >
                     Descrição *
                   </label>
                   <textarea
@@ -206,7 +246,10 @@ export default function SubmeterIdeia() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="proponente" className="block text-sm font-medium text-white/90 mb-2">
+                    <label
+                      htmlFor="proponente"
+                      className="block text-sm font-medium text-white/90 mb-2"
+                    >
                       Proponente *
                     </label>
                     <input
@@ -222,7 +265,10 @@ export default function SubmeterIdeia() {
                   </div>
 
                   <div>
-                    <label htmlFor="contato" className="block text-sm font-medium text-white/90 mb-2">
+                    <label
+                      htmlFor="contato"
+                      className="block text-sm font-medium text-white/90 mb-2"
+                    >
                       Contato *
                     </label>
                     <input
@@ -239,7 +285,10 @@ export default function SubmeterIdeia() {
                 </div>
 
                 <div>
-                  <label htmlFor="materiais" className="block text-sm font-medium text-white/90 mb-2">
+                  <label
+                    htmlFor="materiais"
+                    className="block text-sm font-medium text-white/90 mb-2"
+                  >
                     Materiais de Apoio (opcional)
                   </label>
                   <input
@@ -276,10 +325,14 @@ export default function SubmeterIdeia() {
         {/* Call to Action Final */}
         <div className="text-center text-white mt-12 max-w-3xl mx-auto">
           <p className="text-lg font-medium mb-2">
-            Sua ideia pode ser o próximo passo para inovarmos os serviços públicos!
+            Sua ideia pode ser o próximo passo para inovarmos os serviços
+            públicos!
           </p>
           <p className="text-white/80">
-            Todas as submissões serão recebidas pela nossa equipe de inovação. Compartilhe sua visão e faça parte da transformação do setor público. Juntos, vamos construir soluções melhores para a sociedade, unindo governo e comunidade em prol do bem comum.
+            Todas as submissões serão recebidas pela nossa equipe de inovação.
+            Compartilhe sua visão e faça parte da transformação do setor
+            público. Juntos, vamos construir soluções melhores para a sociedade,
+            unindo governo e comunidade em prol do bem comum.
           </p>
         </div>
       </Container>
