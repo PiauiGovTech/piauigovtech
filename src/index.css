@@ -21,3 +21,15 @@
 
 /* Comportamento de scroll suave */
 html { scroll-behavior: smooth; }
+
+/* Estilo de conteúdo de notícias (ReactMarkdown)
+   - Mantém espaçamento visível entre parágrafos
+   - Duas quebras de linha no texto viram um parágrafo novo, que recebe margem
+*/
+.markdown-content p {
+  margin-top: 1.5rem;   /* 24px */
+  margin-bottom: 1.5rem;/* 24px */
+}
+
+/* Se quiser mais espaço quando houver linha em branco entre parágrafos,
+   aumente os valores acima (ex.: 2rem = 32px). */
