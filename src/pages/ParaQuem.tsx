@@ -1,292 +1,76 @@
 import Container from "../components/Container";
 import smartphone from "../assets/img/smartphone.jpg";
-import groupIcon from "../assets/img/Group.png";
 import { useState } from "react";
 
-type TabKey = "academicos" | "empresas" | "governo";
-
-function IconAcademicos(props: React.SVGProps<SVGSVGElement>) {
+function IconIdeia(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 32 32"
+      viewBox="0 0 24 24"
       fill="none"
       aria-hidden
       {...props}
     >
       <path
-        d="M22.6667 11.334V14.0007"
+        d="M12 2C8.686 2 6 4.686 6 8c0 2.215 1.11 4.174 2.808 5.352A3.968 3.968 0 009 16h6c0-.996.37-1.905.808-2.648C17.11 12.174 18 10.215 18 8c0-3.314-2.686-6-6-6z"
         stroke="currentColor"
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
-      ></path>
+      />
       <path
-        d="M19.556 12.8887V16.562C19.556 16.9993 19.348 17.4073 18.988 17.6567C18.3853 18.0727 17.3386 18.622 16.008 18.622C14.6773 18.622 13.624 18.0713 13.0173 17.6567C12.6546 17.4087 12.4453 16.9993 12.4453 16.5593V12.8887"
+        d="M9 16v1c0 1.105.895 2 2 2h2c1.105 0 2-.895 2-2v-1"
         stroke="currentColor"
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
-      ></path>
+      />
       <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M24.572 22.6667H7.428C5.53467 22.6667 4 21.132 4 19.2387V7.428C4 5.53467 5.53467 4 7.428 4H24.5707C26.4653 4 28 5.53467 28 7.428V19.2373C28 21.132 26.4653 22.6667 24.572 22.6667Z"
+        d="M10 21h4"
         stroke="currentColor"
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
-      ></path>
-      <path
-        d="M18.6667 22.666L19.3334 27.9993"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      ></path>
-      <path
-        d="M13.3334 22.666L12.6667 27.9993"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      ></path>
-      <path
-        d="M10.8534 28.0007H21.1467"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      ></path>
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M9.33337 11.3333L16 14.6667L22.6667 11.3333L16 8L9.33337 11.3333Z"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      ></path>
+      />
     </svg>
   );
 }
 
-function IconGoverno(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 32 32"
-      fill="none"
-      aria-hidden
-      {...props}
-    >
-      <path
-        d="M22.6666 28V5.33333C22.6666 4.59733 22.0693 4 21.3333 4H10.6666C9.93065 4 9.33331 4.59733 9.33331 5.33333V28"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      ></path>
-      <path
-        d="M9.33329 12H3.99996C3.26396 12 2.66663 12.5973 2.66663 13.3333V28"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      ></path>
-      <path
-        d="M29.3333 28V13.3333C29.3333 12.5973 28.736 12 28 12H22.6666"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      ></path>
-      <path
-        d="M12.6666 22.6667H19.3333"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      ></path>
-      <path
-        d="M18 22.6667V28"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      ></path>
-      <path
-        d="M14 28V22.6667"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      ></path>
-      <path
-        d="M13.3333 14H18.6666"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      ></path>
-      <path
-        d="M13.3333 18H18.6666"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      ></path>
-      <path
-        d="M13.3333 10H18.6666"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      ></path>
-      <path
-        d="M6.66663 18H9.33329"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      ></path>
-      <path
-        d="M6.66663 22.6667H9.33329"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      ></path>
-      <path
-        d="M22.6666 18H25.3333"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      ></path>
-      <path
-        d="M22.6666 22.6667H25.3333"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      ></path>
-      <path
-        d="M30.6666 28H1.33331"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      ></path>
-    </svg>
-  );
-}
+export default function SubmeterIdeia() {
+  const [showForm, setShowForm] = useState(false);
+  const [formData, setFormData] = useState({
+    titulo: "",
+    descricao: "",
+    estagio: "",
+    proponente: "",
+    contato: "",
+    materiais: ""
+  });
 
-function IconEmpresas(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 32 32"
-      fill="none"
-      aria-hidden
-      {...props}
-    >
-      <path
-        d="M5.08936 21.0007H7.11202C7.58402 21.0007 8.03602 20.814 8.36936 20.4807V20.4807C8.70269 20.1473 8.88935 19.6953 8.88935 19.2233V12.1113C8.88935 11.6393 8.70269 11.1873 8.36936 10.854V10.854C8.03602 10.5207 7.58402 10.334 7.11202 10.334H5.42002"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      ></path>
-      <path
-        d="M26.5801 10.334H24.8894C24.4174 10.334 23.9654 10.5207 23.6321 10.854V10.854C23.2987 11.1873 23.1121 11.6393 23.1121 12.1113V19.2233C23.1121 19.6953 23.2987 20.1473 23.6321 20.4807V20.4807C23.9654 20.814 24.4174 21.0007 24.8894 21.0007H26.9121"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      ></path>
-      <path
-        d="M23.1387 19.5293H21.992C21.6107 19.5293 21.2333 19.6106 20.8867 19.7693L15.2773 22.324"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      ></path>
-      <path
-        d="M14.1933 11.5572C13.5213 11.1666 12.7093 11.0692 11.9599 11.3386L8.88928 12.4439"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      ></path>
-      <path
-        d="M23.3254 11.2477L19.4907 9.55971C18.6694 9.19838 17.7201 9.27438 16.9667 9.76238L13.4867 12.017C12.3801 12.733 12.2534 14.3037 13.2294 15.189V15.189C13.8281 15.7317 14.6947 15.8624 15.4267 15.521L17.5014 14.553"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      ></path>
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M16 28C22.6274 28 28 22.6274 28 16C28 9.37258 22.6274 4 16 4C9.37258 4 4 9.37258 4 16C4 22.6274 9.37258 28 16 28Z"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      ></path>
-      <path
-        d="M17.5013 14.5527L18.5546 15.5087C19.7186 16.5634 19.7226 18.3901 18.5653 19.4514L15.876 21.9127C14.8613 22.8434 13.304 22.8461 12.2853 21.9221L10.4373 20.2461C9.99997 19.8501 9.44263 19.6274 8.8573 19.5794"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      ></path>
-    </svg>
-  );
-}
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Aqui você implementaria a lógica de envio do formulário
+    console.log("Formulário enviado:", formData);
+    alert("Ideia submetida com sucesso! Nossa equipe entrará em contato em breve.");
+    // Resetar formulário e esconder após submissão
+    setFormData({
+      titulo: "",
+      descricao: "",
+      estagio: "",
+      proponente: "",
+      contato: "",
+      materiais: ""
+    });
+    setShowForm(false);
+  };
 
-const CONTENT: Record<
-  TabKey,
-  { heading: string; description: string; benefits: string[] }
-> = {
-  academicos: {
-    heading: "Estudantes",
-    description:
-      "Pesquisa com propósito. Conecte seu conhecimento a problemas reais.",
-    benefits: [
-      "Desenvolva soluções para desafios públicos",
-      "Acesse infraestrutura de supercomputação para desenvolvimento de soluções",
-      "Acesse capacitações voltadas para inovação aplicada",
-    ],
-  },
-  empresas: {
-    heading: "Empresas e Startups",
-    description:
-      "Conecte sua empresa ao ecossistema que está transformando a gestão pública com tecnologia e colaboração aberta",
-    benefits: [
-      "Participe de programas de mentoria e aceleração voltados para desafios públicos reais",
-      "Conecte-se com parceiros para co-criar soluções escaláveis e de impacto social",
-      "Acesse capacitações voltadas para inovação aplicada",
-    ],
-  },
-  governo: {
-    heading: "Governo",
-    description:
-      "Modernize seus serviços e promova impacto social ao propor desafios que conectam governo, academia e setor privado",
-    benefits: [
-      "Proponha desafios públicos para que pesquisadores, startups e empresas.",
-      "Implemente soluções desenvolvidas pelo ecossistema PI GOV TECH",
-      "Participe de capacitações para fortalecer a cultura de inovação e a governança digital",
-    ],
-  },
-};
-
-export default function ParaQuem() {
-  const [active, setActive] = useState<TabKey>("academicos");
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
   return (
     <section
-      className="relative h-[calc(100vh)] bg-cover bg-center bg-no-repeat"
+      className="relative min-h-screen bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: `url(${smartphone})` }}
     >
       {/* Escurecimento geral da cena para legibilidade */}
@@ -300,146 +84,203 @@ export default function ParaQuem() {
         }}
       />
 
-      <Container className="h-full py-8 md:py-10 flex flex-col">
+      <Container className="py-8 md:py-12">
         {/* Cabeçalho */}
-        <div className="text-center text-white shrink-0">
+        <div className="text-center text-white mb-12">
           <div className="text-xs font-semibold uppercase tracking-widest text-white/80">
-            Para quem
+            Inovação Aberta
           </div>
           <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-5xl">
-            Integre o ecossistema
+            Sua Ideia Pode Melhorar os Serviços Públicos
           </h1>
-          <p className="mt-3 text-white/80">
-            Descubra como você pode integrar a iniciativa de acordo com seu perfil
-          </p>
+          <div className="mt-6 max-w-4xl mx-auto">
+            <p className="text-lg text-white/90 mb-4">
+              Tem uma proposta inovadora para aprimorar os serviços públicos? Este é um espaço aberto para toda a comunidade de inovação contribuir com ideias e soluções. Independentemente do seu perfil – pesquisador acadêmico, startup, servidor público ou cidadão comum – sua contribuição é bem-vinda.
+            </p>
+            <p className="text-white/80 mb-4">
+              Nossa plataforma aceita desde ideias iniciais até soluções já em prática. O objetivo é coletar propostas capazes de gerar impacto positivo nos serviços públicos, em qualquer estágio de desenvolvimento. Pode ser um conceito embrionário, um projeto de pesquisa em andamento ou uma solução pronta para ser implementada – todas as ideias que contribuam para a melhoria do serviço público são valorizadas.
+            </p>
+            <p className="text-white/80 mb-6">
+              Não se trata de um concurso formal, edital ou licitação, mas de um convite contínuo à colaboração. Aqui, qualquer pessoa ou organização pode apresentar sugestões livremente, aproveitando a inteligência coletiva para inovar junto com o governo.
+            </p>
+          </div>
         </div>
 
-        {/* Painéis */}
-        <div className="flex-1 flex items-center">
-          <div className="mt-8 md:mt-10 grid grid-cols-1 gap-6 lg:grid-cols-[320px_1fr] w-full">
-            {/* Menu à esquerda */}
-            <div className="relative rounded-2xl border border-white/15 bg-white/5 p-2 text-white backdrop-blur md:h-[320px] flex items-center">
-              <ul
-                className="grid"
-                role="tablist"
-                aria-label="Perfis do ecossistema"
-              >
-                {(
-                  [
-                    { key: "academicos", label: "Acadêmicos" },
-                    { key: "empresas", label: "Empresas e Startups" },
-                    { key: "governo", label: "Governo" },
-                  ] as { key: TabKey; label: string }[]
-                ).map((t, idx) => {
-                  const selected = active === t.key;
-                  return (
-                    <li
-                      key={t.key}
-                      className={`relative overflow-hidden rounded-xl ${
-                        idx !== 0 ? "mt-1" : ""
-                      }`}
-                    >
-                      {/* marcador lateral ciano */}
-                      <span
-                        className={`absolute left-0 top-3 bottom-3 w-1.5 rounded-full bg-brand-400 transition-opacity ${
-                          selected ? "opacity-100" : "opacity-0"
-                        }`}
-                      />
-                      <button
-                        type="button"
-                        role="tab"
-                        aria-selected={selected}
-                        onClick={() => setActive(t.key)}
-                        className={`flex w-full items-center gap-3 rounded-xl px-4 py-4 text-left transition cursor-pointer ${
-                          selected ? "bg-white/5" : "hover:bg-white/5"
-                        }`}
-                      >
-                        {/* ícones por item */}
-                        {t.key === "academicos" && (
-                          <IconAcademicos
-                            className={`size-6 ${
-                              selected ? "text-brand-300" : "text-white/70"
-                            }`}
-                          />
-                        )}
-                        {t.key === "empresas" && (
-                          <IconEmpresas
-                            className={`size-6 ${
-                              selected ? "text-brand-300" : "text-white/70"
-                            }`}
-                          />
-                        )}
-                        {t.key === "governo" && (
-                          <IconGoverno
-                            className={`size-6 ${
-                              selected ? "text-brand-300" : "text-white/70"
-                            }`}
-                          />
-                        )}
-                        <span
-                          className={
-                            selected ? "text-base font-medium" : "text-white/85"
-                          }
-                        >
-                          {t.label}
-                        </span>
-                      </button>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-
-            {/* Detalhes à direita */}
-            <div className="rounded-2xl border border-white/15 bg-white/5 p-6 text-white backdrop-blur md:p-8 md:h-[320px] flex items-center">
-              <div className="grid h-full w-full items-stretch gap-6 md:grid-cols-[1fr_auto_1.6fr]">
-                {/* Coluna principal (ícone e heading fixos) */}
-                <div className="flex h-full flex-col items-center text-center self-stretch">
-                  {/* Cabeçalho fixo */}
-                  <div className="shrink-0 flex flex-col items-center">
-                    <img
-                      src={groupIcon}
-                      alt=""
-                      className="h-14 w-14 object-contain"
-                    />
-                    <div className="mt-3 text-xl font-semibold">
-                      {CONTENT[active].heading}
-                    </div>
-                  </div>
-                  {/* Descrição rola se for maior */}
-                  <p className="mt-2 max-w-sm text-white/80 flex-1 overflow-y-auto min-h-0">
-                    {CONTENT[active].description}
+        {/* Seção de Submissão */}
+        <div className="max-w-4xl mx-auto">
+          {!showForm ? (
+            /* Botão para mostrar formulário */
+            <div className="text-center">
+              <div className="rounded-2xl border border-white/15 bg-white/5 p-8 md:p-12 text-white backdrop-blur">
+                <div className="flex flex-col items-center">
+                  <IconIdeia className="size-16 text-brand-300 mb-6" />
+                  <h2 className="text-3xl font-semibold mb-4">Pronto para Compartilhar sua Ideia?</h2>
+                  <p className="text-white/80 mb-8 max-w-2xl">
+                    Clique no botão abaixo para acessar o formulário de submissão. Suas informações nos ajudarão a avaliar e entrar em contato sobre propostas promissoras.
                   </p>
+                  <button
+                    onClick={() => setShowForm(true)}
+                    className="px-8 py-4 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2 focus:ring-offset-transparent transform hover:scale-105"
+                  >
+                    Preencher Formulário
+                  </button>
                 </div>
-                {/* Divisor vertical */}
-                <div className="hidden md:block h-full w-px bg-white/10" />
-
-                {/* Lista de benefícios */}
-                <ul className="space-y-5 self-stretch overflow-y-auto min-h-0 pr-1">
-                  {CONTENT[active].benefits.map((t) => (
-                    <li
-                      key={t}
-                      className="group flex items-center justify-between gap-4 rounded-lg px-3 py-2 cursor-pointer transition hover:bg-white/5"
-                    >
-                      <span className="text-white/85 group-hover:text-white">{t}</span>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        className="size-5 text-white/70 transition-transform duration-150 group-hover:translate-x-1"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M12.97 3.97a.75.75 0 011.06 0l6 6a.75.75 0 010 1.06l-6 6a.75.75 0 11-1.06-1.06L17.94 11H4.5a.75.75 0 010-1.5h13.44l-4.47-4.47a.75.75 0 010-1.06z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </li>
-                  ))}
-                </ul>
               </div>
             </div>
-          </div>
+          ) : (
+            /* Formulário */
+            <div className="rounded-2xl border border-white/15 bg-white/5 p-6 md:p-8 text-white backdrop-blur">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <IconIdeia className="size-8 text-brand-300" />
+                  <h2 className="text-2xl font-semibold">Submeta sua Ideia</h2>
+                </div>
+                <button
+                  onClick={() => setShowForm(false)}
+                  className="text-white/60 hover:text-white transition-colors"
+                  aria-label="Fechar formulário"
+                >
+                  <svg className="size-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+              
+              <p className="text-white/80 mb-8">
+                Preencha o formulário abaixo com algumas informações simples para submeter sua ideia. Assim, podemos realizar uma avaliação inicial e entrar em contato nos casos de propostas promissoras:
+              </p>
+
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label htmlFor="titulo" className="block text-sm font-medium text-white/90 mb-2">
+                      Título da Ideia *
+                    </label>
+                    <input
+                      type="text"
+                      id="titulo"
+                      name="titulo"
+                      required
+                      value={formData.titulo}
+                      onChange={handleInputChange}
+                      placeholder="Um nome breve que resuma sua proposta"
+                      className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="estagio" className="block text-sm font-medium text-white/90 mb-2">
+                      Estágio da Solução *
+                    </label>
+                    <select
+                      id="estagio"
+                      name="estagio"
+                      required
+                      value={formData.estagio}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition"
+                    >
+                      <option value="" className="bg-gray-800">Selecione o estágio</option>
+                      <option value="conceito-inicial" className="bg-gray-800">Conceito inicial</option>
+                      <option value="em-desenvolvimento" className="bg-gray-800">Em desenvolvimento/pesquisa</option>
+                      <option value="solucao-aplicada" className="bg-gray-800">Solução já aplicada</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <label htmlFor="descricao" className="block text-sm font-medium text-white/90 mb-2">
+                    Descrição *
+                  </label>
+                  <textarea
+                    id="descricao"
+                    name="descricao"
+                    required
+                    rows={5}
+                    value={formData.descricao}
+                    onChange={handleInputChange}
+                    placeholder="Explique sua ideia ou solução, destacando qual problema do serviço público ela pretende resolver e como poderá melhorar a vida dos cidadãos"
+                    className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition resize-none"
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label htmlFor="proponente" className="block text-sm font-medium text-white/90 mb-2">
+                      Proponente *
+                    </label>
+                    <input
+                      type="text"
+                      id="proponente"
+                      name="proponente"
+                      required
+                      value={formData.proponente}
+                      onChange={handleInputChange}
+                      placeholder="Seu nome (ou da equipe/organização) e perfil"
+                      className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="contato" className="block text-sm font-medium text-white/90 mb-2">
+                      Contato *
+                    </label>
+                    <input
+                      type="email"
+                      id="contato"
+                      name="contato"
+                      required
+                      value={formData.contato}
+                      onChange={handleInputChange}
+                      placeholder="E-mail para contato"
+                      className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label htmlFor="materiais" className="block text-sm font-medium text-white/90 mb-2">
+                    Materiais de Apoio (opcional)
+                  </label>
+                  <input
+                    type="url"
+                    id="materiais"
+                    name="materiais"
+                    value={formData.materiais}
+                    onChange={handleInputChange}
+                    placeholder="Link ou arquivo contendo detalhes adicionais, esboços ou resultados já obtidos"
+                    className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition"
+                  />
+                </div>
+
+                <div className="flex justify-center gap-4 pt-4">
+                  <button
+                    type="button"
+                    onClick={() => setShowForm(false)}
+                    className="px-6 py-3 border border-white/20 text-white font-medium rounded-lg transition-colors duration-200 hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-white/20"
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-8 py-3 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2 focus:ring-offset-transparent"
+                  >
+                    Submeter Ideia
+                  </button>
+                </div>
+              </form>
+            </div>
+          )}
+        </div>
+
+        {/* Call to Action Final */}
+        <div className="text-center text-white mt-12 max-w-3xl mx-auto">
+          <p className="text-lg font-medium mb-2">
+            Sua ideia pode ser o próximo passo para inovarmos os serviços públicos!
+          </p>
+          <p className="text-white/80">
+            Todas as submissões serão recebidas pela nossa equipe de inovação. Compartilhe sua visão e faça parte da transformação do setor público. Juntos, vamos construir soluções melhores para a sociedade, unindo governo e comunidade em prol do bem comum.
+          </p>
         </div>
       </Container>
     </section>
