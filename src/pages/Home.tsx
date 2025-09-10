@@ -51,15 +51,15 @@ export default function Home() {
       {/* Hero */}
       <section
         id="inicio"
-        className="relative flex items-center min-h-[calc(100vh-4rem)] overflow-hidden bg-[#010720] bg-cover bg-center bg-no-repeat bg-[url('../assets/img/hero.jpg')]"
+        className="relative flex items-center min-h-[calc(100vh-4rem)] md:min-h-[calc(100vh-4rem)] overflow-hidden bg-[#010720] bg-cover bg-center bg-no-repeat bg-[url('../assets/img/hero.jpg')]"
         style={{
           backgroundImage: `url(${hero})`,
         }}
       >
         <Container className="py-16 md:py-24 text-white">
-          <div className="grid items-center gap-10 md:grid-cols-2">
+          <div className="grid items-center gap-6 md:gap-10 md:grid-cols-2">
             <div>
-              <h1 className="text-balance text-4xl font-bold tracking-tight sm:text-5xl">
+              <h1 className="text-balance text-3xl font-bold tracking-tight sm:text-5xl">
                 Inovação, Tecnologia e Inclusão
               </h1>
               <p className="mt-4 max-w-prose text-pretty text-white/80">
