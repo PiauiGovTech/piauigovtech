@@ -6,6 +6,7 @@ import imgHero2 from "../assets/img/imgHero2.avif";
 import imgHero3 from "../assets/img/imgHero3.avif";
 import imgHero4 from "../assets/img/imgHero4.avif";
 import imgHero5 from "../assets/img/imgHero5.avif";
+import imgHero6 from "../assets/img/imgHero6.jpeg";
 import group2 from "../assets/img/Group-2.png";
 import { scrollToSection } from "../utils/scrollToSection";
 import NoticiasSection from "./NoticiasSection";
@@ -89,7 +90,15 @@ export default function Home() {
                 <div className="flex items-center justify-between">
                   <Link to="/" className="-m-1.5 p-1.5" onClick={() => setMenuOpen(false)}>
                     <span className="sr-only">Piauí Gov Tech</span>
-                    <Logo className="h-8 w-auto text-white/90" />
+                    <div className="flex items-center gap-3 text-brand-400">
+                      <Logo className="h-8 w-auto" />
+                      <div className="leading-tight">
+                        <div className="text-lg font-bold text-white">
+                          piauí<span className="text-gray-300 font-light">gov</span>
+                          tech
+                        </div>
+                      </div>
+                    </div>
                   </Link>
                   <button
                     type="button"
@@ -246,10 +255,10 @@ export default function Home() {
                   <div className="relative">
                     <img
                       alt=""
-                      src={imgHero5}
+                      src={imgHero6}
                       loading="lazy"
                       decoding="async"
-                      className="aspect-2/3 w-full rounded-xl bg-gray-700/5 object-cover shadow-lg"
+                      className="aspect-2/3 w-full rounded-xl bg-gray-700/5 object-cover object-[65%_center] shadow-lg"
                     />
                     <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-white/10 ring-inset" />
                   </div>

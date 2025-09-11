@@ -140,7 +140,7 @@ export default function Ecossistema() {
             <h2 className="mt-2 text-balance text-3xl font-bold tracking-tight text-white sm:text-5xl text-center">
               O Piauí que {" "}
               <span className="bg-gradient-to-r from-[#5dd0df] to-cyan-600 bg-clip-text text-transparent">inova</span>
-              {" "}no setor público
+              {" "}no setor público.
             </h2>
             <p className="mt-4 text-pretty text-white/80">
               Mobilizamos governos, ICTs/NITs, universidades, empresas,
