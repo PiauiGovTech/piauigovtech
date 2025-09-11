@@ -1,26 +1,97 @@
 import Container from "../components/Container";
-import newsHero from "../assets/img/Frame-1410125704-1.png";
 import aboutVideo from "../assets/video/animacaoLogoPGT.mp4";
+import Logo from "../components/Logo";
+import NavLink from "../components/NavLink";
+import { Link } from "react-router-dom";
+import { useState } from "react";
 
 export default function QuemSomos() {
+  const [menuOpen, setMenuOpen] = useState(false);
   return (
-    <section className="relative bg-[linear-gradient(180deg,_#f8fafc_0%,_#eff3f8_50%,_#e9edf3_100%),radial-gradient(80%_60%_at_20%_25%,_rgba(255,255,255,0.95)_0%,_rgba(248,250,252,0.9)_35%,_transparent_70%),radial-gradient(70%_55%_at_80%_20%,_rgba(255,255,255,0.9)_0%,_rgba(240,243,248,0.85)_40%,_transparent_70%)] min-h-[calc(100dvh-4rem)] pt-6 md:pt-10 pb-20 flex flex-col">
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(120%_120%_at_50%_50%,_transparent_62%,_rgba(0,0,0,0.03)_100%)]" />
-
-      {/* Banner superior com imagem e título sobreposto */}
-      <div className="relative mx-auto w-[92%] sm:w-[85%] md:w-[80%] lg:w-[70%] xl:w-[60%] max-w-5xl">
-        <img src={newsHero} alt="Banner" className="block w-full h-auto" />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center text-white">
-            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Quem somos</h1>
-          </div>
-        </div>
+    <section className="relative min-h-screen bg-[#0B1636]">
+      <div className="mx-auto w-full max-w-7xl border-t border-white/10 px-6" />
+      {/* Subtle white glows to match hero */}
+      <div className="pointer-events-none absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl">
+        <div className="relative left-[calc(50%-14rem)] aspect-[1155/678] w-[38rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-white to-white opacity-10" />
       </div>
+
+      {/* Header igual ao da Home */}
+      <header className="absolute inset-x-0 top-0 z-50">
+        <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
+          <div className="flex lg:flex-1">
+            <Link to="/" className="-m-1.5 p-1.5">
+              <span className="sr-only">Piauí Gov Tech</span>
+              <div className="flex items-center gap-3 text-brand-400">
+                <Logo className="h-8 w-auto" />
+                <div className="leading-tight">
+                  <div className="text-lg font-bold text-white">
+                    piauí<span className="text-gray-300 font-light">gov</span>
+                    tech
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </div>
+          <div className="flex lg:hidden">
+            <button
+              type="button"
+              onClick={() => setMenuOpen(true)}
+              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-200"
+            >
+              <span className="sr-only">Open main menu</span>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
+                <path fillRule="evenodd" d="M3.75 5.25a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5H3.75zm0 6a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5H3.75zm0 6a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5H3.75z"/>
+              </svg>
+            </button>
+          </div>
+          <div className="hidden lg:flex lg:gap-x-2">
+            <NavLink targetId="inicio">Início</NavLink>
+            <NavLink targetId="noticias" to="/noticias">Notícias</NavLink>
+            <NavLink targetId="quem-somos" to="/quemsomos">Quem somos</NavLink>
+            <NavLink targetId="ecossistema">Ecossistema</NavLink>
+          </div>
+        </nav>
+
+        {menuOpen && (
+          <div className="lg:hidden">
+            <div className="fixed inset-0 z-40 bg-black/40" onClick={() => setMenuOpen(false)} />
+            <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-gray-900 p-6 sm:max-w-sm sm:ring-1 sm:ring-white/10">
+              <div className="flex items-center justify-between">
+                <Link to="/" className="-m-1.5 p-1.5" onClick={() => setMenuOpen(false)}>
+                  <span className="sr-only">Piauí Gov Tech</span>
+                  <Logo className="h-8 w-auto text-white/90" />
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => setMenuOpen(false)}
+                  className="-m-2.5 rounded-md p-2.5 text-gray-200"
+                >
+                  <span className="sr-only">Close menu</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
+                    <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clipRule="evenodd" />
+                  </svg>
+                </button>
+              </div>
+              <div className="mt-6 space-y-2">
+                <NavLink targetId="inicio" onNavigate={() => setMenuOpen(false)}>Início</NavLink>
+                <NavLink targetId="noticias" to="/noticias" onNavigate={() => setMenuOpen(false)}>Notícias</NavLink>
+                <NavLink targetId="quem-somos" to="/quemsomos" onNavigate={() => setMenuOpen(false)}>Quem somos</NavLink>
+                <NavLink targetId="ecossistema" onNavigate={() => setMenuOpen(false)}>Ecossistema</NavLink>
+                <NavLink targetId="para-quem" onNavigate={() => setMenuOpen(false)}>Para Quem</NavLink>
+              </div>
+            </div>
+          </div>
+        )}
+      </header>
+
+      {/* Spacer para header absoluto */}
+      <div className="pt-24 sm:pt-28" />
+
       <Container className="h-full">
-        <div className="mt-10 grid items-start gap-8 lg:grid-cols-2">
+        <div className="mt-2 md:mt-6 grid items-start gap-8 lg:grid-cols-2">
           {/* Imagem à esquerda */}
           <div>
-            <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+            <div className="overflow-hidden rounded-2xl border border-white/15 bg-white/5 backdrop-blur-md shadow-[0_0_0_1px_rgba(255,255,255,0.08)]">
               <video
                 src={aboutVideo}
                 className="block w-full h-auto"
@@ -33,7 +104,7 @@ export default function QuemSomos() {
           </div>
           {/* Texto à direita */}
           <div className="lg:pl-6">
-            <p className="text-pretty text-gray-700">
+            <p className="text-pretty text-white/90">
               A Piauí Gov Tech é uma associação civil sem fins lucrativos, caracterizada como Instituição
               Científica, Tecnológica e de Inovação (ICT) privada, criada para promover e gerir o ecossistema
               de inovação piauiense voltado aos setores governamentais. Regida por Estatuto próprio, sua missão é

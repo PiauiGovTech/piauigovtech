@@ -42,7 +42,7 @@ export default function App() {
     <div className="min-h-dvh flex flex-col bg-[#0B1636]">
       {location.pathname.startsWith('/admin') ? (
         <AdminHeader />
-      ) : location.pathname === '/' ? null : (
+      ) : (location.pathname === '/' || location.pathname.startsWith('/noticias') || location.pathname.startsWith('/quemsomos')) ? null : (
         <Header />
       )}
       <main className="flex-1 bg-[#0B1636]">
