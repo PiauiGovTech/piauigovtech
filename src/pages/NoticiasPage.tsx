@@ -148,16 +148,24 @@ export default function NoticiasPage() {
         {menuOpen && (
           <div className="lg:hidden">
             <div className="fixed inset-0 z-40 bg-black/40" onClick={() => setMenuOpen(false)} />
-            <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-gray-900 p-6 sm:max-w-sm sm:ring-1 sm:ring-white/10">
+            <div className="fixed inset-x-0 top-0 z-50 w-full max-h-[80vh] overflow-y-auto rounded-b-2xl border border-white/15 bg-white/10 backdrop-blur-md p-6 ring-1 ring-inset ring-white/10">
               <div className="flex items-center justify-between">
                 <Link to="/" className="-m-1.5 p-1.5" onClick={() => setMenuOpen(false)}>
                   <span className="sr-only">Piauí Gov Tech</span>
-                  <Logo className="h-8 w-auto text-white/90" />
+                  <div className="flex items-center gap-3 text-brand-400">
+                    <Logo className="h-8 w-auto" />
+                    <div className="leading-tight">
+                      <div className="text-lg font-bold text-white">
+                        piauí<span className="text-gray-300 font-light">gov</span>
+                        tech
+                      </div>
+                    </div>
+                  </div>
                 </Link>
                 <button
                   type="button"
                   onClick={() => setMenuOpen(false)}
-                  className="-m-2.5 rounded-md p-2.5 text-gray-200"
+                  className="-m-2.5 rounded-md p-2.5 text-white"
                 >
                   <span className="sr-only">Close menu</span>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
@@ -165,12 +173,12 @@ export default function NoticiasPage() {
                   </svg>
                 </button>
               </div>
-              <div className="mt-6 space-y-2">
-                <NavLink targetId="inicio" onNavigate={() => setMenuOpen(false)}>Início</NavLink>
-                <NavLink targetId="noticias" to="/noticias" onNavigate={() => setMenuOpen(false)}>Notícias</NavLink>
-                <NavLink targetId="quem-somos" to="/quemsomos" onNavigate={() => setMenuOpen(false)}>Quem somos</NavLink>
-                <NavLink targetId="ecossistema" onNavigate={() => setMenuOpen(false)}>Ecossistema</NavLink>
-                <NavLink targetId="para-quem" onNavigate={() => setMenuOpen(false)}>Para Quem</NavLink>
+              <div className="mt-6 space-y-3">
+                <NavLink className="flex w-full items-center rounded-xl px-4 py-3 bg-white/10 border border-white/15 text-white hover:bg-white/15" targetId="inicio" onNavigate={() => setMenuOpen(false)}>Início</NavLink>
+                <NavLink className="flex w-full items-center rounded-xl px-4 py-3 bg-white/10 border border-white/15 text-white hover:bg-white/15" targetId="noticias" to="/noticias" onNavigate={() => setMenuOpen(false)}>Notícias</NavLink>
+                <NavLink className="flex w-full items-center rounded-xl px-4 py-3 bg-white/10 border border-white/15 text-white hover:bg-white/15" targetId="quem-somos" to="/quemsomos" onNavigate={() => setMenuOpen(false)}>Quem somos</NavLink>
+                <NavLink className="flex w-full items-center rounded-xl px-4 py-3 bg-white/10 border border-white/15 text-white hover:bg-white/15" targetId="ecossistema" onNavigate={() => setMenuOpen(false)}>Ecossistema</NavLink>
+                <NavLink className="flex w-full items-center rounded-xl px-4 py-3 bg-white/10 border border-white/15 text-white hover:bg-white/15" targetId="para-quem" onNavigate={() => setMenuOpen(false)}>Para Quem</NavLink>
               </div>
             </div>
           </div>

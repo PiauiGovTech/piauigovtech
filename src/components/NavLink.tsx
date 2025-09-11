@@ -7,9 +7,10 @@ type Props = {
   onNavigate?: () => void
   activeId?: string
   to?: string
+  className?: string
 }
 
-export default function NavLink({ targetId, children, onNavigate, activeId, to }: Props) {
+export default function NavLink({ targetId, children, onNavigate, activeId, to, className }: Props) {
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -59,7 +60,7 @@ export default function NavLink({ targetId, children, onNavigate, activeId, to }
       onClick={handleClick}
       className={`inline-flex items-center rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-white/10 hover:text-brand-300 ${
         isActive ? 'text-brand-300' : 'text-white/80'
-      }`}
+      } ${className ?? ''}`}
     >
       {children}
     </Link>
