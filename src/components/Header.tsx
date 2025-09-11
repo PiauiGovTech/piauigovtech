@@ -12,6 +12,7 @@ export default function Header() {
   const scrollSpyActiveId = useScrollSpy([
     'inicio',
     'ecossistema',
+    'parceiros',
     // 'para-quem',
     // 'projetos',
   ]);
@@ -43,6 +44,7 @@ export default function Header() {
             <NavLink targetId="noticias" to="/noticias">Notícias</NavLink>
             <NavLink targetId="quem-somos" to="/quemsomos">Quem somos</NavLink>
             <NavLink targetId="ecossistema" activeId={isHome ? scrollSpyActiveId : undefined}>Ecossistema</NavLink>
+            <NavLink targetId="parceiros" activeId={isHome ? scrollSpyActiveId : undefined}>Parceiros</NavLink>
             {/* <NavLink targetId="para-quem" activeId={isHome ? scrollSpyActiveId : undefined}>Para Quem</NavLink> */}
             {/* <NavLink targetId="projetos" activeId={activeId}>Projetos</NavLink> */}
           </nav>
@@ -92,6 +94,7 @@ export default function Header() {
               <NavLink targetId="noticias" to="/noticias" onNavigate={() => setMenuOpen(false)}>Notícias</NavLink>
               <NavLink targetId="quem-somos" to="/quemsomos" onNavigate={() => setMenuOpen(false)}>Quem somos</NavLink>
               <NavLink targetId="ecossistema" onNavigate={() => setMenuOpen(false)}>Ecossistema</NavLink>
+              <NavLink targetId="parceiros" onNavigate={() => setMenuOpen(false)}>Parceiros</NavLink>
               <NavLink targetId="para-quem" onNavigate={() => setMenuOpen(false)}>Para Quem</NavLink>
               {/* <NavLink targetId="projetos" onNavigate={() => setMenuOpen(false)}>Projetos</NavLink> */}
             </div>

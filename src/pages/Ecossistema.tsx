@@ -120,26 +120,29 @@ export default function Ecossistema() {
     return () => clearInterval(id);
   }, [inView, hovering]);
   return (
-    <section className="relative min-h-[calc(100vh)] flex flex-col bg-[linear-gradient(180deg,_#f6fdff_0%,_#eef9fc_50%,_#e9f5f9_100%),radial-gradient(80%_60%_at_20%_25%,_rgba(93,208,223,0.18)_0%,_rgba(248,252,255,0)_60%),radial-gradient(70%_55%_at_82%_22%,_rgba(93,208,223,0.14)_0%,_rgba(248,252,255,0)_60%)] py-8 md:py-10">
-      {/* Brilho radial sutil igual ao de Notícias */}
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(120%_120%_at_50%_50%,_transparent_62%,_rgba(0,0,0,0.03)_100%)]" />
+    <section className="relative min-h-screen flex flex-col">
+      <div className="mx-auto w-full max-w-7xl border-t border-white/10 px-6" />
+      {/* Subtle white glows to match hero */}
+      <div className="pointer-events-none absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl">
+        <div className="relative left-[calc(50%-14rem)] aspect-[1155/678] w-[38rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-white to-white opacity-10" />
+      </div>
 
       <Container>
         {/* Cabeçalho no topo (estilo similar ao "Para quem") */}
-        <div className="text-center">
-          <div className="text-xs font-semibold uppercase tracking-widest text-gray-500">Ecossistema</div>
+        <div className="text-center mt-6 sm:mt-8">
+          <div className="text-sm font-semibold uppercase tracking-widest text-white/70">Ecossistema</div>
         </div>
 
         {/* Texto à esquerda + Hero à direita */}
         <div className="mt-8 md:mt-12 grid gap-10 lg:grid-cols-2 items-center min-h-[28rem] md:min-h-[32rem]">
           {/* Coluna esquerda: texto */}
           <div className="max-w-2xl">
-            <h2 className="mt-2 text-balance text-3xl font-bold tracking-tight text-gray-700 sm:text-5xl text-center">
+            <h2 className="mt-2 text-balance text-3xl font-bold tracking-tight text-white sm:text-5xl text-center">
               O Piauí que {" "}
-              <span className="bg-gradient-to-r from-brand-400 to-brand-700 bg-clip-text text-transparent">inova</span>
+              <span className="bg-gradient-to-r from-[#5dd0df] to-cyan-600 bg-clip-text text-transparent">inova</span>
               {" "}no setor público
             </h2>
-            <p className="mt-4 text-pretty text-gray-600">
+            <p className="mt-4 text-pretty text-white/80">
               Mobilizamos governos, ICTs/NITs, universidades, empresas,
               fundações de apoio, órgãos de controle, agências de fomento e sociedade para o desenvolvimento de soluções tecnológicas
               que tornem a gestão pública mais eficiente e próxima da sociedade.
@@ -153,7 +156,7 @@ export default function Ecossistema() {
               <img
                 src={banner}
                 alt="Inovação em governo"
-                className="absolute inset-0 h-full w-full rounded-2xl object-cover"
+                className="absolute inset-0 h-full w-full rounded-2xl object-contain sm:object-cover"
               />
 
             </div>

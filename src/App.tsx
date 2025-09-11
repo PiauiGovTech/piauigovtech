@@ -39,9 +39,13 @@ export default function App() {
     } catch {}
   }, [])
   return (
-    <div className="min-h-dvh flex flex-col">
-      {location.pathname.startsWith('/admin') ? <AdminHeader /> : <Header />}
-      <main className="flex-1">
+    <div className="min-h-dvh flex flex-col bg-[#0B1636]">
+      {location.pathname.startsWith('/admin') ? (
+        <AdminHeader />
+      ) : location.pathname === '/' ? null : (
+        <Header />
+      )}
+      <main className="flex-1 bg-[#0B1636]">
         <Outlet />
       </main>
       {location.pathname.startsWith('/admin') || location.pathname.startsWith('/login') ? <AdminFooter /> : <Footer />}
