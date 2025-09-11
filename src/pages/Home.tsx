@@ -1,11 +1,11 @@
 import { Link, useLocation, useNavigationType } from "react-router-dom";
 import { useEffect, useState } from "react";
 import hero from "../assets/img/hero.jpg";
-import imgHero1 from "../assets/img/imgHero1.jpg";
-import imgHero2 from "../assets/img/imgHero2.jpg";
-import imgHero3 from "../assets/img/imgHero3.jpg";
-import imgHero4 from "../assets/img/imgHero4.jpg";
-import imgHero5 from "../assets/img/imgHero5.jpg";
+import imgHero1 from "../assets/img/imgHero1.avif";
+import imgHero2 from "../assets/img/imgHero2.avif";
+import imgHero3 from "../assets/img/imgHero3.avif";
+import imgHero4 from "../assets/img/imgHero4.avif";
+import imgHero5 from "../assets/img/imgHero5.avif";
 import group2 from "../assets/img/Group-2.png";
 import { scrollToSection } from "../utils/scrollToSection";
 import NoticiasSection from "./NoticiasSection";
