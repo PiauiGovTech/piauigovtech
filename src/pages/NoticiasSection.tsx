@@ -56,16 +56,19 @@ export default function NoticiasSection() {
   }
 
   return (
-    <section className="relative md:flex md:items-center md:h-screen py-10 md:py-0 bg-[linear-gradient(180deg,_#f8fafc_0%,_#eff3f8_50%,_#e9edf3_100%),radial-gradient(80%_60%_at_20%_25%,_rgba(255,255,255,0.95)_0%,_rgba(248,250,252,0.9)_35%,_transparent_70%),radial-gradient(70%_55%_at_80%_20%,_rgba(255,255,255,0.9)_0%,_rgba(240,243,248,0.85)_40%,_transparent_70%)]">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_120%_at_50%_50%,_transparent_62%,_rgba(0,0,0,0.03)_100%)]" />
+    <section className="relative md:flex md:items-center md:h-screen py-10 md:py-0 bg-[#0B1636]">
+      {/* Subtle hero-like white glow */}
+      <div className="pointer-events-none absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl">
+        <div className="relative left-[calc(50%-12rem)] aspect-[1155/678] w-[36rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-white to-white opacity-10" />
+      </div>
       <Container className="md:h-full md:flex md:items-center">
         {error && <p className="mt-6 text-red-600">{error}</p>}
 
         {!loading && !error && items.length > 0 && (
-          <div className="grid gap-4 lg:grid-cols-5 w-full">
+          <div className="grid gap-4 lg:grid-cols-5 w-full text-white">
             {/* Carrossel à esquerda (loop infinito) */}
             <article className="w-full lg:col-span-3">
-              <div className="relative h-64 sm:h-80 lg:h-[420px] w-full mx-auto overflow-hidden rounded-xl bg-gray-100">
+              <div className="relative h-64 sm:h-80 lg:h-[420px] w-full mx-auto overflow-hidden rounded-xl bg-white/5">
                 {items[slideIndex]?.images?.[0] && (
                   <Link to={`/noticias/${items[slideIndex].id}`} className="group">
                     <img
@@ -80,7 +83,7 @@ export default function NoticiasSection() {
                   type="button"
                   aria-label="Anterior"
                   onClick={prevSlide}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 inline-flex h-10 w-10 items-center justify-center rounded-full text-gray-500 hover:text-gray-100 cursor-pointer"
+                  className="absolute left-3 top-1/2 -translate-y-1/2 inline-flex h-10 w-10 items-center justify-center rounded-full text-white/70 hover:text-white cursor-pointer"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -99,7 +102,7 @@ export default function NoticiasSection() {
                   type="button"
                   aria-label="Próximo"
                   onClick={nextSlide}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 inline-flex h-10 w-10 items-center justify-center rounded-full text-gray-500 hover:text-gray-100 cursor-pointer"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 inline-flex h-10 w-10 items-center justify-center rounded-full text-white/70 hover:text-white cursor-pointer"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -117,11 +120,11 @@ export default function NoticiasSection() {
               </div>
               <div className="mt-4 space-y-2 min-h-[96px] md:min-h-[110px]">
                 <Link to={`/noticias/${items[slideIndex]?.id}`} className="group inline-block">
-                  <h3 className="text-2xl font-semibold text-gray-900 line-clamp-2 inline-block transition-colors duration-200 group-hover:underline decoration-[#5dd0df] decoration-1 underline-offset-4">
+                  <h3 className="text-2xl font-semibold text-white line-clamp-2 inline-block transition-colors duration-200 group-hover:underline decoration-[#5dd0df] decoration-1 underline-offset-4">
                     {items[slideIndex]?.title}
                   </h3>
                 </Link>
-                <p className="text-gray-600 line-clamp-2">
+                <p className="text-white/80 line-clamp-2">
                   {excerpt(stripMarkdown(items[slideIndex]?.content || ""), 220)}
                 </p>
               </div>
@@ -134,7 +137,7 @@ export default function NoticiasSection() {
                     aria-label={`Ir para slide ${idx + 1}`}
                     onClick={() => setSlideIndex(idx % totalSlides)}
                     className={`size-2.5 rounded-full ${
-                      idx === slideIndex ? "bg-[#5dd0df]" : "bg-gray-300"
+                      idx === slideIndex ? "bg-[#5dd0df]" : "bg-white/30"
                     } cursor-pointer`}
                   />
                 ))}
@@ -153,11 +156,11 @@ export default function NoticiasSection() {
                       <img src={n.images[0]} alt="" className="absolute inset-0 h-full w-full object-cover" />
                     </Link>
                   )}
-                  <div>
+                  <div className="text-white">
                     <Link to={`/noticias/${n.id}`} className="group inline-block">
-                      <h4 className="line-clamp-2 text-lg font-semibold text-gray-900 inline-block transition-colors duration-200 group-hover:underline decoration-[#5dd0df] decoration-1 underline-offset-4">{n.title}</h4>
+                      <h4 className="line-clamp-2 text-lg font-semibold text-white inline-block transition-colors duration-200 group-hover:underline decoration-[#5dd0df] decoration-1 underline-offset-4">{n.title}</h4>
                     </Link>
-                    <p className="mt-1 line-clamp-2 text-sm text-gray-600">
+                    <p className="mt-1 line-clamp-2 text-sm text-white/80">
                       {excerpt(stripMarkdown(n.content), 120)}
                     </p>
                   </div>

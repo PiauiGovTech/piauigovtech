@@ -74,37 +74,34 @@ export default function SubmeterIdeia() {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
+  // Evita 100vh no mobile: usa altura mínima mais suave e espaço inferior
+  const sectionClass = `relative bg-transparent ${!showForm ? 'min-h-[70vh] lg:min-h-screen' : ''}`
+
   return (
-    <section
-      className="relative min-h-screen bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: `url(${smartphone})` }}
-    >
+    <section className={sectionClass}>
+      {/* Local divider matching footer width */}
+      <div className="mx-auto max-w-7xl border-t border-white/10 px-6" />
       {/* Escurecimento geral da cena para legibilidade */}
       <div className="pointer-events-none absolute inset-0 -z-20 bg-[#06122b]/80" />
-      {/* Fade branco nas bordas superior/inferior + brilhos cinza sutis */}
-      <div
-        className="pointer-events-none absolute inset-0 -z-10"
-        style={{
-          backgroundImage:
-            "linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 6%, rgba(255,255,255,0) 94%, rgba(255,255,255,1) 100%), radial-gradient(60% 50% at 18% 25%, rgba(93,208,223,0.14), transparent), radial-gradient(55% 45% at 80% 28%, rgba(93,208,223,0.12), transparent), radial-gradient(60% 50% at 8% 12%, rgba(180,190,200,0.20), transparent), radial-gradient(55% 45% at 92% 18%, rgba(180,190,200,0.16), transparent)",
-        }}
-      />
+      {/* Subtle white glows to match hero */}
+      <div className="pointer-events-none absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl">
+        <div className="relative left-[calc(50%-14rem)] aspect-[1155/678] w-[38rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-white to-white opacity-10" />
+      </div>
 
-      <Container className="py-8 md:py-12">
+      <Container className="pt-8 md:pt-12 pb-12 md:pb-16">
         {/* Cabeçalho */}
         <div className="text-center text-white mb-12">
-          {/* <div className="text-xs font-semibold uppercase tracking-widest text-white/80">
-            Inovação Aberta
+          {/* <div className="text-sm font-semibold uppercase tracking-widest text-white/80">
+            Inovação
           </div> */}
           <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-5xl">
             Conexão para transformar o setor público
           </h1>
           <div className="mt-6 max-w-4xl mx-auto">
             <p className="text-lg text-white/90 mb-4">
-              Compartilhe sua solução — em qualquer fase (ideia, pesquisa,
+              Compartilhe sua solução em qualquer fase (ideia, pesquisa,
               piloto ou produto). A Piauí Gov Tech recebe e conecta você aos
-              atores certos — academia, startups, governo e laboratórios —
-              conforme a necessidade.
+              atores certos: academia, startups, governo e laboratórios.
             </p>
           </div>
         </div>
@@ -113,7 +110,7 @@ export default function SubmeterIdeia() {
         <div className="max-w-4xl mx-auto">
           {!showForm ? (
             /* Botão para mostrar formulário */
-            <div className="text-center">
+            <div className="text-center mb-10 md:mb-12">
               <div className="rounded-2xl border border-white/15 bg-white/5 p-8 md:p-12 text-white backdrop-blur">
                 <div className="flex flex-col items-center">
                   <IconIdeia className="size-16 text-brand-300 mb-6" />
@@ -121,13 +118,13 @@ export default function SubmeterIdeia() {
                     Proponha sua ideia
                   </h2>
                   <p className="text-white/80 mb-8 max-w-2xl">
-                    Clique no botão abaixo para enviar sua ideia de inovação.
+                    Sua contribuição pode gerar conexões e inspirar novas soluções.
                   </p>
                   <button
                     onClick={() => setShowForm(true)}
                     className="px-8 py-4 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2 focus:ring-offset-transparent transform hover:scale-105 cursor-pointer"
                   >
-                    Enviar ideia de inovaçao
+                    Enviar proposta
                   </button>
                 </div>
               </div>
@@ -320,18 +317,17 @@ export default function SubmeterIdeia() {
         </div>
 
         {/* Call to Action Final */}
-        <div className="text-center text-white mt-12 max-w-3xl mx-auto">
+        {/* <div className="text-center text-white mt-12 max-w-3xl mx-auto">
           <p className="text-lg font-medium mb-2">
             Sua ideia pode ser o próximo passo para inovarmos os serviços
             públicos!
           </p>
-          <p className="text-white/80">
-            Todas as submissões serão recebidas pela nossa equipe de inovação.
+          <p className="text-white/80 ">
             Compartilhe sua visão e faça parte da transformação do setor
             público. Juntos, vamos construir soluções melhores para a sociedade,
             unindo governo e comunidade em prol do bem comum.
           </p>
-        </div>
+        </div> */}
       </Container>
     </section>
   );
