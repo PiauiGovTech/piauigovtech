@@ -151,7 +151,7 @@ export default function Ecossistema() {
 
           {/* Coluna direita: hero visual */}
           <div className="relative mx-auto w-full max-full">
-            <div className="relative h-96 sm:h-[30rem] lg:h-[34rem]">
+            <div className="relative h-96 sm:h-[30rem] lg:h-[30rem]">
               {/* banner de fundo */}
               <img
                 src={banner}
