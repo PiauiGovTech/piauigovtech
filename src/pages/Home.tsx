@@ -1,12 +1,10 @@
 import { Link, useLocation, useNavigationType } from "react-router-dom";
 import { useEffect, useState } from "react";
-import hero from "../assets/img/hero.jpg";
 import imgHero1 from "../assets/img/imgHero1.avif";
 import imgHero2 from "../assets/img/imgHero2.avif";
 import imgHero3 from "../assets/img/imgHero3.avif";
 import imgHero4 from "../assets/img/imgHero4.avif";
-import imgHero5 from "../assets/img/imgHero5.avif";
-import imgHero6 from "../assets/img/imgHero6.jpeg";
+import imgHero5 from "../assets/img/imgHero5.jpeg";
 import group2 from "../assets/img/Group-2.png";
 import { scrollToSection } from "../utils/scrollToSection";
 import NoticiasSection from "./NoticiasSection";
@@ -255,7 +253,7 @@ export default function Home() {
                   <div className="relative">
                     <img
                       alt=""
-                      src={imgHero6}
+                      src={imgHero5}
                       loading="lazy"
                       decoding="async"
                       className="aspect-2/3 w-full rounded-xl bg-gray-700/5 object-cover object-[65%_center] shadow-lg"
