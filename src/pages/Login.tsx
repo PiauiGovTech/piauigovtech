@@ -3,6 +3,7 @@ import { supabase } from '../lib/supabaseClient'
 import Container from '../components/Container'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { toPtBrAuthMessage } from '../utils/ptBrAuthErrors'
+import { SITE_URL } from '../utils/siteUrl'
 
 export default function Login() {
   const navigate = useNavigate()
@@ -135,8 +136,7 @@ export default function Login() {
     const trimmed = email.trim()
     if (!trimmed) { setError('Informe seu e-mail para recuperar a senha.'); return }
     try {
-      const origin = window.location.origin
-      const { error } = await supabase.auth.resetPasswordForEmail(trimmed, { redirectTo: origin + '/reset-password' })
+      const { error } = await supabase.auth.resetPasswordForEmail(trimmed, { redirectTo: SITE_URL + '/reset-password' })
       if (error) throw error
       setInfo('Enviamos um e-mail com o link para redefinir sua senha.')
     } catch (err) {

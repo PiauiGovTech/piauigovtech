@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
 import { useNavigate } from 'react-router-dom'
 import { toPtBrAuthMessage } from '../utils/ptBrAuthErrors'
+import { SITE_URL } from '../utils/siteUrl'
 
 type Props = {
   open: boolean
@@ -108,8 +109,7 @@ export default function ChatLoginPopover({ open, onClose, onSuccess }: Props) {
     const trimmed = email.trim()
     if (!trimmed) { setError('Informe seu e-mail para recuperar a senha.'); return }
     try {
-      const origin = window.location.origin
-      const { error } = await supabase.auth.resetPasswordForEmail(trimmed, { redirectTo: origin + '/reset-password' })
+      const { error } = await supabase.auth.resetPasswordForEmail(trimmed, { redirectTo: SITE_URL + '/reset-password' })
       if (error) throw error
       setInfo('Enviamos um e-mail com o link para redefinir sua senha.')
     } catch (err) {

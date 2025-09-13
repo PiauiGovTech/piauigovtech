@@ -51,7 +51,7 @@ export default function ResetPassword() {
       const { error } = await supabase.auth.updateUser({ password })
       if (error) throw error
       setNotice('Senha atualizada com sucesso. Você já pode entrar com a nova senha.')
-      setTimeout(() => navigate('/login'), 1200)
+      setTimeout(() => navigate('/'), 1200);
     } catch (err) {
       setError(toPtBrAuthMessage(err))
     }
