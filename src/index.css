@@ -85,6 +85,10 @@ html { scroll-behavior: smooth; }
   border: none;
   padding: 0;
 }
+.markdown-content a {
+  color: var(--color-brand-300);
+  text-decoration: underline;
+}
 
 .quill-dark .ql-toolbar.ql-snow {
   background: color(from white srgb r g b / 0.08);
