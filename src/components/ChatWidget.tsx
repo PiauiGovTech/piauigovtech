@@ -42,7 +42,7 @@ export default function ChatWidget({ open, onClose }: Props) {
     }
   }, [open, messages.length])
 
-  const N8N_URL = (import.meta.env.VITE_N8N_WEBHOOK_URL as string) || 'https://n8n.srv799970.hstgr.cloud/webhook-test/piauigovtech'
+  const N8N_URL = (import.meta.env.VITE_N8N_WEBHOOK_URL as string) || 'https://n8n.srv799970.hstgr.cloud/webhook/piauigovtech'
 
   async function sendMessage(e: React.FormEvent) {
     e.preventDefault()
