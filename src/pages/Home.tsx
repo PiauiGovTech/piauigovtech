@@ -1,5 +1,5 @@
-import { Link, useLocation, useNavigationType } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useLocation, useNavigationType } from "react-router-dom";
+import { useEffect } from "react";
 import imgHero1 from "../assets/img/imgHero1.avif";
 import imgHero2 from "../assets/img/imgHero2.avif";
 import imgHero3 from "../assets/img/imgHero3.avif";
@@ -10,25 +10,15 @@ import { scrollToSection } from "../utils/scrollToSection";
 import NoticiasSection from "./NoticiasSection";
 import Ecossistema from "./Ecossistema";
 import ParaQuem from "./ParaQuem";
-import Projetos from "./Projetos";
 import Parceiros from "./Parceiros";
-import Logo from "../components/Logo";
-import NavLink from "../components/NavLink";
+ 
 
-function Stat({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="rounded-xl border border-gray-200 bg-white p-4 text-center shadow-sm">
-      <div className="text-2xl font-semibold text-gray-900">{value}</div>
-      <div className="mt-1 text-xs text-gray-500">{label}</div>
-    </div>
-  );
-}
 
 export default function Home() {
 
   const location = useLocation();
   const navigationType = useNavigationType();
-  const [menuOpen, setMenuOpen] = useState(false);
+  
 
   useEffect(() => {
     const hash = location.hash;
@@ -44,82 +34,7 @@ export default function Home() {
     <div className="relative">
       {/* Hero - layout novo com conteúdo antigo */}
       <div className="bg-[#0B1636]">
-        {/* Header do modelo com conteúdo antigo */}
-        <header className="absolute inset-x-0 top-0 z-50">
-          <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
-            <div className="flex lg:flex-1">
-              <Link to="/" className="-m-1.5 p-1.5">
-                <span className="sr-only">Piauí Gov Tech</span>
-                <div className="flex items-center gap-3 text-brand-400">
-                  <Logo className="h-8 w-auto" />
-                  <div className="leading-tight">
-                    <div className="text-lg font-bold text-white">
-                      piauí<span className="text-gray-300 font-light">gov</span>
-                      tech
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            </div>
-            <div className="flex lg:hidden">
-              <button
-                type="button"
-                onClick={() => setMenuOpen(true)}
-                className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-200"
-              >
-                <span className="sr-only">Open main menu</span>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
-                  <path fillRule="evenodd" d="M3.75 5.25a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5H3.75zm0 6a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5H3.75zm0 6a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5H3.75z"/>
-                </svg>
-              </button>
-            </div>
-            <div className="hidden lg:flex lg:gap-x-2">
-              <NavLink targetId="inicio">Início</NavLink>
-              <NavLink targetId="noticias" to="/noticias">Notícias</NavLink>
-              <NavLink targetId="quem-somos" to="/quemsomos">Quem somos</NavLink>
-              <NavLink targetId="ecossistema">Ecossistema</NavLink>
-            </div>
-          </nav>
-
-          {menuOpen && (
-            <div className="lg:hidden">
-              <div className="fixed inset-0 z-40 bg-black/40" onClick={() => setMenuOpen(false)} />
-              <div className="fixed inset-x-0 top-0 z-50 w-full max-h-[80vh] overflow-y-auto rounded-b-2xl border border-white/15 bg-white/10 backdrop-blur-md p-6 ring-1 ring-inset ring-white/10">
-                <div className="flex items-center justify-between">
-                  <Link to="/" className="-m-1.5 p-1.5" onClick={() => setMenuOpen(false)}>
-                    <span className="sr-only">Piauí Gov Tech</span>
-                    <div className="flex items-center gap-3 text-brand-400">
-                      <Logo className="h-8 w-auto" />
-                      <div className="leading-tight">
-                        <div className="text-lg font-bold text-white">
-                          piauí<span className="text-gray-300 font-light">gov</span>
-                          tech
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
-                  <button
-                    type="button"
-                    onClick={() => setMenuOpen(false)}
-                    className="-m-2.5 rounded-md p-2.5 text-gray-200"
-                  >
-                    <span className="sr-only">Close menu</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
-                      <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clipRule="evenodd" />
-                    </svg>
-                  </button>
-                </div>
-                <div className="mt-6 space-y-3">
-                  <NavLink className="flex w-full items-center rounded-xl px-4 py-3 bg-white/10 border border-white/15 text-white hover:bg-white/15" targetId="inicio" onNavigate={() => setMenuOpen(false)}>Início</NavLink>
-                  <NavLink className="flex w-full items-center rounded-xl px-4 py-3 bg-white/10 border border-white/15 text-white hover:bg-white/15" targetId="noticias" to="/noticias" onNavigate={() => setMenuOpen(false)}>Notícias</NavLink>
-                  <NavLink className="flex w-full items-center rounded-xl px-4 py-3 bg-white/10 border border-white/15 text-white hover:bg-white/15" targetId="quem-somos" to="/quemsomos" onNavigate={() => setMenuOpen(false)}>Quem somos</NavLink>
-                  <NavLink className="flex w-full items-center rounded-xl px-4 py-3 bg-white/10 border border-white/15 text-white hover:bg-white/15" targetId="ecossistema" onNavigate={() => setMenuOpen(false)}>Ecossistema</NavLink>
-                  <NavLink className="flex w-full items-center rounded-xl px-4 py-3 bg-white/10 border border-white/15 text-white hover:bg-white/15" targetId="para-quem" onNavigate={() => setMenuOpen(false)}>Para Quem</NavLink>
-                </div>
-              </div>
-            </div>
-          )}
-        </header>
+        
         <section id="inicio" className="relative isolate overflow-hidden pt-24 sm:pt-28 pb-12 lg:h-screen lg:flex lg:items-center">
           <div
             aria-hidden="true"
