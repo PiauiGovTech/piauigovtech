@@ -27,32 +27,32 @@ export default function Login() {
   }
 
   return (
-    <section className="py-16 md:py-24 bg-white min-h-[calc(100vh-200px)]">
+    <section className="py-16 md:py-24 bg-[#0B1636] min-h-[calc(100vh-200px)]">
       <Container>
         <div className="mx-auto max-w-md">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl text-center">Entrar</h2>
-          <form onSubmit={handleSubmit} className="mt-8 space-y-4">
+          <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl text-center">Entrar</h2>
+          <form onSubmit={handleSubmit} className="mt-8 space-y-4 rounded-xl border border-white/15 bg-white/10 backdrop-blur-md p-6 text-white shadow-sm">
             <div>
-              <label className="block text-sm font-medium text-gray-700">Email</label>
+              <label className="block text-sm font-medium text-white/90">Email</label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-600"
+                className="mt-1 w-full rounded-md border-0 bg-white/10 px-3 py-2 text-white placeholder:text-white/60 ring-1 ring-inset ring-white/20 focus:outline-none focus:ring-2 focus:ring-white/40"
                 required
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Senha</label>
+              <label className="block text-sm font-medium text-white/90">Senha</label>
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-600"
+                className="mt-1 w-full rounded-md border-0 bg-white/10 px-3 py-2 text-white placeholder:text-white/60 ring-1 ring-inset ring-white/20 focus:outline-none focus:ring-2 focus:ring-white/40"
                 required
               />
             </div>
-            {error && <p className="text-sm text-red-600">{error}</p>}
+            {error && <p className="text-sm text-red-400">{error}</p>}
             <button
               type="submit"
               disabled={loading}
@@ -66,5 +66,4 @@ export default function Login() {
     </section>
   )
 }
-
 

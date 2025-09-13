@@ -3,7 +3,7 @@ import Logo from './Logo'
 
 export default function AdminFooter() {
   return (
-    <footer className="bg-[#010720] text-white">
+    <footer className="bg-[#0B1636] text-white">
       <Container className="h-14 flex items-center justify-between text-sm">
         <div className="flex items-center gap-3">
           <Logo className="h-6 w-auto text-brand-400" />
@@ -14,5 +14,4 @@ export default function AdminFooter() {
     </footer>
   )
 }
-
 

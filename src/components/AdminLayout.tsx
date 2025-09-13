@@ -6,7 +6,7 @@ export default function AdminLayout() {
   return (
     <div className="min-h-dvh flex flex-col">
       <AdminHeader />
-      <main className="flex-1">
+      <main className="flex-1 bg-[#0B1636]">
         <Outlet />
       </main>
       <Footer />

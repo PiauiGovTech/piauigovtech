@@ -2,8 +2,8 @@ import { useEffect, useMemo, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import Container from '../components/Container'
 import ReactMarkdown from 'react-markdown'
+import rehypeRaw from 'rehype-raw'
 import remarkGfm from 'remark-gfm'
-import remarkBreaks from 'remark-breaks'
 import { supabase } from '../lib/supabaseClient'
 import Logo from '../components/Logo'
 import NavLink from '../components/NavLink'
@@ -25,11 +25,7 @@ export default function NoticiaDetalhe() {
 
   // Transforma sequências de múltiplos Enters em quebras visíveis adicionais.
   // Ex.: 2 Enters => 1 parágrafo + 1 linha extra; 5 Enters => 1 parágrafo + 4 linhas extras.
-  const preparedContent = useMemo(() => {
-    const raw = news?.content || ''
-    // Substitui grupos de 2+ "\n" por: "\n\n" + (N-1) linhas com ZWSP para gerar <br/> via remark-breaks
-    return raw.replace(/\n{2,}/g, (match) => "\n\n" + "\u200B\n".repeat(match.length - 1))
-  }, [news?.content])
+  const preparedContent = useMemo(() => news?.content || '', [news?.content])
 
   useEffect(() => {
     ;(async () => {
@@ -142,7 +138,7 @@ export default function NoticiaDetalhe() {
             <h1 className="mt-6 text-3xl font-bold text-white inline-block transition-colors duration-200">{news.title}</h1>
             <div className="mt-2 text-sm text-white/60">{new Date(news.created_at).toLocaleDateString('pt-BR')}</div>
             <div className="markdown-content mt-6 max-w-none text-white/90">
-              <ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]}>{preparedContent}</ReactMarkdown>
+              <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>{preparedContent}</ReactMarkdown>
             </div>
           </article>
         )}
