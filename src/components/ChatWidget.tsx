@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
 import SimboloPGT from '../assets/img/Símbolo.png'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
+import remarkBreaks from 'remark-breaks'
 
 type Message = {
   id: string
@@ -155,7 +158,15 @@ export default function ChatWidget({ open, onClose }: Props) {
         {messages.map((m) => (
           <div key={m.id} className={`flex ${m.author === 'eu' ? 'justify-end' : 'justify-start'}`}>
             <div className={`max-w-[80%] rounded-2xl px-3 py-2 text-sm shadow-sm ${m.author === 'eu' ? 'bg-brand-600 text-white rounded-br-sm' : 'bg-white/10 text-white rounded-bl-sm'} ${m.pending ? 'opacity-80 animate-pulse' : ''}`}>
-              {m.text}
+              {m.author === 'outro' && !m.pending ? (
+                <div className="markdown-content whitespace-pre-wrap">
+                  <ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]}>
+                    {m.text}
+                  </ReactMarkdown>
+                </div>
+              ) : (
+                <span className="whitespace-pre-wrap">{m.text}</span>
+              )}
               <div className="mt-1 text-[10px] opacity-70 text-right">
                 {new Date(m.ts).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
               </div>
