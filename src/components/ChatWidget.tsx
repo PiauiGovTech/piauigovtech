@@ -130,7 +130,7 @@ export default function ChatWidget({ open, onClose }: Props) {
         <div className="flex items-center gap-3 min-w-0">
           <img src={SimboloPGT} alt="Piauí GovTech" className="h-7 w-auto select-none" />
           <div className="truncate">
-            <div className="font-semibold leading-tight truncate">Agente de Inovação</div>
+            <div className="font-semibold leading-tight truncate">Mandú</div>
             {/* <div className="text-[11px] text-white/70 truncate">{userEmail || 'Conectado'}</div> */}
           </div>
         </div>
