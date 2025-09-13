@@ -1,5 +1,6 @@
 import { useLocation, useNavigationType } from "react-router-dom";
 import { useEffect } from "react";
+import { useState } from "react";
 import imgHero1 from "../assets/img/imgHero1.avif";
 import imgHero2 from "../assets/img/imgHero2.avif";
 import imgHero3 from "../assets/img/imgHero3.avif";
@@ -11,6 +12,9 @@ import NoticiasSection from "./NoticiasSection";
 import Ecossistema from "./Ecossistema";
 import ParaQuem from "./ParaQuem";
 import Parceiros from "./Parceiros";
+import ChatLoginPopover from "../components/ChatLoginPopover";
+import ChatWidget from "../components/ChatWidget";
+import { supabase } from "../lib/supabaseClient";
  
 
 
@@ -18,6 +22,9 @@ export default function Home() {
 
   const location = useLocation();
   const navigationType = useNavigationType();
+  const [showLogin, setShowLogin] = useState(false);
+  const [popoverOpen, setPopoverOpen] = useState(false);
+  const [showChat, setShowChat] = useState(false);
   
 
   useEffect(() => {
@@ -29,6 +36,15 @@ export default function Home() {
     // timeout to ensure sections are rendered
     setTimeout(() => scrollToSection(id), 0);
   }, [location.hash, navigationType]);
+
+  useEffect(() => {
+    if (showLogin) {
+      const t = setTimeout(() => setPopoverOpen(true), 10);
+      return () => clearTimeout(t);
+    } else {
+      setPopoverOpen(false);
+    }
+  }, [showLogin]);
 
   return (
     <div className="relative">
@@ -220,6 +236,46 @@ export default function Home() {
       {/* <div id="projetos">
         <Projetos />
       </div> */}
+
+      {/* Botão flutuante de acesso ao chat */}
+      {!showLogin && !showChat && (
+        <button
+          type="button"
+          onClick={async () => {
+            try {
+              const { data } = await supabase.auth.getSession();
+              if (data.session) {
+                setShowChat(true);
+                return;
+              }
+            } catch {}
+            setShowLogin(true)
+          }}
+          aria-label="Abrir chat"
+          className="fixed bottom-6 right-6 z-50 inline-flex items-center justify-center h-14 w-14 rounded-full bg-brand-600 text-white shadow-lg shadow-black/30 hover:bg-brand-700 focus:outline-none focus:ring-4 focus:ring-white/20 cursor-pointer"
+        >
+          {/* Ícone de balão de chat */}
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-7 w-7">
+            <path fillRule="evenodd" d="M4.5 5.25A2.25 2.25 0 016.75 3h10.5A2.25 2.25 0 0119.5 5.25v8.25A2.25 2.25 0 0117.25 15.75H9.31l-3.23 2.585A1.125 1.125 0 014.5 17.4V5.25zm3 3a.75.75 0 100 1.5h9a.75.75 0 000-1.5h-9zm0 3a.75.75 0 100 1.5h6a.75.75 0 000-1.5h-6z"/>
+          </svg>
+        </button>
+      )}
+
+      {showLogin && (
+        <ChatLoginPopover
+          open={popoverOpen}
+          onClose={() => {
+            setPopoverOpen(false)
+            setTimeout(() => setShowLogin(false), 200)
+          }}
+          onSuccess={() => {
+            setShowChat(true)
+          }}
+        />
+      )}
+
+      {/* Widget de chat flutuante */}
+      <ChatWidget open={showChat} onClose={() => setShowChat(false)} />
     </div>
   );
 }

@@ -13,8 +13,11 @@ import ParaQuem from './pages/ParaQuem'
 import Login from './pages/Login'
 import Admin from './pages/Admin'
 import RequireAuth from './components/RequireAuth'
+import RequireAdmin from './components/RequireAdmin'
 import NoticiaDetalhe from './pages/NoticiaDetalhe'
 import NoticiasPage from './pages/NoticiasPage'
+import ResetPassword from './pages/ResetPassword'
+import Chat from './pages/Chat'
 
 const router = createBrowserRouter([
   {
@@ -29,7 +32,9 @@ const router = createBrowserRouter([
       { path: 'projetos', element: <Projetos /> },
       { path: 'contato', element: <Contato /> },
       { path: 'login', element: <Login /> },
-      { path: 'admin', element: <RequireAuth />, children: [
+      { path: 'reset-password', element: <ResetPassword /> },
+      { path: 'chat', element: <Chat /> },
+      { path: 'admin', element: <RequireAdmin />, children: [
         { index: true, element: <Admin /> },
       ] },
       { path: 'noticias/:id', element: <NoticiaDetalhe /> },

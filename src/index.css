@@ -195,3 +195,25 @@ html { scroll-behavior: smooth; }
   border: 1px solid rgba(255,255,255,0.15);
   box-shadow: 0 2px 8px rgba(0,0,0,0.35);
 }
+
+/* Corrige fundo branco em campos com preenchimento automático (autofill) no tema escuro */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-text-fill-color: #fff;
+  caret-color: #fff;
+  /* Repinta o fundo para combinar com bg-white/10 */
+  -webkit-box-shadow: 0 0 0px 1000px color(from white srgb r g b / 0.10) inset;
+  box-shadow: 0 0 0px 1000px color(from white srgb r g b / 0.10) inset;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+/* Firefox */
+input:-moz-autofill,
+textarea:-moz-autofill,
+select:-moz-autofill {
+  box-shadow: 0 0 0px 1000px color(from white srgb r g b / 0.10) inset;
+  -moz-text-fill-color: #fff;
+}
