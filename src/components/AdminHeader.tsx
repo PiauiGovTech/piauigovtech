@@ -1,10 +1,12 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import Container from "./Container";
 import Logo from "./Logo";
 import { supabase } from "../lib/supabaseClient";
 
 export default function AdminHeader() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const isLogin = location.pathname.startsWith('/login');
 
   async function handleSignOut() {
     try {
@@ -14,7 +16,7 @@ export default function AdminHeader() {
   }
 
   return (
-    <header className="w-full bg-[#010720]">
+    <header className="w-full bg-[#0B1636]">
       <Container className="flex h-16 items-center justify-between">
         <Link to="/" className="shrink-0">
           <div className="flex items-center gap-3 text-brand-400">
@@ -27,15 +29,15 @@ export default function AdminHeader() {
             </div>
           </div>
         </Link>
-        <button
-          onClick={handleSignOut}
-          className="inline-flex items-center rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-white/10 hover:text-brand-300 text-white/80 cursor-pointer"
-        >
-          Sair
-        </button>
+        {!isLogin && (
+          <button
+            onClick={handleSignOut}
+            className="inline-flex items-center rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-white/10 hover:text-brand-300 text-white/80 cursor-pointer"
+          >
+            Sair
+          </button>
+        )}
       </Container>
     </header>
   );
 }
-
-

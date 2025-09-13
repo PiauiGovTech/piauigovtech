@@ -40,7 +40,7 @@ export default function App() {
   }, [])
   return (
     <div className="min-h-dvh flex flex-col bg-[#0B1636]">
-      {location.pathname.startsWith('/admin') ? (
+      {(location.pathname.startsWith('/admin') || location.pathname.startsWith('/login')) ? (
         <AdminHeader />
       ) : (location.pathname === '/' || location.pathname.startsWith('/noticias') || location.pathname.startsWith('/quemsomos')) ? null : (
         <Header />

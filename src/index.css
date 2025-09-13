@@ -22,14 +22,112 @@
 /* Comportamento de scroll suave */
 html { scroll-behavior: smooth; }
 
-/* Estilo de conteúdo de notícias (ReactMarkdown)
-   - Mantém espaçamento visível entre parágrafos
-   - Duas quebras de linha no texto viram um parágrafo novo, que recebe margem
-*/
-.markdown-content p {
-  margin-top: 1.5rem;   /* 24px */
-  margin-bottom: 1.5rem;/* 24px */
+/* Estilo padrão para conteúdo de notícias */
+.markdown-content blockquote {
+  margin: 1rem 0;
+  padding-left: 1rem;
+  border-left: 4px solid rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.9);
+}
+.markdown-content blockquote p { margin: 0; }
+
+.markdown-content pre {
+  margin: 1rem 0;
+  padding: 0.75rem 1rem;
+  background: color(from white srgb r g b / 0.08);
+  border: 1px solid color(from white srgb r g b / 0.15);
+  border-radius: 0.5rem;
+  color: #fff;
+  overflow: auto;
+  line-height: 1.5;
+}
+.markdown-content code {
+  background: color(from white srgb r g b / 0.08);
+  border: 1px solid color(from white srgb r g b / 0.15);
+  border-radius: 0.25rem;
+  padding: 0.1rem 0.35rem;
+  color: #fff;
+}
+.markdown-content pre code {
+  background: transparent;
+  border: none;
+  padding: 0;
 }
 
-/* Se quiser mais espaço quando houver linha em branco entre parágrafos,
-   aumente os valores acima (ex.: 2rem = 32px). */
+.quill-dark .ql-toolbar.ql-snow {
+  background: color(from white srgb r g b / 0.08);
+  border: 1px solid color(from white srgb r g b / 0.15);
+  color: white;
+}
+.quill-dark .ql-toolbar.ql-snow .ql-formats { margin-right: 6px; }
+.quill-dark .ql-toolbar.ql-snow .ql-formats:last-child { margin-right: 0; }
+
+/* Tamanho e alinhamento uniformes dos controles do toolbar */
+.quill-dark .ql-toolbar.ql-snow .ql-formats button,
+.quill-dark .ql-toolbar.ql-snow .ql-formats .ql-picker {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+}
+.quill-dark .ql-toolbar.ql-snow .ql-formats button svg,
+.quill-dark .ql-toolbar.ql-snow .ql-formats .ql-picker-label svg {
+  width: 18px;
+  height: 18px;
+}
+.quill-dark .ql-toolbar.ql-snow .ql-picker-label { padding: 0; line-height: 1; display: inline-flex; align-items: center; justify-content: center; }
+.quill-dark .ql-container.ql-snow {
+  background: color(from white srgb r g b / 0.05);
+  border-left: 1px solid color(from white srgb r g b / 0.15);
+  border-right: 1px solid color(from white srgb r g b / 0.15);
+  border-bottom: 1px solid color(from white srgb r g b / 0.15);
+}
+.quill-dark .ql-editor {
+  color: white;
+}
+.quill-dark .ql-editor.ql-blank::before {
+  color: rgba(255, 255, 255, 0.6);
+}
+.quill-dark .ql-snow .ql-stroke {
+  stroke: rgba(255, 255, 255, 0.9);
+}
+.quill-dark .ql-snow .ql-fill,
+.quill-dark .ql-snow .ql-stroke.ql-fill {
+  fill: rgba(255, 255, 255, 0.9);
+}
+.quill-dark .ql-snow .ql-picker {
+  color: rgba(255, 255, 255, 0.9);
+}
+.quill-dark .ql-snow .ql-picker-options {
+  background: #0B1636;
+  border-color: rgba(255, 255, 255, 0.15);
+  z-index: 50; /* fica acima do contêiner */
+}
+.quill-dark .ql-snow .ql-color .ql-picker-item,
+.quill-dark .ql-snow .ql-background .ql-picker-item {
+  border-radius: 2px;
+}
+.quill-dark .ql-snow .ql-picker.ql-color .ql-picker-label svg,
+.quill-dark .ql-snow .ql-picker.ql-background .ql-picker-label svg {
+  filter: drop-shadow(0 0 1px rgba(0,0,0,0.3));
+}
+.quill-dark, .quill-dark .ql-toolbar, .quill-dark .ql-container { overflow: visible; }
+.quill-dark .ql-toolbar.ql-snow { position: relative; z-index: 10; }
+.quill-dark .ql-picker { position: relative; }
+.quill-dark .ql-snow .ql-picker.ql-color .ql-picker-options,
+.quill-dark .ql-snow .ql-picker.ql-background .ql-picker-options { min-width: 160px; }
+.quill-dark .ql-snow .ql-picker .ql-picker-label:hover,
+.quill-dark .ql-snow .ql-picker .ql-picker-item:hover,
+.quill-dark .ql-snow .ql-toolbar button:hover .ql-stroke {
+  color: white;
+  stroke: white;
+}
+.quill-dark .ql-snow .ql-tooltip {
+  background: #0B1636;
+  color: white;
+  border: 1px solid rgba(255,255,255,0.15);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+}
