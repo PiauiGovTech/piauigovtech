@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
+import SimboloPGT from '../assets/img/Símbolo.png'
 
 type Message = {
   id: string
   author: 'eu' | 'outro'
   text: string
   ts: number
+  pending?: boolean
 }
 
 type Props = {
@@ -40,19 +42,71 @@ export default function ChatWidget({ open, onClose }: Props) {
     }
   }, [open, messages.length])
 
-  function sendMessage(e: React.FormEvent) {
+  const N8N_URL = (import.meta.env.VITE_N8N_WEBHOOK_URL as string) || 'https://n8n.srv799970.hstgr.cloud/webhook-test/piauigovtech'
+
+  async function sendMessage(e: React.FormEvent) {
     e.preventDefault()
     const content = text.trim()
     if (!content) return
     const myMsg: Message = { id: crypto.randomUUID(), author: 'eu', text: content, ts: Date.now() }
-    setMessages((prev) => [...prev, myMsg])
+    const typingId = crypto.randomUUID()
+    setMessages((prev) => [
+      ...prev,
+      myMsg,
+      { id: typingId, author: 'outro', text: 'Digitando…', ts: Date.now(), pending: true },
+    ])
     setText('')
-    setTimeout(() => {
+    try {
+      const controller = new AbortController()
+      const timeout = setTimeout(() => controller.abort(), 20000)
+      const body = {
+        // O fluxo do n8n espera a chave "messagem"
+        messagem: content,
+        // Mantemos também "message" por compatibilidade futura
+        message: content,
+        email: userEmail || null,
+        source: 'pgt-chat-widget',
+        timestamp: new Date().toISOString(),
+      }
+      const res = await fetch(N8N_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+        signal: controller.signal,
+      })
+      clearTimeout(timeout)
+
+      let replyText = ''
+      try {
+        const raw = await res.clone().json()
+        const data = Array.isArray(raw) ? (raw[0]?.json ?? raw[0] ?? {}) : raw
+        replyText = data?.reply || data?.output || data?.message || data?.text || data?.answer || ''
+        if (!replyText) replyText = JSON.stringify(data)
+      } catch (_) {
+        try {
+          replyText = await res.text()
+        } catch {
+          replyText = ''
+        }
+      }
+      if (!res.ok) {
+        replyText = replyText || 'Desculpe, houve um erro ao obter a resposta.'
+      }
+
+      const finalText = (replyText || '').toString().trim() || 'Tudo certo! Como posso ajudar você?'
       setMessages((prev) => [
-        ...prev,
-        { id: crypto.randomUUID(), author: 'outro', text: 'Recebi sua mensagem: ' + content, ts: Date.now() },
+        ...prev.filter((m) => m.id !== typingId),
+        { id: crypto.randomUUID(), author: 'outro', text: finalText, ts: Date.now() },
       ])
-    }, 600)
+    } catch (err: any) {
+      const msg = err?.name === 'AbortError'
+        ? 'Tempo de resposta excedido. Tente novamente.'
+        : 'Não consegui responder agora. Pode tentar outra vez?'
+      setMessages((prev) => [
+        ...prev.filter((m) => m.id !== typingId),
+        { id: crypto.randomUUID(), author: 'outro', text: msg, ts: Date.now() },
+      ])
+    }
   }
 
   async function handleSignOut() { await supabase.auth.signOut(); onClose() }
@@ -69,12 +123,12 @@ export default function ChatWidget({ open, onClose }: Props) {
         'flex flex-col',
       ].join(' ')}
     >
-      <header className="p-3 border-b border-white/10 bg-white/5 flex items-center justify-between shrink-0">
+      <header className="p-3 border-b border-white/10 bg-white/10 backdrop-blur-md flex items-center justify-between shrink-0">
         <div className="flex items-center gap-3 min-w-0">
-          <div className="h-8 w-8 rounded-full bg-brand-600 flex items-center justify-center text-white font-semibold">C</div>
+          <img src={SimboloPGT} alt="Piauí GovTech" className="h-7 w-auto select-none" />
           <div className="truncate">
-            <div className="font-semibold leading-tight truncate">Nome do Agente</div>
-            <div className="text-[11px] text-white/70 truncate">{userEmail || 'Conectado'}</div>
+            <div className="font-semibold leading-tight truncate">Agente de Inovação</div>
+            {/* <div className="text-[11px] text-white/70 truncate">{userEmail || 'Conectado'}</div> */}
           </div>
         </div>
         <div className="flex items-center gap-1.5">
@@ -97,10 +151,10 @@ export default function ChatWidget({ open, onClose }: Props) {
           </button>
         </div>
       </header>
-      <div ref={listRef} className="flex-1 min-h-0 overflow-y-auto p-3 space-y-2">
+      <div ref={listRef} className="flex-1 min-h-0 overflow-y-auto p-3 space-y-2 scrollbar-glass">
         {messages.map((m) => (
           <div key={m.id} className={`flex ${m.author === 'eu' ? 'justify-end' : 'justify-start'}`}>
-            <div className={`max-w-[80%] rounded-2xl px-3 py-2 text-sm shadow-sm ${m.author === 'eu' ? 'bg-brand-600 text-white rounded-br-sm' : 'bg-white/10 text-white rounded-bl-sm'}`}>
+            <div className={`max-w-[80%] rounded-2xl px-3 py-2 text-sm shadow-sm ${m.author === 'eu' ? 'bg-brand-600 text-white rounded-br-sm' : 'bg-white/10 text-white rounded-bl-sm'} ${m.pending ? 'opacity-80 animate-pulse' : ''}`}>
               {m.text}
               <div className="mt-1 text-[10px] opacity-70 text-right">
                 {new Date(m.ts).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
@@ -111,7 +165,7 @@ export default function ChatWidget({ open, onClose }: Props) {
       </div>
       <form
         onSubmit={sendMessage}
-        className="px-5 pt-3 pb-5 border-t border-white/10 bg-white/5 shrink-0"
+        className="px-5 pt-3 pb-5 border-t border-white/10 bg-white/10 backdrop-blur-md shrink-0"
         style={{ paddingBottom: 'calc(max(0px, env(safe-area-inset-bottom)) + 8px)' }}
       >
         <div className="flex items-stretch gap-4">
@@ -125,7 +179,7 @@ export default function ChatWidget({ open, onClose }: Props) {
             type="submit"
             disabled={!text.trim()}
             aria-label="Enviar"
-            className="rounded-full h-10 w-10 flex items-center justify-center bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
+            className="rounded-full h-10 w-10 flex items-center justify-center bg-white/10 border border-white/15 text-white hover:bg-white/15 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
               <path d="M12 19V5" />
