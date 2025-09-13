@@ -25,6 +25,7 @@ export default function Home() {
   const [showLogin, setShowLogin] = useState(false);
   const [popoverOpen, setPopoverOpen] = useState(false);
   const [showChat, setShowChat] = useState(false);
+  const [canShowChatButton, setCanShowChatButton] = useState(false);
   
 
   useEffect(() => {
@@ -45,6 +46,20 @@ export default function Home() {
       setPopoverOpen(false);
     }
   }, [showLogin]);
+
+  // Mostra o botão apenas no domínio permitido
+  useEffect(() => {
+    try {
+      const allowed = (import.meta.env.VITE_CHAT_BUTTON_ORIGIN as string) || 'https://piauigovtech-kkk.vercel.app';
+      const norm = (u: string) => (u || '').replace(/\/$/, '');
+      const current = norm(window.location.origin);
+      const host = window.location.hostname;
+      const isLocal = host === 'localhost' || host === '127.0.0.1' || host === '0.0.0.0' || host === '::1';
+      setCanShowChatButton(isLocal || current === norm(allowed));
+    } catch {
+      setCanShowChatButton(false);
+    }
+  }, []);
 
   return (
     <div className="relative">
@@ -238,7 +253,7 @@ export default function Home() {
       </div> */}
 
       {/* Botão flutuante de acesso ao chat + tooltip */}
-      {!showLogin && !showChat && (
+      {canShowChatButton && !showLogin && !showChat && (
         <button
           type="button"
           onClick={async () => {
