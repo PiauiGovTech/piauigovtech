@@ -25,6 +25,7 @@ export default function Home() {
   const [showLogin, setShowLogin] = useState(false);
   const [popoverOpen, setPopoverOpen] = useState(false);
   const [showChat, setShowChat] = useState(false);
+  const [canShowChatButton, setCanShowChatButton] = useState(false);
   
 
   useEffect(() => {
@@ -45,6 +46,20 @@ export default function Home() {
       setPopoverOpen(false);
     }
   }, [showLogin]);
+
+  // Mostra o botão apenas no domínio permitido
+  useEffect(() => {
+    try {
+      const allowed = (import.meta.env.VITE_CHAT_BUTTON_ORIGIN as string) || 'https://piauigovtech-kkk.vercel.app';
+      const norm = (u: string) => (u || '').replace(/\/$/, '');
+      const current = norm(window.location.origin);
+      const host = window.location.hostname;
+      const isLocal = host === 'localhost' || host === '127.0.0.1' || host === '0.0.0.0' || host === '::1';
+      setCanShowChatButton(isLocal || current === norm(allowed));
+    } catch {
+      setCanShowChatButton(false);
+    }
+  }, []);
 
   return (
     <div className="relative">
@@ -237,8 +252,8 @@ export default function Home() {
         <Projetos />
       </div> */}
 
-      {/* Botão flutuante de acesso ao chat */}
-      {!showLogin && !showChat && (
+      {/* Botão flutuante de acesso ao chat + tooltip */}
+      {canShowChatButton && !showLogin && !showChat && (
         <button
           type="button"
           onClick={async () => {
@@ -252,7 +267,7 @@ export default function Home() {
             setShowLogin(true)
           }}
           aria-label="Abrir chat"
-          className="fixed bottom-6 right-6 z-50 inline-flex items-center justify-center h-14 w-14 rounded-full bg-brand-600 text-white shadow-lg shadow-black/30 hover:bg-brand-700 focus:outline-none focus:ring-4 focus:ring-white/20 cursor-pointer"
+          className="fixed bottom-6 right-6 z-50 inline-flex items-center justify-center h-14 w-14 rounded-full bg-white/10 text-white border border-white/15 backdrop-blur-md shadow-lg shadow-black/30 hover:bg-white/15 focus:outline-none focus:ring-4 focus:ring-white/20 cursor-pointer"
         >
           {/* Ícone de balão de chat */}
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-7 w-7">

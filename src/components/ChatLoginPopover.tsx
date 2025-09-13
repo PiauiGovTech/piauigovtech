@@ -121,7 +121,10 @@ export default function ChatLoginPopover({ open, onClose, onSuccess }: Props) {
     <div
       ref={ref}
       className={[
-        'fixed bottom-6 right-6 z-50 w-[88vw] max-w-[320px] rounded-xl border border-white/15 bg-white/10 backdrop-blur-3xl text-white shadow-xl ring-1 ring-inset ring-white/10',
+        // Mobile centralizado; em >= sm volta para o canto
+        'fixed bottom-4 left-1/2 -translate-x-1/2 sm:bottom-6 sm:left-auto sm:right-6 sm:translate-x-0 z-50',
+        'w-[94vw] max-w-[360px] sm:w-[88vw] sm:max-w-[320px]',
+        'rounded-xl border border-white/15 bg-white/10 backdrop-blur-3xl text-white shadow-xl ring-1 ring-inset ring-white/10',
         'origin-bottom-right transition-all duration-200 ease-out',
         open ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-2 scale-95 pointer-events-none',
       ].join(' ')}
