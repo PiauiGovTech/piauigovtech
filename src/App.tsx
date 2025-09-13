@@ -1,6 +1,6 @@
 import { Outlet, useLocation } from 'react-router-dom'
-import Header from './components/Header'
 import AdminHeader from './components/AdminHeader'
+import SiteHeader from './components/SiteHeader'
 import Footer from './components/Footer'
 import AdminFooter from './components/AdminFooter'
 import { useEffect } from 'react'
@@ -42,8 +42,8 @@ export default function App() {
     <div className="min-h-dvh flex flex-col bg-[#0B1636]">
       {(location.pathname.startsWith('/admin') || location.pathname.startsWith('/login')) ? (
         <AdminHeader />
-      ) : (location.pathname === '/' || location.pathname.startsWith('/noticias') || location.pathname.startsWith('/quemsomos')) ? null : (
-        <Header />
+      ) : (
+        <SiteHeader />
       )}
       <main className="flex-1 bg-[#0B1636]">
         <Outlet />

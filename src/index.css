@@ -23,6 +23,38 @@
 html { scroll-behavior: smooth; }
 
 /* Estilo padrão para conteúdo de notícias */
+.markdown-content h1 {
+  font-size: 2rem; /* 32px */
+  line-height: 1.2;
+  font-weight: 700;
+  margin: 1rem 0 0.75rem;
+}
+.markdown-content h2 {
+  font-size: 1.5rem; /* 24px */
+  line-height: 1.3;
+  font-weight: 700;
+  margin: 1rem 0 0.5rem;
+}
+.markdown-content h3 {
+  font-size: 1.25rem; /* 20px */
+  line-height: 1.4;
+  font-weight: 600;
+  margin: 0.75rem 0 0.5rem;
+}
+
+/* Listas (Tailwind preflight zera estilos padrão; reabilitamos aqui) */
+.markdown-content ul {
+  list-style: disc;
+  margin: 0.75rem 0 0.75rem 1.25rem;
+  padding-left: 1.25rem;
+}
+.markdown-content ol {
+  list-style: decimal;
+  margin: 0.75rem 0 0.75rem 1.25rem;
+  padding-left: 1.25rem;
+}
+.markdown-content li { margin: 0.25rem 0; }
+.markdown-content li::marker { color: rgba(255, 255, 255, 0.9); }
 .markdown-content blockquote {
   margin: 1rem 0;
   padding-left: 1rem;
@@ -59,7 +91,7 @@ html { scroll-behavior: smooth; }
   border: 1px solid color(from white srgb r g b / 0.15);
   color: white;
 }
-.quill-dark .ql-toolbar.ql-snow .ql-formats { margin-right: 6px; }
+.quill-dark .ql-toolbar.ql-snow .ql-formats { margin-right: 4px; }
 .quill-dark .ql-toolbar.ql-snow .ql-formats:last-child { margin-right: 0; }
 
 /* Tamanho e alinhamento uniformes dos controles do toolbar */
@@ -73,6 +105,38 @@ html { scroll-behavior: smooth; }
   justify-content: center;
   vertical-align: middle;
 }
+.quill-dark .ql-toolbar.ql-snow .ql-formats .ql-picker.ql-size,
+.quill-dark .ql-toolbar.ql-snow .ql-formats .ql-picker.ql-font {
+  width: 32px; /* mantém padrão e evita sobreposição */
+}
+
+/* Ícones consistentes para Size/Font no label (evita textos longos como "Sans Serif") */
+.quill-dark .ql-toolbar.ql-snow .ql-picker.ql-size .ql-picker-label::before {
+  content: 'A';
+  font-size: 16px;
+  line-height: 1;
+}
+.quill-dark .ql-toolbar.ql-snow .ql-picker.ql-font .ql-picker-label::before {
+  content: 'Ff';
+  font-size: 14px;
+  line-height: 1;
+  letter-spacing: -0.5px;
+}
+
+/* Rótulos das opções no dropdown (Size) */
+.quill-dark .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="12px"]::before { content: '12'; }
+.quill-dark .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="14px"]::before { content: '14'; }
+.quill-dark .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="16px"]::before { content: '16'; }
+.quill-dark .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="18px"]::before { content: '18'; }
+.quill-dark .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="20px"]::before { content: '20'; }
+.quill-dark .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="24px"]::before { content: '24'; }
+
+/* Rótulos das opções no dropdown (Font) */
+.quill-dark .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="sans-serif"]::before { content: 'Sans'; font-family: sans-serif; }
+.quill-dark .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="serif"]::before { content: 'Serif'; font-family: serif; }
+.quill-dark .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="monospace"]::before { content: 'Mono'; font-family: monospace; }
+.quill-dark .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="Arial"]::before { content: 'Arial'; font-family: Arial, sans-serif; }
+.quill-dark .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="Times New Roman"]::before { content: 'Times'; font-family: 'Times New Roman', serif; }
 .quill-dark .ql-toolbar.ql-snow .ql-formats button svg,
 .quill-dark .ql-toolbar.ql-snow .ql-formats .ql-picker-label svg {
   width: 18px;

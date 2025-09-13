@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, useMemo } from 'react'
 import Container from '../components/Container'
 import { supabase } from '../lib/supabaseClient'
-import ReactQuill from 'react-quill'
+import ReactQuill, { Quill } from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
@@ -34,6 +34,23 @@ export default function Admin() {
   const [confirmId, setConfirmId] = useState<string | null>(null)
   const [confirming, setConfirming] = useState(false)
   const [previewOpen, setPreviewOpen] = useState(false)
+
+  // Quill attributors: usar estilos para preservar colagens (font, size, color, background, align)
+  // Registra uma vez por execução
+  try {
+    const Size = (Quill as any).import('attributors/style/size')
+    Size.whitelist = ['12px','14px','16px','18px','20px','24px']
+    ;(Quill as any).register(Size, true)
+    const Font = (Quill as any).import('attributors/style/font')
+    Font.whitelist = ['sans-serif','serif','monospace','Arial','Times New Roman']
+    ;(Quill as any).register(Font, true)
+    const Align = (Quill as any).import('attributors/style/align')
+    ;(Quill as any).register(Align, true)
+    const Color = (Quill as any).import('attributors/style/color')
+    ;(Quill as any).register(Color, true)
+    const Background = (Quill as any).import('attributors/style/background')
+    ;(Quill as any).register(Background, true)
+  } catch {}
 
   const preparedPreviewContent = useMemo(() => content || '', [content])
 
@@ -222,6 +239,10 @@ export default function Admin() {
                   <button className="ql-strike" title="Tachado" />
                 </span>
                 <span className="ql-formats">
+                  <select className="ql-size" title="Tamanho do texto" />
+                  <select className="ql-font" title="Fonte" />
+                </span>
+                <span className="ql-formats">
                   <select className="ql-color" title="Cor do texto" />
                   <select className="ql-background" title="Cor de fundo do texto" />
                 </span>
@@ -254,7 +275,7 @@ export default function Admin() {
                 modules={useMemo(() => ({
                   toolbar: { container: '#admin-editor-toolbar' },
                 }), [])}
-                formats={['bold','italic','underline','strike','color','background','list','bullet','align','link','blockquote','code-block']}
+                formats={['bold','italic','underline','strike','size','font','color','background','list','bullet','align','link','blockquote','code-block']}
               />
             </div>
           </div>
