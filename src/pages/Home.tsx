@@ -237,7 +237,7 @@ export default function Home() {
         <Projetos />
       </div> */}
 
-      {/* Botão flutuante de acesso ao chat */}
+      {/* Botão flutuante de acesso ao chat + tooltip */}
       {!showLogin && !showChat && (
         <button
           type="button"
@@ -252,7 +252,7 @@ export default function Home() {
             setShowLogin(true)
           }}
           aria-label="Abrir chat"
-          className="fixed bottom-6 right-6 z-50 inline-flex items-center justify-center h-14 w-14 rounded-full bg-brand-600 text-white shadow-lg shadow-black/30 hover:bg-brand-700 focus:outline-none focus:ring-4 focus:ring-white/20 cursor-pointer"
+          className="fixed bottom-6 right-6 z-50 inline-flex items-center justify-center h-14 w-14 rounded-full bg-white/10 text-white border border-white/15 backdrop-blur-md shadow-lg shadow-black/30 hover:bg-white/15 focus:outline-none focus:ring-4 focus:ring-white/20 cursor-pointer"
         >
           {/* Ícone de balão de chat */}
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-7 w-7">
