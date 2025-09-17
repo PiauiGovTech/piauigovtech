@@ -1,11 +1,8 @@
 import { useLocation, useNavigationType } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
-import imgHero1 from "../assets/img/imgHero1.avif";
-import imgHero2 from "../assets/img/imgHero2.avif";
-import imgHero3 from "../assets/img/imgHero3.avif";
-import imgHero4 from "../assets/img/imgHero4.avif";
-import imgHero5 from "../assets/img/imgHero5.jpeg";
+import videoHeroSection from "../assets/video/videoherosection.mp4";
+import heroPoster from "../assets/img/hero.jpg";
 import group2 from "../assets/img/Group-2.png";
 import { scrollToSection } from "../utils/scrollToSection";
 import NoticiasSection from "./NoticiasSection";
@@ -101,111 +98,23 @@ export default function Home() {
                   desenvolvimento tecnológico e inovação para o setor público.
                 </p>
               </div>
-              {/* Imagens à direita - mobile (4 fotos em diagonal) */}
-              <div className="mt-8 flex justify-evenly sm:hidden">
-                <div className="w-36 space-y-4">
-                  <div className="relative">
-                    <img
-                      alt=""
-                      src={imgHero1}
-                      loading="lazy"
-                      decoding="async"
-                      className="aspect-2/3 w-full rounded-xl bg-gray-700/5 object-cover shadow-lg"
-                    />
-                    <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-white/10 ring-inset" />
-                  </div>
-                  <div className="relative">
-                    <img
-                      alt=""
-                      src={imgHero3}
-                      loading="lazy"
-                      decoding="async"
-                      className="aspect-2/3 w-full rounded-xl bg-gray-700/5 object-cover shadow-lg"
-                    />
-                    <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-white/10 ring-inset" />
-                  </div>
-                </div>
-                <div className="w-36 space-y-4 pt-8">
-                  <div className="relative">
-                    <img
-                      alt=""
-                      src={imgHero2}
-                      loading="lazy"
-                      decoding="async"
-                      className="aspect-2/3 w-full rounded-xl bg-gray-700/5 object-cover shadow-lg"
-                    />
-                    <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-white/10 ring-inset" />
-                  </div>
-                  <div className="relative">
-                    <img
-                      alt=""
-                      src={imgHero4}
-                      loading="lazy"
-                      decoding="async"
-                      className="aspect-2/3 w-full rounded-xl bg-gray-700/5 object-cover shadow-lg"
-                    />
-                    <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-white/10 ring-inset" />
-                  </div>
-                </div>
-              </div>
-
-              {/* Imagens à direita - tablets/desktop (layout completo) */}
-              <div className="mt-8 hidden sm:flex justify-center gap-8 sm:gap-10 sm:mt-12 lg:justify-start lg:gap-14 lg:mt-0">
-                <div className="ml-auto w-28 sm:w-32 lg:w-36 flex-none space-y-8 sm:space-y-10 pt-2 sm:pt-10 lg:order-last lg:pt-24 xl:order-0 xl:pt-36">
-                  <div className="relative">
-                    <img
-                      alt=""
-                      src={imgHero1}
-                      loading="lazy"
-                      decoding="async"
-                      className="aspect-2/3 w-full rounded-xl bg-gray-700/5 object-cover object-[80%_center] shadow-lg"
-                    />
-                    <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-white/10 ring-inset" />
-                  </div>
-                </div>
-                <div className="mr-auto w-28 sm:w-32 lg:w-36 flex-none space-y-8 sm:space-y-10 sm:mr-0 sm:pt-12 lg:pt-16">
-                  <div className="relative">
-                    <img
-                      alt=""
-                      src={imgHero2}
-                      loading="lazy"
-                      decoding="async"
-                      className="aspect-2/3 w-full rounded-xl bg-gray-700/5 object-cover object-[40%_center] shadow-lg"
-                    />
-                    <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-white/10 ring-inset" />
-                  </div>
-                  <div className="relative">
-                    <img
-                      alt=""
-                      src={imgHero3}
-                      loading="lazy"
-                      decoding="async"
-                      className="aspect-2/3 w-full rounded-xl bg-gray-700/5 object-cover shadow-lg"
-                    />
-                    <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-white/10 ring-inset" />
-                  </div>
-                </div>
-                <div className="w-28 sm:w-32 lg:w-36 flex-none space-y-8 sm:space-y-10 pt-2 sm:pt-6 lg:pt-8">
-                  <div className="relative">
-                    <img
-                      alt=""
-                      src={imgHero4}
-                      loading="lazy"
-                      decoding="async"
-                      className="aspect-2/3 w-full rounded-xl bg-gray-700/5 object-cover object-[25%_center] shadow-lg"
-                    />
-                    <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-white/10 ring-inset" />
-                  </div>
-                  <div className="relative">
-                    <img
-                      alt=""
-                      src={imgHero5}
-                      loading="lazy"
-                      decoding="async"
-                      className="aspect-2/3 w-full rounded-xl bg-gray-700/5 object-cover object-[65%_center] shadow-lg"
-                    />
-                    <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-white/10 ring-inset" />
-                  </div>
+              {/* Vídeo à direita (substitui as 5 imagens) */}
+              <div className="mt-8 sm:mt-12 lg:mt-0 w-full lg:flex-1">
+                <div className="relative rounded-xl overflow-hidden shadow-lg ring-1 ring-white/10">
+                  <video
+                    src={videoHeroSection}
+                    poster={heroPoster}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                    className="w-full object-cover object-[center_30%]"
+                    style={{ aspectRatio: '16 / 8' }}
+                  >
+                    Seu navegador não suporta vídeo HTML5.
+                  </video>
+                  <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-white/10 ring-inset" />
                 </div>
               </div>
             </div>
