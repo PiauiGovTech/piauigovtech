@@ -2,7 +2,6 @@ import Container from '../components/Container'
 
 export default function Contato() {
   return (
-    <section className="py-12">
       <Container>
         <h1 className="text-3xl font-semibold">Contato</h1>
         <p className="mt-3 text-gray-600">Fale conosco para parcerias, projetos e dúvidas.</p>
@@ -24,6 +23,5 @@ export default function Contato() {
           </div>
         </form>
       </Container>
-    </section>
   )
 }

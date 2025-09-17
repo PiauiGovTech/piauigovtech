@@ -18,6 +18,7 @@ import NoticiaDetalhe from './pages/NoticiaDetalhe'
 import NoticiasPage from './pages/NoticiasPage'
 import ResetPassword from './pages/ResetPassword'
 import Chat from './pages/Chat'
+import Curso from './pages/Curso'
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,7 @@ const router = createBrowserRouter([
       { path: 'projetos', element: <Projetos /> },
       { path: 'contato', element: <Contato /> },
       { path: 'login', element: <Login /> },
+      { path: 'curso', element: <Curso /> },
       { path: 'reset-password', element: <ResetPassword /> },
       { path: 'chat', element: <Chat /> },
       { path: 'admin', element: <RequireAdmin />, children: [
