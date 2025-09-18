@@ -18,6 +18,8 @@ import NoticiaDetalhe from './pages/NoticiaDetalhe'
 import NoticiasPage from './pages/NoticiasPage'
 import ResetPassword from './pages/ResetPassword'
 import Chat from './pages/Chat'
+import Cursos from './pages/Cursos'
+import CursoDetalhe from './pages/CursoDetalhe'
 
 const router = createBrowserRouter([
   {
@@ -28,6 +30,8 @@ const router = createBrowserRouter([
       { path: 'quemsomos', element: <QuemSomos /> },
       { path: 'noticias', element: <NoticiasPage /> },
       { path: 'ecossistema', element: <Ecossistema /> },
+      { path: 'cursos', element: <Cursos /> },
+      { path: 'cursos/:slug', element: <CursoDetalhe /> },
       { path: 'paraquem', element: <ParaQuem /> },
       { path: 'projetos', element: <Projetos /> },
       { path: 'contato', element: <Contato /> },

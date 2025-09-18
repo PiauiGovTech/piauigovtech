@@ -39,6 +39,7 @@ export default function SiteHeader() {
           <NavLink targetId="noticias" to="/noticias">Notícias</NavLink>
           <NavLink targetId="quem-somos" to="/quemsomos">Quem somos</NavLink>
           <NavLink targetId="ecossistema">Ecossistema</NavLink>
+          <NavLink targetId="cursos" to="/cursos">Cursos</NavLink>
         </div>
       </nav>
 
@@ -74,6 +75,7 @@ export default function SiteHeader() {
               <NavLink className="flex w-full items-center rounded-xl px-4 py-3 bg-white/10 border border-white/15 text-white hover:bg-white/15" targetId="inicio" onNavigate={() => setMenuOpen(false)}>Início</NavLink>
               <NavLink className="flex w-full items-center rounded-xl px-4 py-3 bg-white/10 border border-white/15 text-white hover:bg-white/15" targetId="noticias" to="/noticias" onNavigate={() => setMenuOpen(false)}>Notícias</NavLink>
               <NavLink className="flex w-full items-center rounded-xl px-4 py-3 bg-white/10 border border-white/15 text-white hover:bg-white/15" targetId="quem-somos" to="/quemsomos" onNavigate={() => setMenuOpen(false)}>Quem somos</NavLink>
+              <NavLink className="flex w-full items-center rounded-xl px-4 py-3 bg-white/10 border border-white/15 text-white hover:bg-white/15" targetId="cursos" to="/cursos" onNavigate={() => setMenuOpen(false)}>Cursos</NavLink>
               <NavLink className="flex w-full items-center rounded-xl px-4 py-3 bg-white/10 border border-white/15 text-white hover:bg-white/15" targetId="ecossistema" onNavigate={() => setMenuOpen(false)}>Ecossistema</NavLink>
               <NavLink className="flex w-full items-center rounded-xl px-4 py-3 bg-white/10 border border-white/15 text-white hover:bg-white/15" targetId="para-quem" onNavigate={() => setMenuOpen(false)}>Para Quem</NavLink>
             </div>
@@ -83,4 +85,3 @@ export default function SiteHeader() {
     </header>
   )
 }
-
