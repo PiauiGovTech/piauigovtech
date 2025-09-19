@@ -142,16 +142,8 @@ export default function Home() {
       </div>
 
       <NoticiasSection />
-      
-
-
-      <div id="ecossistema">
-        <Ecossistema />
-      </div>
-
-      <div id="para-quem">
-        <ParaQuem />
-      </div>
+      <Ecossistema />
+      <ParaQuem />
 
       <div id="parceiros">
         <Parceiros />
