@@ -1,10 +1,33 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useEffect, useRef, useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import Logo from './Logo'
 import NavLink from './NavLink'
 
 export default function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [servicesOpen, setServicesOpen] = useState(false)
+  const location = useLocation()
+  const isServicesActive = location.pathname.startsWith('/cursos')
+  const servicesRef = useRef<HTMLDivElement | null>(null)
+
+  // Fecha o dropdown de Serviços ao clicar fora ou pressionar ESC
+  useEffect(() => {
+    const onDocClick = (e: MouseEvent) => {
+      const el = servicesRef.current
+      if (!el) return
+      if (!(e.target instanceof Node)) return
+      if (!el.contains(e.target)) setServicesOpen(false)
+    }
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setServicesOpen(false)
+    }
+    document.addEventListener('mousedown', onDocClick)
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('mousedown', onDocClick)
+      document.removeEventListener('keydown', onKey)
+    }
+  }, [])
   return (
     <header className="absolute inset-x-0 top-0 z-50">
       <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
@@ -38,8 +61,45 @@ export default function SiteHeader() {
           <NavLink targetId="inicio">Início</NavLink>
           <NavLink targetId="noticias" to="/noticias">Notícias</NavLink>
           <NavLink targetId="quem-somos" to="/quemsomos">Quem somos</NavLink>
-          <NavLink targetId="ecossistema">Ecossistema</NavLink>
-          <NavLink targetId="cursos" to="/cursos">Cursos</NavLink>
+          {/* <NavLink targetId="ecossistema">Ecossistema</NavLink> */}
+          {/* Dropdown Serviços (desktop) */}
+          <div
+            ref={servicesRef}
+            className="relative"
+          >
+            <button
+              type="button"
+              onClick={() => setServicesOpen((v) => !v)}
+              aria-haspopup="menu"
+              aria-expanded={servicesOpen}
+              className={`inline-flex items-center rounded-xl px-3 py-2 text-sm font-medium transition-colors hover:bg-white/10 ${
+                isServicesActive ? 'text-brand-300' : 'text-white/80 hover:text-brand-300'
+              } cursor-pointer select-none`}
+            >
+              <span>Serviços</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                className={`ml-1 h-4 w-4 transition-transform duration-150 ${
+                  servicesOpen ? 'rotate-180 text-brand-300' : 'text-white/70'
+                }`}
+                aria-hidden="true"
+              >
+                <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z"/>
+              </svg>
+            </button>
+            <div className={`${servicesOpen ? 'visible opacity-100 pointer-events-auto' : 'invisible opacity-0 pointer-events-none'} transition duration-150 ease-out absolute left-0 top-full mt-0 min-w-48 rounded-xl border border-white/15 bg-white/10 backdrop-blur-md shadow-lg p-2`}>
+              <NavLink
+                className="block w-full rounded-xl px-3 py-2 hover:bg-white/10 cursor-pointer"
+                targetId="cursos"
+                to="/cursos"
+                onNavigate={() => setServicesOpen(false)}
+              >
+                Cursos
+              </NavLink>
+            </div>
+          </div>
         </div>
       </nav>
 
