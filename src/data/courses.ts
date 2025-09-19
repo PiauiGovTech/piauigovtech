@@ -35,14 +35,13 @@ export type Course = {
 export const courses: Course[] = [
   {
     slug: "in-company",
-    title: "IN COMPANY",
-    description: "Inteligência Artificial na Advocacia",
+    title: "Inteligência Artificial Aplicada à Advocacia",
+    description: "Este curso foi criado para advogados e escritórios de advocacia que desejam compreender, dominar e aplicar a inteligência artificial no dia a dia jurídico.",
     image: imgInCompany,
     details: {
       presentation: [
-        "Transforme o futuro do seu escritório com IA: Descubra como a Inteligência Artificial pode revolucionar a prática jurídica no nosso curso exclusivo, desenvolvido para advogados e equipes jurídicas que buscam aprimorar sua produtividade e inovação de forma responsável.",
-        "Este curso foi criado para proporcionar aos advogados e escritórios as ferramentas necessárias para compreender, dominar e aplicar a inteligência artificial no cotidiano da advocacia.",
-        "Com foco em produtividade, segurança jurídica e inovação, oferecemos um aprendizado que se adequa ao tamanho e às necessidades específicas do seu escritório.",
+        "Este curso foi criado para advogados e escritórios de advocacia que desejam compreender, dominar e aplicar a inteligência artificial no dia a dia jurídico.",
+        "Com foco em produtividade, segurança jurídica e inovação, oferecemos um aprendizado adaptado ao tamanho e às necessidades específicas do seu escritório.",
       ],
       hours: "12h",
       modality: "Presencial",
@@ -71,14 +70,14 @@ export const courses: Course[] = [
       objectives: [
         "Capacitar advogados para o uso seguro e eficiente de ferramentas de IA;",
         "Aprimorar a redação jurídica, gestão de prazos e atendimento ao cliente com tecnologia;",
-        "Identificar oportunidades de automação e inovação dentro do escritório;",
-        "Oferecer soluções tecnológicas acessíveis para o cotidiano jurídico.",
+        "Identificar oportunidades de automação e inovação no ambiente jurídico;",
+        "Oferecer soluções tecnológicas acessíveis para a rotina da advocacia.",
       ],
       content: [
-        "Fundamentos da IA aplicada ao Direito;",
-        "ChatGPT na advocacia: escrita, estratégia e atendimento;",
-        "Ferramentas complementares (NotebookLM e copilotos jurídicos);",
-        "Integração prática da IA e de ferramentas tecnológicas.",
+        "Fundamentos da IA aplicada ao Direito",
+        "ChatGPT na advocacia: escrita, estratégia e atendimento",
+        "Ferramentas complementares: NotebookLM e copilotos jurídicos",
+        "Integração prática da IA e de ferramentas tecnológicas",
       ],
       methodology: [
         "Aulas expositivas com linguagem acessível;",
@@ -88,11 +87,11 @@ export const courses: Course[] = [
       ],
       // O público-alvo não foi especificado claramente no texto enviado.
       // Quando informado, adicione aqui.
-      investment: "R$ 7.500,00",
+      investment: "R$ 7.500,00 (sete mil e quinhentos reais)",
       includes: [
-        "Planejamento personalizado conforme o perfil do escritório;",
-        "Material didático digital para os participantes;",
-        "Acesso posterior a modelos de prompts, referências e ferramentas abordadas.",
+        "Planejamento personalizado conforme o perfil do escritório",
+        "Material didático digital para os participantes",
+        "Acesso posterior a modelos de prompts, referências e ferramentas abordadas",
       ],
       contact: {
         name: "Berto Igor Caballero",
