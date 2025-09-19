@@ -20,6 +20,7 @@ import ResetPassword from './pages/ResetPassword'
 import Chat from './pages/Chat'
 import Cursos from './pages/Cursos'
 import CursoDetalhe from './pages/CursoDetalhe'
+import Mapa from './pages/Mapa'
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,7 @@ const router = createBrowserRouter([
       { path: 'login', element: <Login /> },
       { path: 'reset-password', element: <ResetPassword /> },
       { path: 'chat', element: <Chat /> },
+      { path: 'mapa', element: <Mapa /> },
       { path: 'admin', element: <RequireAdmin />, children: [
         { index: true, element: <Admin /> },
       ] },
