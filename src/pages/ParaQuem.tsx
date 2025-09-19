@@ -139,7 +139,7 @@ export default function SubmeterIdeia() {
                 </div>
                 <button
                   onClick={() => setShowForm(false)}
-                  className="text-white/60 hover:text-white transition-colors"
+                  className="text-white/60 hover:text-white transition-colors cursor-pointer"
                   aria-label="Fechar formulário"
                 >
                   <svg
@@ -300,13 +300,13 @@ export default function SubmeterIdeia() {
                   <button
                     type="button"
                     onClick={() => setShowForm(false)}
-                    className="px-6 py-3 border border-white/20 text-white font-medium rounded-lg transition-colors duration-200 hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-white/20"
+                    className="px-6 py-3 border border-white/20 text-white font-medium rounded-lg transition-colors duration-200 hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-white/20 cursor-pointer"
                   >
                     Cancelar
                   </button>
                   <button
                     type="submit"
-                    className="px-8 py-3 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2 focus:ring-offset-transparent"
+                    className="px-8 py-3 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2 focus:ring-offset-transparent cursor-pointer"
                   >
                     Submeter Ideia
                   </button>
