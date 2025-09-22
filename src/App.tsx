@@ -35,7 +35,7 @@ export default function App() {
       // Aguarda layout e então restaura a posição
       setTimeout(() => {
         window.scrollTo(x ?? 0, y ?? 0)
-      }, 0)
+      }, 0) 
     } catch {}
   }, [])
   return (
