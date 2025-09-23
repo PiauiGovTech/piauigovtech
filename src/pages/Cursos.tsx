@@ -12,8 +12,8 @@ export default function Cursos() {
 
       <Container className="pt-24 sm:pt-28 pb-8 md:pb-12">
         <div className="text-center">
-          <h1 className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-5xl">
-            Capacitações e conteúdos para transformar o setor público
+          <h1 className="mt-2 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+            Academy Piauí Gov Tech
           </h1>
         </div>
 
@@ -35,9 +35,7 @@ export default function Cursos() {
                 ) : null}
               </div>
               <h3 className="text-lg font-semibold">{c.title}</h3>
-              <p className="mt-2 text-sm text-white/80">
-                {c.description}
-              </p>
+              <p className="mt-2 text-sm text-white/80">{c.description}</p>
               <div className="mt-4">
                 {c.slug ? (
                   <Link

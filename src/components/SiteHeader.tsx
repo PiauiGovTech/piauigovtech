@@ -7,7 +7,8 @@ export default function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [servicesOpen, setServicesOpen] = useState(false)
   const location = useLocation()
-  const isServicesActive = location.pathname.startsWith('/cursos')
+  const isServicesActive =
+    location.pathname.startsWith('/cursos') || location.pathname.startsWith('/nossos-servicos')
   const servicesRef = useRef<HTMLDivElement | null>(null)
 
   // Fecha o dropdown de Serviços ao clicar fora ou pressionar ESC
@@ -98,6 +99,14 @@ export default function SiteHeader() {
               >
                 Cursos
               </NavLink>
+              <NavLink
+                className="block w-full rounded-xl px-3 py-2 hover:bg-white/10 cursor-pointer"
+                targetId="nossos-servicos"
+                to="/nossos-servicos"
+                onNavigate={() => setServicesOpen(false)}
+              >
+                Nossas Soluções
+              </NavLink>
             </div>
           </div>
         </div>
@@ -136,6 +145,7 @@ export default function SiteHeader() {
               <NavLink className="flex w-full items-center rounded-xl px-4 py-3 bg-white/10 border border-white/15 text-white hover:bg-white/15" targetId="noticias" to="/noticias" onNavigate={() => setMenuOpen(false)}>Notícias</NavLink>
               <NavLink className="flex w-full items-center rounded-xl px-4 py-3 bg-white/10 border border-white/15 text-white hover:bg-white/15" targetId="quem-somos" to="/quemsomos" onNavigate={() => setMenuOpen(false)}>Quem somos</NavLink>
               <NavLink className="flex w-full items-center rounded-xl px-4 py-3 bg-white/10 border border-white/15 text-white hover:bg-white/15" targetId="cursos" to="/cursos" onNavigate={() => setMenuOpen(false)}>Cursos</NavLink>
+              <NavLink className="flex w-full items-center rounded-xl px-4 py-3 bg-white/10 border border-white/15 text-white hover:bg-white/15" targetId="nossos-servicos" to="/nossos-servicos" onNavigate={() => setMenuOpen(false)}>Nossas Soluções</NavLink>
               <NavLink className="flex w-full items-center rounded-xl px-4 py-3 bg-white/10 border border-white/15 text-white hover:bg-white/15" targetId="ecossistema" onNavigate={() => setMenuOpen(false)}>Ecossistema</NavLink>
               <NavLink className="flex w-full items-center rounded-xl px-4 py-3 bg-white/10 border border-white/15 text-white hover:bg-white/15" targetId="para-quem" onNavigate={() => setMenuOpen(false)}>Para Quem</NavLink>
             </div>
