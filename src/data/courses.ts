@@ -1,4 +1,5 @@
 import imgInCompany from "../assets/img/InCompany.png";
+import imgLGPD from "../assets/img/LGPD.png";
 
 export type Instructor = {
   name: string;
@@ -102,14 +103,57 @@ export const courses: Course[] = [
     },
   },
   {
-    slug: "curso-2",
-    title: "Curso 2",
-    description: "descricao 2",
-  },
-  {
-    slug: "curso-3",
-    title: "Curso 3",
-    description: "descricao 3",
+    slug: "lgpd-saude-seguranca",
+    title: "Proteção de Dados Pessoais na Saúde e na Segurança Pública",
+    description: "Capacitação presencial em Teresina-PI para equipes de saúde e segurança aplicarem a LGPD com segurança e transparência.",
+    image: imgLGPD,
+    details: {
+      presentation: [
+        "Datas: 26 e 27 de setembro de 2025; 10 e 11 de outubro de 2025 (Teresina/PI).",
+        "Realização: Grupo de Pesquisa \"Mudanças Institucionais na Ordem Privada\" - UFPI (coordenação geral: Prof. Dr. Éfren Paulo Porfírio de Sá Lima).",
+        "Curso responde à necessidade de conformidade com a LGPD em instituições de saúde e segurança, prevenindo incidentes e fortalecendo a confiança social.",
+      ],
+      hours: "40 horas/aula",
+      modality: "Presencial",
+      instructors: [
+        {
+          name: "Grupo de Pesquisa Mudanças Institucionais na Ordem Privada - UFPI",
+          bullets: [
+            "Coordenação geral: Prof. Dr. Éfren Paulo Porfírio de Sá Lima.",
+          ],
+        },
+      ],
+      objectives: [
+        "Capacitar profissionais da saúde e da segurança pública para a correta aplicação e gestão da LGPD, com ênfase em boas práticas institucionais.",
+        "Compreender fundamentos e conceitos-chave da proteção de dados pessoais.",
+        "Identificar dados sensíveis e riscos típicos nos contextos de saúde e segurança pública.",
+        "Estruturar rotinas e controles de conformidade (governança, políticas e registros).",
+        "Promover cultura organizacional de proteção de dados.",
+      ],
+      audience: [
+        "Servidores da rede municipal de saúde de Teresina.",
+        "Agentes e gestores da segurança pública.",
+        "Profissionais interessados em adequar processos à LGPD.",
+      ],
+      methodology: [
+        "Quatro encontros presenciais teórico-práticos (10h cada).",
+        "Aulas expositivas, estudos de caso, simulações e oficinas de aplicação.",
+        "Dinâmicas voltadas para rotinas institucionais de saúde e segurança pública.",
+        "Entregáveis com modelos e guias para apoiar a implementação.",
+      ],
+      content: [
+        "Fundamentos da LGPD, evolução normativa e impactos institucionais.",
+        "Direitos dos titulares e obrigações de agentes de tratamento.",
+        "LGPD na saúde pública: tratamento de dados, prontuário eletrônico, consentimento e gestão de riscos.",
+        "LGPD e segurança pública: dados operacionais, reconhecimento facial e limites do interesse público.",
+        "Governança, planos de adequação e cultura organizacional de proteção de dados.",
+        "Casos práticos, simulações e oficinas para elaboração de políticas internas.",
+      ],
+      includes: [
+        "Certificado de extensão (40h) conforme normas da instituição promotora.",
+        "Modelos e guias de políticas e rotinas internas para implementação.",
+      ],
+    },
   },
 ];
 

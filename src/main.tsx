@@ -21,6 +21,7 @@ import Chat from './pages/Chat'
 import Cursos from './pages/Cursos'
 import CursoDetalhe from './pages/CursoDetalhe'
 import Mapa from './pages/Mapa'
+import NossosServicos from './pages/NossosServicos'
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,7 @@ const router = createBrowserRouter([
       { path: 'ecossistema', element: <Ecossistema /> },
       { path: 'cursos', element: <Cursos /> },
       { path: 'cursos/:slug', element: <CursoDetalhe /> },
+      { path: 'nossos-servicos', element: <NossosServicos /> },
       { path: 'paraquem', element: <ParaQuem /> },
       { path: 'projetos', element: <Projetos /> },
       { path: 'contato', element: <Contato /> },
