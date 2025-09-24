@@ -1,6 +1,7 @@
 import Container from "../components/Container";
 import smartphone from "../assets/img/smartphone.jpg";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { supabase } from "../lib/supabaseClient";
 
 function IconIdeia(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -46,24 +47,124 @@ export default function SubmeterIdeia() {
     contato: "",
     materiais: "",
   });
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [feedbackMessage, setFeedbackMessage] = useState<string | null>(null);
+  const [attachmentFile, setAttachmentFile] = useState<File | null>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const STORAGE_BUCKET = "innovation-proposal-documents";
+
+  const buildStoragePath = (fileName: string) => {
+    const sanitized = fileName
+      .normalize("NFD")
+      .replace(/[^a-zA-Z0-9.\s-]/g, "")
+      .trim()
+      .replace(/\s+/g, "-")
+      .toLowerCase();
+
+    const uniqueSuffix = `${Date.now()}-${Math.random()
+      .toString(36)
+      .slice(2, 8)}`;
+
+    return `submissions/${uniqueSuffix}-${sanitized || "documento"}`;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Aqui você implementaria a lógica de envio do formulário
-    console.log("Formulário enviado:", formData);
-    alert(
-      "Solução apresentada com sucesso! Nossa equipe entrará em contato em breve."
-    );
-    // Resetar formulário e esconder após submissão
-    setFormData({
-      titulo: "",
-      descricao: "",
-      estagio: "",
-      proponente: "",
-      contato: "",
-      materiais: "",
-    });
-    setShowForm(false);
+    setSubmitError(null);
+    setSubmitting(true);
+
+    try {
+      let attachmentUrl: string | null = null;
+
+      if (attachmentFile) {
+        const filePath = buildStoragePath(attachmentFile.name);
+
+        const { data: uploadData, error: uploadError } = await supabase.storage
+          .from(STORAGE_BUCKET)
+          .upload(filePath, attachmentFile, {
+            upsert: false,
+            cacheControl: "3600",
+          });
+
+        if (uploadError) {
+          throw new Error(
+            uploadError.message ||
+              "Não foi possível enviar o documento. Tente novamente."
+          );
+        }
+
+        if (!uploadData?.path) {
+          throw new Error("Não foi possível confirmar o envio do documento.");
+        }
+
+        const { data: publicUrlData } = supabase.storage
+          .from(STORAGE_BUCKET)
+          .getPublicUrl(uploadData.path);
+
+        attachmentUrl = publicUrlData?.publicUrl ?? uploadData.path ?? null;
+      }
+
+      const payload = {
+        title: formData.titulo.trim(),
+        description: formData.descricao.trim(),
+        stage: formData.estagio,
+        proposer_name: formData.proponente.trim(),
+        contact_email: formData.contato.trim().toLowerCase(),
+        support_materials_url: formData.materiais.trim() || null,
+        attachment_url: attachmentUrl,
+      };
+
+      const missingRequired = [
+        payload.title,
+        payload.description,
+        payload.stage,
+        payload.proposer_name,
+        payload.contact_email,
+      ].some((value) => !value);
+
+      if (missingRequired) {
+        throw new Error("Preencha todos os campos obrigatórios.");
+      }
+
+      const { data, error } = await supabase
+        .from("innovation_proposals")
+        .insert([payload])
+        .select()
+        .single();
+
+      if (error) {
+        throw error;
+      }
+
+      if (!data) {
+        throw new Error("Não foi possível confirmar o registro da proposta.");
+      }
+
+      setFeedbackMessage(
+        "Solução apresentada com sucesso! Nossa equipe entrará em contato em breve."
+      );
+      setFormData({
+        titulo: "",
+        descricao: "",
+        estagio: "",
+        proponente: "",
+        contato: "",
+        materiais: "",
+      });
+      setAttachmentFile(null);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+      setShowForm(false);
+    } catch (err: any) {
+      setSubmitError(
+        err?.message || "Não foi possível enviar sua proposta agora."
+      );
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const handleInputChange = (
@@ -74,8 +175,21 @@ export default function SubmeterIdeia() {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] ?? null;
+    setAttachmentFile(file);
+  };
+
+  const handleRemoveFile = () => {
+    setAttachmentFile(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
+
   // Evita 100vh no mobile: usa altura mínima mais suave e espaço inferior
-  const sectionClass = `relative bg-transparent ${!showForm ? 'min-h-[70vh] lg:min-h-screen' : ''}`
+  const sectionClass = showForm ? "relative bg-transparent" : "relative bg-transparent min-h-[70vh] lg:min-h-screen";
 
   return (
     <section className={sectionClass}>
@@ -115,16 +229,25 @@ export default function SubmeterIdeia() {
                 <div className="flex flex-col items-center">
                   <IconIdeia className="size-16 text-brand-300 mb-6" />
                   <h2 className="text-3xl font-semibold mb-4">
-                    Proponha sua solução
+                    Apresente sua solução
                   </h2>
-                  <p className="text-white/80 mb-8 max-w-2xl">
+                  <p className="text-white/80 mb-6 max-w-2xl">
                     Sua contribuição pode gerar conexões e inspirar novas soluções.
                   </p>
+                  {feedbackMessage && (
+                    <div className="mb-6 w-full max-w-xl rounded-lg border border-green-300/40 bg-green-500/10 px-4 py-3 text-sm text-green-100">
+                      {feedbackMessage}
+                    </div>
+                  )}
                   <button
-                    onClick={() => setShowForm(true)}
+                    onClick={() => {
+                      setShowForm(true);
+                      setFeedbackMessage(null);
+                      setSubmitError(null);
+                    }}
                     className="px-8 py-4 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2 focus:ring-offset-transparent transform hover:scale-105 cursor-pointer"
                   >
-                    Enviar proposta
+                    Apresentar solução
                   </button>
                 </div>
               </div>
@@ -134,11 +257,14 @@ export default function SubmeterIdeia() {
             <div className="rounded-2xl border border-white/15 bg-white/5 p-6 md:p-8 text-white backdrop-blur">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
-                  <IconIdeia className="size-8 text-brand-300" />
-                  <h2 className="text-2xl font-semibold">Apresente sua solução</h2>
+                  {/* <IconIdeia className="size-8 text-brand-300" />
+                  <h2 className="text-2xl font-semibold">Apresente sua solução</h2> */}
                 </div>
                 <button
-                  onClick={() => setShowForm(false)}
+                  onClick={() => {
+                    setShowForm(false);
+                    setSubmitError(null);
+                  }}
                   className="text-white/60 hover:text-white transition-colors cursor-pointer"
                   aria-label="Fechar formulário"
                 >
@@ -158,13 +284,12 @@ export default function SubmeterIdeia() {
                 </button>
               </div>
 
-              {/* <p className="text-white/80 mb-8">
-                Preencha o formulário abaixo com algumas informações simples
-                para sua solução. Assim, podemos realizar uma avaliação
-                inicial e entrar em contato nos casos de propostas promissoras:
-              </p> */}
-
               <form onSubmit={handleSubmit} className="space-y-6">
+                {submitError && (
+                  <div className="rounded-lg border border-red-300/40 bg-red-500/10 px-4 py-3 text-sm text-red-100">
+                    {submitError}
+                  </div>
+                )}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label
@@ -296,19 +421,48 @@ export default function SubmeterIdeia() {
                   />
                 </div>
 
+                <div>
+                  <label
+                    htmlFor="documento"
+                    className="block text-sm font-medium text-white/90 mb-2"
+                  >
+                    Documento de apoio (opcional)
+                  </label>
+                  <input
+                    type="file"
+                    id="documento"
+                    name="documento"
+                    disabled={submitting}
+                    ref={fileInputRef}
+                    onChange={handleFileChange}
+                    accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.zip,.png,.jpg,.jpeg"
+                    className="block w-full cursor-pointer rounded-lg bg-white/10 px-4 py-3 text-sm text-white border border-white/20 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition disabled:cursor-not-allowed disabled:opacity-60"
+                  />
+                  {attachmentFile && (
+                    <div className="mt-2 flex flex-wrap items-center gap-3 text-xs text-white/70">
+                      <span className="truncate">Arquivo selecionado: {attachmentFile.name}</span>
+                      <button
+                        type="button"
+                        onClick={handleRemoveFile}
+                        disabled={submitting}
+                        className="rounded-md border border-white/30 px-3 py-1 text-xs font-medium text-white transition hover:bg-white/10 disabled:opacity-60"
+                      >
+                        Remover arquivo
+                      </button>
+                    </div>
+                  )}
+                  <p className="mt-2 text-xs text-white/60">
+                    Formatos aceitos: PDF, documentos Office, imagens ou ZIP. Até 15 MB.
+                  </p>
+                </div>
+
                 <div className="flex justify-center gap-4 pt-4">
                   <button
-                    type="button"
-                    onClick={() => setShowForm(false)}
-                    className="px-6 py-3 border border-white/20 text-white font-medium rounded-lg transition-colors duration-200 hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-white/20 cursor-pointer"
-                  >
-                    Cancelar
-                  </button>
-                  <button
                     type="submit"
-                    className="px-8 py-3 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2 focus:ring-offset-transparent cursor-pointer"
+                    disabled={submitting}
+                    className="px-8 py-3 bg-brand-500 hover:bg-brand-600 disabled:bg-white/30 disabled:text-white/60 text-white font-semibold rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2 focus:ring-offset-transparent cursor-pointer disabled:cursor-not-allowed"
                   >
-                    Enviar solução
+                    {submitting ? "Enviando..." : "Enviar solução"}
                   </button>
                 </div>
               </form>
