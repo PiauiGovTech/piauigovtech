@@ -99,8 +99,8 @@ export default function Home() {
                 </p>
               </div>
               {/* Vídeo à direita (substitui as 5 imagens) */}
-              <div className="mt-8 sm:mt-12 lg:mt-0 w-full lg:flex-1">
-                <div className="relative rounded-xl overflow-hidden shadow-lg ring-1 ring-white/10">
+              <div className="mt-8 sm:mt-12 lg:mt-0 w-full lg:flex-[1.15] xl:flex-[1.25]">
+                <div className="relative mx-auto lg:mx-0 max-w-2xl lg:max-w-3xl overflow-hidden rounded-2xl shadow-lg ring-1 ring-white/10">
                   <video
                     src={videoHeroSection}
                     poster={heroPoster}
@@ -109,12 +109,12 @@ export default function Home() {
                     loop
                     playsInline
                     preload="metadata"
-                    className="w-full object-cover object-[center_30%]"
-                    style={{ aspectRatio: '16 / 8' }}
+                    className="h-full w-full object-cover object-[center_30%]"
+                    style={{ aspectRatio: '16 / 7' }}
                   >
                     Seu navegador não suporta vídeo HTML5.
                   </video>
-                  <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-white/10 ring-inset" />
+                  <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-white/10 ring-inset" />
                 </div>
               </div>
             </div>

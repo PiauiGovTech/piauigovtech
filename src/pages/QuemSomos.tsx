@@ -31,20 +31,20 @@ export default function QuemSomos() {
           </div>
           {/* Texto à direita */}
           <div className="lg:pl-6 space-y-4">
-            <p className="text-pretty text-white/90 italic">
+            <p className="text-pretty text-white/90">
               A Piauí Gov Tech é Instituição Científica, Tecnológica e de
               Inovação (ICT) privada sem fins lucrativos, criada para promover e gerir ecossistemas
               de inovação voltados aos setores governamentais.
             </p>
 
-            <p className="text-pretty text-white/90 italic">
+            <p className="text-pretty text-white/90">
               Regida por Estatuto próprio, sua missão é impulsionar pesquisa,
               desenvolvimento tecnológico e inovação para melhorar políticas e
               serviços públicos, conectando governo, ICTs e NITs, universidades,
               empresas e sociedade.
             </p>
 
-            <p className="text-pretty text-white/90 italic">
+            <p className="text-pretty text-white/90">
               Atua por meio de cooperação com instituições de pesquisa,
               financiamento e execução de projetos de PD&I (inclusive
               pré-competitivos), estruturação de NITs, programas de Governo
