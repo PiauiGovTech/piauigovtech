@@ -174,6 +174,12 @@ export const courses: Course[] = [
         "Certificado de extensão (40h) conforme normas da instituição promotora.",
         "Modelos e guias de políticas e rotinas internas para implementação.",
       ],
+      contact: {
+        name: "Berto Igor Caballero",
+        email: "berto@caballerorocha.com",
+        whatsapp: "5586994231397",
+        instagram: "profbertoigor",
+      },
     },
   },
 ];
