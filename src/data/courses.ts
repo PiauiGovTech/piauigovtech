@@ -6,6 +6,11 @@ export type Instructor = {
   bullets: string[];
 };
 
+export type CourseInfoItem = {
+  label: string;
+  value: string;
+};
+
 export type CourseDetails = {
   presentation?: string[];
   hours?: string;
@@ -17,6 +22,7 @@ export type CourseDetails = {
   audience?: string[];
   investment?: string;
   includes?: string[];
+  quickInfo?: CourseInfoItem[];
   contact?: {
     name?: string;
     email?: string;
@@ -40,6 +46,14 @@ export const courses: Course[] = [
     description: "Este curso foi criado para advogados e escritórios de advocacia que desejam compreender, dominar e aplicar a inteligência artificial no dia a dia jurídico.",
     image: imgInCompany,
     details: {
+      quickInfo: [
+        { label: "Início do curso", value: "21/10/2025" },
+        { label: "Quando acontece", value: "21, 23, 28 e 30/10" },
+        { label: "Inscrições até", value: "20/10/2025" },
+        { label: "Dias da semana", value: "Terças e quintas-feiras" },
+        { label: "Carga horária", value: "12 horas" },
+        { label: "Horário", value: "19h30 às 22h30" },
+      ],
       presentation: [
         "Este curso foi criado para advogados e escritórios de advocacia que desejam compreender, dominar e aplicar a inteligência artificial no dia a dia jurídico.",
         "Com foco em produtividade, segurança jurídica e inovação, oferecemos um aprendizado adaptado ao tamanho e às necessidades específicas do seu escritório.",
@@ -108,6 +122,13 @@ export const courses: Course[] = [
     description: "Capacitação presencial em Teresina-PI para equipes de saúde e segurança aplicarem a LGPD com segurança e transparência.",
     image: imgLGPD,
     details: {
+      quickInfo: [
+        { label: "Início do curso", value: "26/09/2025" },
+        { label: "Quando acontece", value: "26 e 27/09; 10 e 11/10" },
+        { label: "Local", value: "Teresina/PI" },
+        { label: "Carga horária", value: "40 horas/aula" },
+        { label: "Modalidade", value: "Presencial" },
+      ],
       presentation: [
         "Datas: 26 e 27 de setembro de 2025; 10 e 11 de outubro de 2025 (Teresina/PI).",
         "Realização: Grupo de Pesquisa \"Mudanças Institucionais na Ordem Privada\" - UFPI (coordenação geral: Prof. Dr. Éfren Paulo Porfírio de Sá Lima).",
@@ -153,7 +174,12 @@ export const courses: Course[] = [
         "Certificado de extensão (40h) conforme normas da instituição promotora.",
         "Modelos e guias de políticas e rotinas internas para implementação.",
       ],
+      contact: {
+        name: "Berto Igor Caballero",
+        email: "berto@caballerorocha.com",
+        whatsapp: "5586994231397",
+        instagram: "profbertoigor",
+      },
     },
   },
 ];
-

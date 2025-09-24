@@ -52,7 +52,7 @@ export default function SubmeterIdeia() {
     // Aqui você implementaria a lógica de envio do formulário
     console.log("Formulário enviado:", formData);
     alert(
-      "Ideia submetida com sucesso! Nossa equipe entrará em contato em breve."
+      "Solução apresentada com sucesso! Nossa equipe entrará em contato em breve."
     );
     // Resetar formulário e esconder após submissão
     setFormData({
@@ -95,7 +95,7 @@ export default function SubmeterIdeia() {
             Inovação
           </div> */}
           <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-5xl">
-            Conexão para transformar o setor público
+           Conecte sua inovação ao poder público
           </h1>
           <div className="mt-6 max-w-4xl mx-auto">
             <p className="text-lg text-white/90 mb-4">
@@ -115,7 +115,7 @@ export default function SubmeterIdeia() {
                 <div className="flex flex-col items-center">
                   <IconIdeia className="size-16 text-brand-300 mb-6" />
                   <h2 className="text-3xl font-semibold mb-4">
-                    Proponha sua ideia
+                    Proponha sua solução
                   </h2>
                   <p className="text-white/80 mb-8 max-w-2xl">
                     Sua contribuição pode gerar conexões e inspirar novas soluções.
@@ -135,7 +135,7 @@ export default function SubmeterIdeia() {
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
                   <IconIdeia className="size-8 text-brand-300" />
-                  <h2 className="text-2xl font-semibold">Submeta sua Ideia</h2>
+                  <h2 className="text-2xl font-semibold">Apresente sua solução</h2>
                 </div>
                 <button
                   onClick={() => setShowForm(false)}
@@ -158,11 +158,11 @@ export default function SubmeterIdeia() {
                 </button>
               </div>
 
-              <p className="text-white/80 mb-8">
+              {/* <p className="text-white/80 mb-8">
                 Preencha o formulário abaixo com algumas informações simples
-                para submeter sua ideia. Assim, podemos realizar uma avaliação
+                para sua solução. Assim, podemos realizar uma avaliação
                 inicial e entrar em contato nos casos de propostas promissoras:
-              </p>
+              </p> */}
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -171,7 +171,7 @@ export default function SubmeterIdeia() {
                       htmlFor="titulo"
                       className="block text-sm font-medium text-white/90 mb-2"
                     >
-                      Título da Ideia *
+                      Título *
                     </label>
                     <input
                       type="text"
@@ -190,7 +190,7 @@ export default function SubmeterIdeia() {
                       htmlFor="estagio"
                       className="block text-sm font-medium text-white/90 mb-2"
                     >
-                      Estágio da Solução *
+                      Estágio *
                     </label>
                     <select
                       id="estagio"
@@ -198,10 +198,10 @@ export default function SubmeterIdeia() {
                       required
                       value={formData.estagio}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition"
+                      className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition cursor-pointer"
                     >
                       <option value="" className="bg-gray-800">
-                        Selecione o estágio
+                        Selecione o estágio da solução
                       </option>
                       <option value="conceito-inicial" className="bg-gray-800">
                         Conceito inicial
@@ -283,7 +283,7 @@ export default function SubmeterIdeia() {
                     htmlFor="materiais"
                     className="block text-sm font-medium text-white/90 mb-2"
                   >
-                    Materiais de Apoio (opcional)
+                    Materiais de apoio (opcional)
                   </label>
                   <input
                     type="url"
@@ -308,7 +308,7 @@ export default function SubmeterIdeia() {
                     type="submit"
                     className="px-8 py-3 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2 focus:ring-offset-transparent cursor-pointer"
                   >
-                    Submeter Ideia
+                    Enviar solução
                   </button>
                 </div>
               </form>

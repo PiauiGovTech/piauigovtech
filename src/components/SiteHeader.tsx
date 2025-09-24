@@ -6,6 +6,7 @@ import NavLink from './NavLink'
 export default function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [servicesOpen, setServicesOpen] = useState(false)
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false)
   const location = useLocation()
   const isServicesActive =
     location.pathname.startsWith('/cursos') || location.pathname.startsWith('/nossos-servicos')
@@ -29,6 +30,15 @@ export default function SiteHeader() {
       document.removeEventListener('keydown', onKey)
     }
   }, [])
+  useEffect(() => {
+    if (!menuOpen) setMobileServicesOpen(false)
+  }, [menuOpen])
+
+  const closeMenu = () => {
+    setMenuOpen(false)
+    setMobileServicesOpen(false)
+  }
+
   return (
     <header className="absolute inset-x-0 top-0 z-50">
       <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
@@ -114,10 +124,10 @@ export default function SiteHeader() {
 
       {menuOpen && (
         <div className="lg:hidden">
-          <div className="fixed inset-0 z-40 bg-black/40" onClick={() => setMenuOpen(false)} />
+          <div className="fixed inset-0 z-40 bg-black/40" onClick={closeMenu} />
           <div className="fixed inset-x-0 top-0 z-50 w-full max-h-[80vh] overflow-y-auto rounded-b-2xl border border-white/15 bg-white/10 backdrop-blur-md p-6 ring-1 ring-inset ring-white/10">
             <div className="flex items-center justify-between">
-              <Link to="/" className="-m-1.5 p-1.5" onClick={() => setMenuOpen(false)}>
+              <Link to="/" className="-m-1.5 p-1.5" onClick={closeMenu}>
                 <span className="sr-only">Piauí Gov Tech</span>
                 <div className="flex items-center gap-3 text-brand-400">
                   <Logo className="h-8 w-auto" />
@@ -131,7 +141,7 @@ export default function SiteHeader() {
               </Link>
               <button
                 type="button"
-                onClick={() => setMenuOpen(false)}
+                onClick={closeMenu}
                 className="-m-2.5 rounded-md p-2.5 text-white"
               >
                 <span className="sr-only">Close menu</span>
@@ -141,13 +151,71 @@ export default function SiteHeader() {
               </button>
             </div>
             <div className="mt-6 space-y-3">
-              <NavLink className="flex w-full items-center rounded-xl px-4 py-3 bg-white/10 border border-white/15 text-white hover:bg-white/15" targetId="inicio" onNavigate={() => setMenuOpen(false)}>Início</NavLink>
-              <NavLink className="flex w-full items-center rounded-xl px-4 py-3 bg-white/10 border border-white/15 text-white hover:bg-white/15" targetId="noticias" to="/noticias" onNavigate={() => setMenuOpen(false)}>Notícias</NavLink>
-              <NavLink className="flex w-full items-center rounded-xl px-4 py-3 bg-white/10 border border-white/15 text-white hover:bg-white/15" targetId="quem-somos" to="/quemsomos" onNavigate={() => setMenuOpen(false)}>Quem somos</NavLink>
-              <NavLink className="flex w-full items-center rounded-xl px-4 py-3 bg-white/10 border border-white/15 text-white hover:bg-white/15" targetId="cursos" to="/cursos" onNavigate={() => setMenuOpen(false)}>Cursos</NavLink>
-              <NavLink className="flex w-full items-center rounded-xl px-4 py-3 bg-white/10 border border-white/15 text-white hover:bg-white/15" targetId="nossos-servicos" to="/nossos-servicos" onNavigate={() => setMenuOpen(false)}>Nossas Soluções</NavLink>
-              <NavLink className="flex w-full items-center rounded-xl px-4 py-3 bg-white/10 border border-white/15 text-white hover:bg-white/15" targetId="ecossistema" onNavigate={() => setMenuOpen(false)}>Ecossistema</NavLink>
-              <NavLink className="flex w-full items-center rounded-xl px-4 py-3 bg-white/10 border border-white/15 text-white hover:bg-white/15" targetId="para-quem" onNavigate={() => setMenuOpen(false)}>Para Quem</NavLink>
+              <NavLink
+                className="flex w-full items-center rounded-xl border border-white/15 bg-white/10 px-4 py-3 hover:bg-white/15"
+                targetId="inicio"
+                onNavigate={closeMenu}
+              >
+                Início
+              </NavLink>
+              <NavLink
+                className="flex w-full items-center rounded-xl border border-white/15 bg-white/10 px-4 py-3 hover:bg-white/15"
+                targetId="noticias"
+                to="/noticias"
+                onNavigate={closeMenu}
+              >
+                Notícias
+              </NavLink>
+              <NavLink
+                className="flex w-full items-center rounded-xl border border-white/15 bg-white/10 px-4 py-3 hover:bg-white/15"
+                targetId="quem-somos"
+                to="/quemsomos"
+                onNavigate={closeMenu}
+              >
+                Quem somos
+              </NavLink>
+              <div className="rounded-xl border border-white/15 bg-white/10 p-1">
+                <button
+                  type="button"
+                  onClick={() => setMobileServicesOpen((v) => !v)}
+                  className="flex w-full items-center justify-between rounded-lg px-3 py-2 text-white hover:bg-white/10"
+                  aria-haspopup="menu"
+                  aria-expanded={mobileServicesOpen}
+                >
+                  <span>Serviços</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    className={`h-5 w-5 transition-transform duration-150 ${
+                      mobileServicesOpen ? 'rotate-180 text-brand-300' : 'text-white/70'
+                    }`}
+                    aria-hidden="true"
+                  >
+                    <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z" />
+                  </svg>
+                </button>
+                {mobileServicesOpen && (
+                  <div className="mt-2 space-y-2">
+                    <NavLink
+                      className="flex w-full items-center rounded-lg border border-white/10 bg-white/5 px-3 py-2 hover:bg-white/10"
+                      targetId="cursos"
+                      to="/cursos"
+                      onNavigate={closeMenu}
+                    >
+                      Cursos
+                    </NavLink>
+                    <NavLink
+                      className="flex w-full items-center rounded-lg border border-white/10 bg-white/5 px-3 py-2 hover:bg-white/10"
+                      targetId="nossos-servicos"
+                      to="/nossos-servicos"
+                      onNavigate={closeMenu}
+                    >
+                      Nossas Soluções
+                    </NavLink>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
