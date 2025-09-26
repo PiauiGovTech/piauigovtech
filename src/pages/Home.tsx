@@ -23,6 +23,7 @@ export default function Home() {
   const [popoverOpen, setPopoverOpen] = useState(false);
   const [showChat, setShowChat] = useState(false);
   const [canShowChatButton, setCanShowChatButton] = useState(false);
+  const [showChatButtonText, setShowChatButtonText] = useState(false);
   
 
   useEffect(() => {
@@ -57,6 +58,17 @@ export default function Home() {
       setCanShowChatButton(false);
     }
   }, []);
+
+  useEffect(() => {
+    if (!(canShowChatButton && !showLogin && !showChat)) {
+      setShowChatButtonText(false);
+      return;
+    }
+    const interval = window.setInterval(() => {
+      setShowChatButtonText((prev) => !prev);
+    }, 4000);
+    return () => window.clearInterval(interval);
+  }, [canShowChatButton, showLogin, showChat]);
 
   return (
     <div className="relative">
@@ -168,12 +180,24 @@ export default function Home() {
             setShowLogin(true)
           }}
           aria-label="Abrir chat"
-          className="fixed bottom-6 right-6 z-50 inline-flex items-center justify-center h-14 w-14 rounded-full bg-white/10 text-white border border-white/15 backdrop-blur-md shadow-lg shadow-black/30 hover:bg-white/15 focus:outline-none focus:ring-4 focus:ring-white/20 cursor-pointer"
+          className={[
+            'fixed bottom-6 right-6 z-50 inline-flex items-center justify-center h-14 rounded-full bg-white/10 text-white border border-white/15 backdrop-blur-md shadow-lg shadow-black/30 hover:bg-white/15 focus:outline-none focus:ring-4 focus:ring-white/20 cursor-pointer transition-all duration-500 ease-out',
+            showChatButtonText ? 'px-5 sm:px-6 gap-3' : 'w-14 gap-0',
+          ].join(' ')}
         >
-          {/* Ícone de balão de chat */}
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-7 w-7">
+          {/* Ícone sempre presente */}
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-7 w-7 min-w-[1.75rem]">
             <path fillRule="evenodd" d="M4.5 5.25A2.25 2.25 0 016.75 3h10.5A2.25 2.25 0 0119.5 5.25v8.25A2.25 2.25 0 0117.25 15.75H9.31l-3.23 2.585A1.125 1.125 0 014.5 17.4V5.25zm3 3a.75.75 0 100 1.5h9a.75.75 0 000-1.5h-9zm0 3a.75.75 0 100 1.5h6a.75.75 0 000-1.5h-6z"/>
           </svg>
+          {/* Mostra a mensagem apenas quando ativada */}
+          <span
+            className={[
+              'text-sm font-semibold whitespace-nowrap inline-flex overflow-hidden transition-all duration-500 ease-out transform-origin-left',
+              showChatButtonText ? 'opacity-100 max-w-[220px] translate-x-0 scale-100' : 'opacity-0 max-w-0 -translate-x-2 scale-95',
+            ].join(' ')}
+          >
+            Conversar sobre inovação
+          </span>
         </button>
       )}
 

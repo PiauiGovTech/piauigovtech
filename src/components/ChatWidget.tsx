@@ -60,8 +60,6 @@ export default function ChatWidget({ open, onClose }: Props) {
     ])
     setText('')
     try {
-      const controller = new AbortController()
-      const timeout = setTimeout(() => controller.abort(), 20000)
       const body = {
         // O fluxo do n8n espera a chave "messagem"
         messagem: content,
@@ -75,9 +73,7 @@ export default function ChatWidget({ open, onClose }: Props) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
-        signal: controller.signal,
       })
-      clearTimeout(timeout)
 
       let replyText = ''
       try {
@@ -102,9 +98,7 @@ export default function ChatWidget({ open, onClose }: Props) {
         { id: crypto.randomUUID(), author: 'outro', text: finalText, ts: Date.now() },
       ])
     } catch (err: any) {
-      const msg = err?.name === 'AbortError'
-        ? 'Tempo de resposta excedido. Tente novamente.'
-        : 'Não consegui responder agora. Pode tentar outra vez?'
+      const msg = 'Não consegui responder agora. Pode tentar outra vez?'
       setMessages((prev) => [
         ...prev.filter((m) => m.id !== typingId),
         { id: crypto.randomUUID(), author: 'outro', text: msg, ts: Date.now() },
