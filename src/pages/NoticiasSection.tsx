@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type TouchEvent } from "react";
 import Container from "../components/Container";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
 import { stripMarkdown } from "../utils/stripMarkdown";
 
@@ -22,10 +22,12 @@ export default function NoticiasSection() {
   const [items, setItems] = useState<NewsCard[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [slideIndex, setSlideIndex] = useState(0);
+  const [desktopSlideIndex, setDesktopSlideIndex] = useState(0);
+  const [mobileSlideIndex, setMobileSlideIndex] = useState(0);
   const touchStartX = useRef<number | null>(null);
   const touchStartY = useRef<number | null>(null);
   const isSwiping = useRef(false);
+  const mobileCarouselRef = useRef<HTMLDivElement | null>(null);
   const navigate = useNavigate();
   useEffect(() => {
     (async () => {
@@ -42,20 +44,67 @@ export default function NoticiasSection() {
     })();
   }, []);
 
+  useEffect(() => {
+    setDesktopSlideIndex(0);
+    setMobileSlideIndex(0);
+    if (mobileCarouselRef.current) {
+      mobileCarouselRef.current.scrollTo({ left: 0, behavior: "auto" });
+    }
+  }, [items.length]);
+
   // Preparos
   const rightSideNews = useMemo(() => items.slice(0, 4), [items]);
   const totalSlides = items.length || 1;
 
   // Avanço automático desativado: navegação apenas por setas/bolinhas
 
+  useEffect(() => {
+    const container = mobileCarouselRef.current;
+    if (!container) return;
+
+    let frame = 0;
+
+    const handleScroll = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        if (!mobileCarouselRef.current) return;
+        const target = mobileCarouselRef.current;
+        const children = Array.from(target.children) as HTMLElement[];
+        if (children.length === 0) return;
+
+        const { scrollLeft } = target;
+        let closestIdx = 0;
+        let closestDistance = Number.POSITIVE_INFINITY;
+
+        children.forEach((child, idx) => {
+          const distance = Math.abs(child.offsetLeft - scrollLeft);
+          if (distance < closestDistance) {
+            closestDistance = distance;
+            closestIdx = idx;
+          }
+        });
+
+        setMobileSlideIndex((prev) => (prev === closestIdx ? prev : closestIdx));
+      });
+    };
+
+    handleScroll();
+    container.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      container.removeEventListener("scroll", handleScroll);
+      cancelAnimationFrame(frame);
+    };
+  }, [items.length]);
+
   function prevSlide() {
     if (items.length === 0) return;
-    setSlideIndex((i) => (i - 1 + totalSlides) % totalSlides);
+    setDesktopSlideIndex((i) => (i - 1 + totalSlides) % totalSlides);
   }
 
   function nextSlide() {
     if (items.length === 0) return;
-    setSlideIndex((i) => (i + 1) % totalSlides);
+    setDesktopSlideIndex((i) => (i + 1) % totalSlides);
   }
 
   function handleTouchStart(event: TouchEvent<HTMLDivElement>) {
@@ -106,8 +155,8 @@ export default function NoticiasSection() {
 
         {!loading && !error && items.length > 0 && (
           <div className="grid gap-4 lg:grid-cols-5 w-full text-white">
-            {/* Carrossel à esquerda (loop infinito) */}
-            <article className="w-full lg:col-span-3">
+            {/* Carrossel principal - desktop */}
+            <article className="hidden w-full md:block lg:col-span-3">
               <div
                 className="relative h-64 sm:h-80 lg:h-[420px] w-full mx-auto overflow-hidden rounded-xl bg-white/5"
                 onTouchStart={handleTouchStart}
@@ -118,7 +167,7 @@ export default function NoticiasSection() {
                   <div
                     key={item.id}
                     className={`absolute inset-0 transition-opacity duration-500 ease-out ${
-                      idx === slideIndex
+                      idx === desktopSlideIndex
                         ? "opacity-100 z-10 pointer-events-auto"
                         : "opacity-0 z-0 pointer-events-none"
                     }`}
@@ -184,7 +233,7 @@ export default function NoticiasSection() {
                     <div
                       key={item.id}
                       className={`absolute inset-0 transition-opacity duration-500 ease-out ${
-                        idx === slideIndex
+                        idx === desktopSlideIndex
                           ? "opacity-100 z-10"
                           : "opacity-0 z-0 pointer-events-none"
                       }`}
@@ -202,18 +251,77 @@ export default function NoticiasSection() {
                 </div>
 
                 {/* Indicadores */}
-                <div className="mt-8 sm:mt-6 flex items-center justify-center gap-2">
+                <div className="mt-8 sm:mt-6 hidden items-center justify-center gap-2 md:flex">
                   {items.slice(0, 5).map((_, idx) => (
                     <button
                       key={idx}
+                      aria-label={`Ir para slide ${idx + 1}`}
+                      onClick={() => setDesktopSlideIndex(idx % totalSlides)}
+                      className={`size-2.5 rounded-full ${
+                        idx === desktopSlideIndex ? "bg-[#5dd0df]" : "bg-white/30"
+                      } cursor-pointer`}
+                    />
+                  ))}
+                </div>
+              </div>
+            </article>
+
+            {/* Carrossel mobile com swipe natural */}
+            <article className="w-full md:hidden">
+              <div className="-mx-4">
+                <div
+                  ref={mobileCarouselRef}
+                  className="flex snap-x snap-mandatory overflow-x-auto overflow-y-hidden scroll-smooth px-4 pb-6 no-scrollbar"
+                >
+                  {items.map((item) => (
+                    <div key={item.id} className="snap-center shrink-0 basis-full pr-4 last:pr-0">
+                      <Link to={`/noticias/${item.id}`} className="group block h-full rounded-2xl bg-white/5 p-4">
+                        <div className="relative aspect-[16/9] overflow-hidden rounded-xl bg-[#0f1f3c]">
+                          {item.images?.[0] ? (
+                            <img
+                              src={item.images[0]}
+                              alt="Imagem da notícia"
+                              className="absolute inset-0 h-full w-full object-cover"
+                            />
+                          ) : (
+                            <div className="flex h-full w-full items-center justify-center text-sm text-white/60">
+                              Notícia sem imagem
+                            </div>
+                          )}
+                        </div>
+                        <div className="mt-4">
+                          <h3 className="text-xl font-semibold text-white line-clamp-2 transition-colors duration-200 group-hover:underline decoration-[#5dd0df] decoration-1 underline-offset-4">
+                            {item.title}
+                          </h3>
+                          <p className="mt-3 text-sm text-white/80 line-clamp-3">
+                            {excerpt(stripMarkdown(item.content || ""), 150)}
+                          </p>
+                        </div>
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="mt-2 flex items-center justify-center gap-2">
+                {items.slice(0, 5).map((_, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
                     aria-label={`Ir para slide ${idx + 1}`}
-                    onClick={() => setSlideIndex(idx % totalSlides)}
+                    onClick={() => {
+                      setMobileSlideIndex(idx % totalSlides);
+                      const container = mobileCarouselRef.current;
+                      if (!container) return;
+                      const target = container.children[idx] as HTMLElement | undefined;
+                      if (target) {
+                        container.scrollTo({ left: target.offsetLeft, behavior: "smooth" });
+                      }
+                    }}
                     className={`size-2.5 rounded-full ${
-                      idx === slideIndex ? "bg-[#5dd0df]" : "bg-white/30"
+                      idx === mobileSlideIndex ? "bg-[#5dd0df]" : "bg-white/30"
                     } cursor-pointer`}
                   />
                 ))}
-                </div>
               </div>
             </article>
 

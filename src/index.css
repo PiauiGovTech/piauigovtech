@@ -224,6 +224,10 @@ html { scroll-behavior: smooth; }
 .scrollbar-glass::-webkit-scrollbar-thumb:hover { background: color(from white srgb r g b / 0.6); }
 .scrollbar-glass::-webkit-scrollbar-corner { background: transparent; }
 
+/* Esconde completamente a barra de rolagem quando necessário (ex.: carrosséis mobile) */
+.no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
 /* Barra de rolagem da página (Home/global) com vidro */
 html, body { scrollbar-width: thin; }
 body { scrollbar-color: rgba(255,255,255,0.45) color(from white srgb r g b / 0.08); }
